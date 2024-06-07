@@ -1,0 +1,40 @@
+﻿@page
+@model AchareList.UI.Pages.CategoryModel
+@{
+}
+
+<table class="table  table-responsive table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.categories)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Title</td>
+                <td><a class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@item.Id">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<div class="container px-5 my-5">
+
+    <form method="post">
+        <div class="form-floating mb-3">
+            <input asp-for="@Model.CategoryName" class="form-control" type="text" placeholder="CategoryName"/>
+            <label for="categoryName">CategoryName</label>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+    </form>
+</div>
