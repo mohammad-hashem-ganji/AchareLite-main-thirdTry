@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.Domain.AppServices\App.Domain.AppServices.csproj" />
-    <ProjectReference Include="..\App.Infra.DataAccess.Repo.Ef\App.Infra.DataAccess.Repo.Ef.csproj" />
   </ItemGroup>
 
 </Project>

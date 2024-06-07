@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\App.Domain.Core\App.Domain.Core.csproj" />
     <ProjectReference Include="..\App.Infra.DB.SqlServer.EF\App.Infra.DB.SqlServer.EF.csproj" />
   </ItemGroup>
 
