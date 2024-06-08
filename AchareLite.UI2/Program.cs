@@ -12,9 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<ICategoryRepository, MainCategoryRepository>();
+builder.Services.AddScoped<IMainCategoryRepository, MainCategoryRepository>();
 builder.Services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
 builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
+builder.Services.AddScoped<IMainCategoryService, MainCategoryService>();
+builder.Services.AddScoped<IMainCategoryAppService, MainCategoryAppService>();
 //builder.Services.AddScoped<ISubCategoryAppService, SubCategoryAppService>();
 
 builder.Services.AddDbContext<AchareDbContext>(options
@@ -39,6 +41,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=MainCategory}/{action=ShowListOfMainCategories}/{id?}");
 
 app.Run();

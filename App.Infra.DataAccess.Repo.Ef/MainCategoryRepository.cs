@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.Ef
 {
-	public class MainCategoryRepository : ICategoryRepository
+	public class MainCategoryRepository : IMainCategoryRepository
 	{
 		private readonly AchareDbContext _dbContext;
 
@@ -15,7 +15,6 @@ namespace App.Infra.DataAccess.Repo.Ef
 		{
 			_dbContext = dbContext;
 		}
-
 		public async Task Create(string name,CancellationToken cancellationToken)
 		{
 			_dbContext.MainCategories.Add(new MainCategory
@@ -25,7 +24,6 @@ namespace App.Infra.DataAccess.Repo.Ef
 
 			await _dbContext.SaveChangesAsync(cancellationToken);
 		}
-
 		public async Task Delete(int id,CancellationToken cancellationToken)
 		{
 			var enetiy = await _dbContext.MainCategories
@@ -38,50 +36,63 @@ namespace App.Infra.DataAccess.Repo.Ef
 			}
 
 		}
-
-		public async Task<MainCategoryDto> GetById(int id,CancellationToken cancellationToken)
+		public async Task<(MainCategoryDto?,bool)> GetById(int id,CancellationToken cancellationToken)
 		{
-			var mainCategoryEntity = await _dbContext.MainCategories
+			MainCategoryDto? mainCategoryEntity = await _dbContext.MainCategories
 				.Select(x=>new MainCategoryDto
 				{
 					Id = x.Id,
 					Title = x.Title
 				}).FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
-
-			return mainCategoryEntity;
+			return (mainCategoryEntity != null)? (mainCategoryEntity, true) : (null, false);
 		}
-
 		public async Task<List<MainCategoryDto>> GetAll(CancellationToken cancellationToken)
 		{
-			var categories = await _dbContext.MainCategories
+			List<MainCategoryDto> categories = await _dbContext.MainCategories
 				.Select(x=>new MainCategoryDto
 				{
 					Id = x.Id,
 					Title = x.Title
 				}).ToListAsync(cancellationToken);
-
 			return categories;
 		}
 
-		public async Task Update(MainCategory main, CancellationToken cancellationToken)
+		public async Task<bool> Update(MainCategoryDto main, CancellationToken cancellationToken)
 		{
-			MainCategory mainCategory = await _dbContext.MainCategories
+			MainCategoryDto? mainCategory = await _dbContext.MainCategories
+				.Select(x=>new MainCategoryDto
+                {
+					Id = x.Id,
+					Title = x.Title
+                })
 				.FirstOrDefaultAsync(m => m.Id == main.Id, cancellationToken);
+            if (mainCategory != null)
+            {
+				mainCategory.Title = main.Title;
+				_dbContext.Update(mainCategory);
+				await _dbContext.SaveChangesAsync(cancellationToken);
+				return true;
+			}
+            else
+            {
+				return false;
+            }
 
-			mainCategory.Title = main.Title;
-			_dbContext.Update(mainCategory);
-			await _dbContext.SaveChangesAsync(cancellationToken);
 		}
-
-
-		public async Task<List<MainCategory>> GetAllCategoriesWithSubCategories(CancellationToken cancellationToken)
+		public async Task<List<MainCategoryDto>> GetAllCategoriesWithSubCategories(CancellationToken cancellationToken)
 		{
-			var result = await _dbContext.MainCategories
+			List<MainCategoryDto> result = await _dbContext.MainCategories
 				.Include(x=>x.SubCategories)
 				//ThenInclude
+				.Select(x => new MainCategoryDto
+                {
+					Id=x.Id,
+					Title=x.Title
+                })
 				.ToListAsync(cancellationToken);
-
 			return result;
 		}
-	}
+
+
+    }
 }

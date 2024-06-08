@@ -8,9 +8,9 @@ namespace App.Domain.Services
 {
 	public class MainCategoryService : IMainCategoryService
 	{
-		private readonly ICategoryRepository _categoryRepository;
+		private readonly IMainCategoryRepository _categoryRepository;
 
-		public MainCategoryService(ICategoryRepository categoryRepository)
+		public MainCategoryService(IMainCategoryRepository categoryRepository)
 		{
 			_categoryRepository = categoryRepository;
 		}
@@ -30,17 +30,17 @@ namespace App.Domain.Services
 			await _categoryRepository.Delete(id, cancellationToken);
 		}
 
-		public async Task<MainCategoryDto> GetById(int id, CancellationToken cancellationToken)
+		public async Task<(MainCategoryDto?, bool)> GetById(int id, CancellationToken cancellationToken)
 		{
 			return await _categoryRepository.GetById(id, cancellationToken);
 		}
 
-		public async Task Update(MainCategory main, CancellationToken cancellationToken)
+		public async Task<bool> Update(MainCategoryDto main, CancellationToken cancellationToken)
 		{
-			await  _categoryRepository.Update(main, cancellationToken);
+		   return	await  _categoryRepository.Update(main, cancellationToken);
 		}
 
-		public async Task<List<MainCategory>> GetAllCategoriesWithSubCategories(CancellationToken cancellationToken)
+		public async Task<List<MainCategoryDto>> GetAllCategoriesWithSubCategories(CancellationToken cancellationToken)
 		{
 			return await _categoryRepository.GetAllCategoriesWithSubCategories(cancellationToken);
 		}

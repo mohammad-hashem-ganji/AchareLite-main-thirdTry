@@ -1,0 +1,20 @@
+﻿
+@using App.Domain.Core.CategoryService.DTOs;
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+@{
+    var MainCategoryDto = ViewData["mainCategoryEntity"] as MainCategoryDto; // object to self define class
+}
+
+        <form asp-action = "Update"  asp-controller = "MainCategory">
+            <input hidden-valu value = "@MainCategoryDto.Id" name = "id"/><br />
+            <label>title :</label>
+            <input value = "@MainCategoryDto.Title" name = "title"/><br />
+            <button>Update</button>
+        </form>
+
+
