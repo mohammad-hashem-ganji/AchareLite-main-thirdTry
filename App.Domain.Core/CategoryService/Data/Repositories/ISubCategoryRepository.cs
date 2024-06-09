@@ -10,12 +10,13 @@ namespace App.Domain.Core.CategoryService.Data.Repositories
 {
     public interface ISubCategoryRepository
     {
-        void Creat(string name, int MaincategoryId);
-        void Delete(int id);
-        List<SubCategory> GetAll();
-        SubCategory Edit(int id);
-        void Update( SubCategoryDto sub);
+		Task Create(string name, CancellationToken cancellationToken);
+		Task<List<SubCategoryDto>> GetAll(CancellationToken cancellationToken);
+		Task Delete(int id, CancellationToken cancellationToken);
+		Task<(SubCategoryDto?, bool)> GetById(int id, CancellationToken cancellationToken);
+		Task<bool> Update(SubCategoryDto main, CancellationToken cancellationToken);
+		//Task<List<SubCategoryDto>> GetAllCategoriesWithSubCategories(CancellationToken cancellationToken);
 
-    }
+	}
 }
  

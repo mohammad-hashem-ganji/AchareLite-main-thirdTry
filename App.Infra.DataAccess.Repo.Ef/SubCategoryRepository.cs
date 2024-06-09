@@ -4,6 +4,7 @@ using App.Domain.Core.CategoryService.DTOs;
 using App.Domain.Core.CategoryService.Entities;
 using App.Infra.DB.SqlServer.EF.DB_Achare;
 using App.Infra.DB.SqlServer.EF.DB_Achare.Ef;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,47 +21,61 @@ namespace App.Infra.DataAccess.Repo.Ef
         {
             _dbContext = dbContext;
         }
-
-
-        public void Creat(string name, int mainCategoryId)
+        public async Task Create(string name, CancellationToken cancellationToken)
         {
-            _dbContext.Add(new SubCategory { Title = name });
-            _dbContext.SaveChanges();
-        }
-
-        public void Delete(int id)
-        {
-            var entity = _dbContext.SubCategories.FirstOrDefault(s => s.Id == id);
-            if (entity != null)
+            _dbContext.SubCategories.Add(new SubCategory
             {
-                _dbContext.SubCategories.Remove(entity);
-                _dbContext.SaveChanges();
+                Title = name,
+            });
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+        public async Task Delete(int id, CancellationToken cancellationToken)
+        {
+            var enetiy = await _dbContext.SubCategories
+             .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+
+            if (enetiy != null)
+            {
+                _dbContext.SubCategories.Remove(enetiy);
+                await _dbContext.SaveChangesAsync(cancellationToken);
             }
         }
-
-
-        public List<SubCategory> GetAll()
+        public async Task<List<SubCategoryDto>> GetAll(CancellationToken cancellationToken)
         {
-            var subCategories = _dbContext.SubCategories.ToList();
-            return subCategories;
+            List<SubCategoryDto> categories = await _dbContext.SubCategories
+           .Select(x => new SubCategoryDto
+           {
+               Id = x.Id,
+               Title = x.Title
+           }).ToListAsync(cancellationToken);
+            return categories;
         }
-
-
-        public SubCategory Edit(int id)
+        public async Task<(SubCategoryDto?, bool)> GetById(int id, CancellationToken cancellationToken)
         {
-            var SubCategoryEntity = _dbContext.SubCategories.FirstOrDefault(s => s.Id == id);
-            return SubCategoryEntity;
+            SubCategoryDto? subCategoryEntity = await _dbContext.SubCategories
+            .Select(x => new SubCategoryDto
+            {
+                Id = x.Id,
+                Title = x.Title
+            }).FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
+            return (subCategoryEntity != null) ? (subCategoryEntity, true) : (null, false);
         }
-
-        public void Update(SubCategoryDto sub)
+        public async Task<bool> Update(SubCategoryDto sub, CancellationToken cancellationToken)
         {
-            SubCategory subCategory = _dbContext.SubCategories.FirstOrDefault(c => c.Id == sub.Id);
-            subCategory.Title = sub.Title;
-            subCategory.MainCategoryId = sub.MainCategoryId;
-            _dbContext.Update(subCategory);
-            _dbContext.SaveChanges();
+            var subCategory = await _dbContext.SubCategories
+            .FirstOrDefaultAsync(m => m.Id == sub.Id, cancellationToken);
+            if (subCategory != null)
+            {
+                subCategory.Title = sub.Title;
+                _dbContext.Update(subCategory);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-
-
     }
 }
