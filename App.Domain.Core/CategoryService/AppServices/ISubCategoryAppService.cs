@@ -10,10 +10,12 @@ namespace App.Domain.Core.CategoryService.AppServices
 {
     public interface ISubCategoryAppService
     {
-        void Creat(string name, int mainCategoryId);
-        void Delete(int id);
-        List<SubCategory> GetAll();
-        SubCategory Edit(int id);
-        void Update( SubCategoryDto sub);
-    }
+		Task Create(string name,int mainCategoryid, CancellationToken cancellationToken);
+		Task<List<SubCategoryDto>> GetAll(CancellationToken cancellationToken);
+		Task Delete(int id, CancellationToken cancellationToken);
+		Task<(SubCategoryDto?, bool)> GetById(int id, CancellationToken cancellationToken);
+		Task<bool> Update(SubCategoryDto main, CancellationToken cancellationToken);
+		//Task<List<SubCategoryDto>> GetAllCategoriesWithSubCategories(CancellationToken cancellationToken);
+
+	}
 }

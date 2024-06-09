@@ -10,7 +10,7 @@ namespace App.Domain.Core.CategoryService.Data.Repositories
 {
     public interface ISubCategoryRepository
     {
-		Task Create(string name, CancellationToken cancellationToken);
+		Task Create(string name,int mainCategoryId, CancellationToken cancellationToken);
 		Task<List<SubCategoryDto>> GetAll(CancellationToken cancellationToken);
 		Task Delete(int id, CancellationToken cancellationToken);
 		Task<(SubCategoryDto?, bool)> GetById(int id, CancellationToken cancellationToken);

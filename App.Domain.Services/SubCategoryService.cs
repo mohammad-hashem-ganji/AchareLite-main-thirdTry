@@ -9,40 +9,17 @@ namespace App.Domain.Services
     {
         private readonly ISubCategoryRepository _subCategoryRepository;
 
-        public SubCategoryService(ISubCategoryRepository subCategoryRepository)
-        {
-            _subCategoryRepository = subCategoryRepository;
-        }
+        public SubCategoryService(ISubCategoryRepository subCategoryRepository )=> _subCategoryRepository = subCategoryRepository;
+        public async Task Create(string name, int mainCategoryId, CancellationToken cancellationToken) => await _subCategoryRepository.Create(name,mainCategoryId,cancellationToken);
 
+        public async Task Delete(int id, CancellationToken cancellationToken) => await _subCategoryRepository.Delete(id,cancellationToken);
 
-        public void Creat(string name, int mainCategoryId)
-        {
-            _subCategoryRepository.Creat(name,mainCategoryId);
-        }
+        public async Task<(SubCategoryDto?, bool)> GetById(int id, CancellationToken cancellationToken) =>  await _subCategoryRepository.GetById(id, cancellationToken);
 
-        public void Delete(int id)
-        {
-            _subCategoryRepository.Delete(id);
-        }
+        public async Task<List<SubCategoryDto>> GetAll(CancellationToken cancellationToken) => await _subCategoryRepository.GetAll(cancellationToken);
 
-        public SubCategory Edit(int id)
-        {
-            var entity = _subCategoryRepository.Edit(id);
-            return entity;
-        }
+        public async Task<bool> Update(SubCategoryDto main, CancellationToken cancellationToken) => await _subCategoryRepository.Update(main,cancellationToken);
 
-        public List<SubCategory> GetAll()
-        {
-            var entities = _subCategoryRepository.GetAll();
-            return entities;
-        }
-
-        public void Update(SubCategoryDto sub)
-        {
-            _subCategoryRepository.Update(sub);
-        }
-
-
-
+       
     }
 }

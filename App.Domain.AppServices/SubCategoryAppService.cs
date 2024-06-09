@@ -15,37 +15,11 @@ namespace App.Domain.AppServices
     {
         private readonly ISubCategoryService _subCategoryService;
 
-        public SubCategoryAppService(ISubCategoryService subCategoryService)
-        {
-            _subCategoryService = subCategoryService;
-        }
-
-
-        public void Creat(string name, int mainCategoryId)
-        {
-            _subCategoryService.Creat(name,mainCategoryId);
-        }
-
-        public void Delete(int id)
-        {
-            _subCategoryService.Delete(id);
-        }
-
-        public SubCategory Edit(int id)
-        {
-            SubCategory sub = _subCategoryService.Edit(id);
-            return sub;
-        }
-
-        public List<SubCategory> GetAll()
-        {
-            List<SubCategory> subCategories = _subCategoryService.GetAll();
-            return subCategories;
-        }
-
-        public void Update(SubCategoryDto sub)
-        {
-            _subCategoryService.Update(sub);
-        }
+        public SubCategoryAppService(ISubCategoryService subCategoryService) => _subCategoryService = subCategoryService;
+        public async Task Create(string name, int mainCategoryid, CancellationToken cancellationToken) => await _subCategoryService.Create(name, mainCategoryid, cancellationToken);
+        public async Task Delete(int id, CancellationToken cancellationToken) => await _subCategoryService.Delete(id, cancellationToken);
+        public async Task<List<SubCategoryDto>> GetAll(CancellationToken cancellationToken) => await _subCategoryService.GetAll(cancellationToken);
+        public async Task<(SubCategoryDto?, bool)> GetById(int id, CancellationToken cancellationToken) => await _subCategoryService.GetById(id, cancellationToken);
+        public async Task<bool> Update(SubCategoryDto main, CancellationToken cancellationToken) => await _subCategoryService.Update(main, cancellationToken);
     }
 }

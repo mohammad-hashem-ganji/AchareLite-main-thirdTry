@@ -15,33 +15,33 @@ namespace AchareLite.UI2.Controllers
         }
 
 
-        public IActionResult ShowListOfSubCategories()
+        public async Task<IActionResult> ShowListOfSubCategories(CancellationToken cancellationToken)
         {
-            var SubCategoryEntities = _subCategoryAppService.GetAll();
+            var SubCategoryEntities = await _subCategoryAppService.GetAll(cancellationToken);
             ViewData["SubCategories"] = SubCategoryEntities;
             return View();
         }
-        public IActionResult Create() => View();
-        public async Task<IActionResult> CreateConfirm(string name, int mainCategoryId)
+        public async Task<IActionResult> Create() => View();
+        public async Task<IActionResult> CreateConfirm(string name, int mainCategoryId, CancellationToken cancellationToken)
         {
-            _subCategoryAppService.Creat(name, mainCategoryId);
-            return RedirectToAction("Create");
+            await _subCategoryAppService.Create(name, mainCategoryId, cancellationToken);
+            return RedirectToAction("Create", "SubCategory");
         }
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            _subCategoryAppService.Delete(id);
-            return RedirectToAction("ShowListOfSubCategories");
+            await _subCategoryAppService.Delete(id, cancellationToken);
+            return RedirectToAction("ShowListOfSubCategories", "SubCategory");
         }
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
         {
-            var subDto = _subCategoryAppService.Edit(id);
+            (SubCategoryDto?, bool) subDto = await _subCategoryAppService.GetById(id, cancellationToken);
             ViewData["subCategoryEntity"] = subDto;
             return View();
         }
-        public IActionResult Update(SubCategoryDto subCategoryDto)
+        public async Task<IActionResult> Update(SubCategoryDto subCategoryDto, CancellationToken cancellationToken)
         {
-            _subCategoryAppService.Update(subCategoryDto);
-            return RedirectToAction("ShowListOfSubCategories");
+            _subCategoryAppService.Update(subCategoryDto, cancellationToken);
+            return RedirectToAction("ShowListOfSubCategories", "SubCategory");
         }
 
     }

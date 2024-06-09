@@ -21,11 +21,12 @@ namespace App.Infra.DataAccess.Repo.Ef
         {
             _dbContext = dbContext;
         }
-        public async Task Create(string name, CancellationToken cancellationToken)
+        public async Task Create(string name,int mainCategoryId, CancellationToken cancellationToken)
         {
             _dbContext.SubCategories.Add(new SubCategory
             {
                 Title = name,
+                MainCategoryId = mainCategoryId
             });
 
             await _dbContext.SaveChangesAsync(cancellationToken);
