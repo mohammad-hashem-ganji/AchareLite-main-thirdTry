@@ -22,7 +22,7 @@ namespace AchareLite.UI2.Controllers
         public async Task<IActionResult> CreateConfirm(MainCategoryDto mainCategoryDto,CancellationToken cancellationToken)
         {
             await _mainCategoryAppService.Create(mainCategoryDto.Title, cancellationToken);
-            return RedirectToAction("Create");
+            return RedirectToAction("ShowListOfMainCategories", "MainCategory");
         }
         public async Task<IActionResult> Delete(int id,CancellationToken cancellationToken)
         {

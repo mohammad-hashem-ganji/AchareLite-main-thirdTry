@@ -10,11 +10,19 @@
     var MainCategoryDto = ViewData["mainCategoryEntity"] as MainCategoryDto; // object to self define class
 }
 
-        <form asp-action = "Update"  asp-controller = "MainCategory">
-            <input hidden-valu value = "@MainCategoryDto.Id" name = "id"/><br />
-            <label>title :</label>
-            <input value = "@MainCategoryDto.Title" name = "title"/><br />
-            <button>Update</button>
-        </form>
+        <div class="container px-5 my-5">
+    <form id="contactForm" data-sb-form-api-token="API_TOKEN"
+    asp-action = "Update" asp-route-Id = "@MainCategoryDto.Id"  asp-controller = "MainCategory">
+        <div class="form-floating mb-3">
+            <input type="hidden" class="form-control" id="عنواندستهبندیاصلی" value = "@MainCategoryDto.Id" name = "id"   />
+            <input class="form-control" id="عنواندستهبندیاصلی" type="text" placeholder="عنوان دسته بندی اصلی"  value = "@MainCategoryDto.Title" name = "title" />
+            <div class="invalid-feedback" data-sb-feedback="عنواندستهبندیاصلی:required">عنوان دسته بندی اصلی is required.</div>
+        </div>
+        <div class="d-grid">
+            <button class="btn btn-primary btn-lg " id="submitButton" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
 

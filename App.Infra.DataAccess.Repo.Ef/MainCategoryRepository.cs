@@ -59,12 +59,12 @@ namespace App.Infra.DataAccess.Repo.Ef
 
 		public async Task<bool> Update(MainCategoryDto main, CancellationToken cancellationToken)
 		{
-			MainCategoryDto? mainCategory = await _dbContext.MainCategories
-				.Select(x=>new MainCategoryDto
-                {
-					Id = x.Id,
-					Title = x.Title
-                })
+			var mainCategory = await _dbContext.MainCategories
+				//.Select(x=>new MainCategoryDto
+    //            {
+				//	Id = x.Id,
+				//	Title = x.Title
+    //            })
 				.FirstOrDefaultAsync(m => m.Id == main.Id, cancellationToken);
             if (mainCategory != null)
             {
