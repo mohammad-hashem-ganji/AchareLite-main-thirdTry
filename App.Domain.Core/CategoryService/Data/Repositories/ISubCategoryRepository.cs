@@ -16,6 +16,7 @@ namespace App.Domain.Core.CategoryService.Data.Repositories
 		Task<(SubCategoryDto?, bool)> GetById(int id, CancellationToken cancellationToken);
 		Task<bool> Update(SubCategoryDto main, CancellationToken cancellationToken);
 		//Task<List<SubCategoryDto>> GetAllCategoriesWithSubCategories(CancellationToken cancellationToken);
+		Task<List<SubCategoryDto>> ShowListOfSubCategoriesWhitMianCategoryId(int id, CancellationToken cancellationToken);
 
 	}
 }

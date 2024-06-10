@@ -23,13 +23,17 @@ namespace App.Infra.DataAccess.Repo.Ef
         }
         public async Task Create(string name,int mainCategoryId, CancellationToken cancellationToken)
         {
-            _dbContext.SubCategories.Add(new SubCategory
+            var mainCategory = await _dbContext.MainCategories.FirstOrDefaultAsync(x => x.Id == mainCategoryId);
+            if (mainCategory != null)
             {
-                Title = name,
-                MainCategoryId = mainCategoryId
-            });
-
-            await _dbContext.SaveChangesAsync(cancellationToken);
+                _dbContext.SubCategories.Add(new SubCategory
+                {
+                    Title = name,
+                    MainCategoryId = mainCategoryId,
+                    MainCategory = mainCategory
+                });
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
         }
         public async Task Delete(int id, CancellationToken cancellationToken)
         {
@@ -58,7 +62,8 @@ namespace App.Infra.DataAccess.Repo.Ef
             .Select(x => new SubCategoryDto
             {
                 Id = x.Id,
-                Title = x.Title
+                Title = x.Title,
+                MainCategoryId = x.MainCategoryId 
             }).FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
             return (subCategoryEntity != null) ? (subCategoryEntity, true) : (null, false);
         }
@@ -69,6 +74,7 @@ namespace App.Infra.DataAccess.Repo.Ef
             if (subCategory != null)
             {
                 subCategory.Title = sub.Title;
+                subCategory.MainCategoryId = sub.MainCategoryId;
                 _dbContext.Update(subCategory);
                 await _dbContext.SaveChangesAsync(cancellationToken);
                 return true;
@@ -77,6 +83,18 @@ namespace App.Infra.DataAccess.Repo.Ef
             {
                 return false;
             }
+        }
+        public async Task<List<SubCategoryDto>> ShowListOfSubCategoriesWhitMianCategoryId(int id, CancellationToken cancellationToken)
+        {
+            List<SubCategoryDto> subCategoryDtos = await _dbContext.SubCategories
+                .Where(x => x.MainCategoryId == id)
+                .Select(x => new SubCategoryDto
+                {
+                    MainCategoryId = x.MainCategoryId,
+                    Id = x.Id,
+                    Title = x.Title
+                }).ToListAsync(cancellationToken);
+            return subCategoryDtos;
         }
     }
 }

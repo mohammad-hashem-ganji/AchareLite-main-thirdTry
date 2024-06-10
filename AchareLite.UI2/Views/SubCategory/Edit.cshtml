@@ -1,0 +1,30 @@
+﻿@using App.Domain.Core.CategoryService.DTOs;
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+@{
+    var subCategoryDto = ViewData["subCategoryEntity"] as SubCategoryDto; // object to self define class
+    var mainCategoryDto = ViewData["mainCategories"] as List<MainCategoryDto>; // object to self define class
+
+    
+}
+
+        <div class="container px-5 my-5">
+    <form id="contactForm" data-sb-form-api-token="API_TOKEN"
+    asp-action = "Update" asp-route-Id = "@subCategoryDto.Id"  asp-controller = "SubCategory">
+        <div class="form-floating mb-3">
+            <input type="hidden" class="form-control" id="عنواندستهبندی" value = "@subCategoryDto.Id" name = "id"   />
+            <input class="form-control" id="عنواندستهبندی" type="text" placeholder="عنوان دسته بندی "  value = "@subCategoryDto.Title" name = "title" />
+            <input type="hidden" class="form-control" id="عنواندستهبندیاصلی" type="text" placeholder="عنوان دسته بند اصلی "  value = "@subCategoryDto.MainCategoryId" name = "MainCategoryId" />
+            <div class="invalid-feedback" data-sb-feedback="عنواندستهبندیاصلی:required">عنوان دسته بندی اصلی is required.</div>
+        </div>
+        <div class="d-grid">
+            <button class="btn btn-primary btn-lg " id="submitButton" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+

@@ -13,35 +13,48 @@ namespace AchareLite.UI2.Controllers
         {
             _subCategoryAppService = subCategoryAppService;
         }
-
-
         public async Task<IActionResult> ShowListOfSubCategories(CancellationToken cancellationToken)
         {
-            var SubCategoryEntities = await _subCategoryAppService.GetAll(cancellationToken);
+            List<SubCategoryDto> SubCategoryEntities = await _subCategoryAppService.GetAll(cancellationToken);
             ViewData["SubCategories"] = SubCategoryEntities;
             return View();
         }
-        public async Task<IActionResult> Create() => View();
-        public async Task<IActionResult> CreateConfirm(string name, int mainCategoryId, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create()
         {
-            await _subCategoryAppService.Create(name, mainCategoryId, cancellationToken);
-            return RedirectToAction("Create", "SubCategory");
+            ViewData["mainCategoryId"] = (int)TempData["mainCategoryId"] ;
+            return View();
+        }
+        public async Task<IActionResult> CreateConfirm(SubCategoryDto subCategoryDto, CancellationToken cancellationToken)
+        {
+            await _subCategoryAppService.Create(subCategoryDto.Title,subCategoryDto.MainCategoryId, cancellationToken);
+            return RedirectToAction("ShowListOfSubCategoriesWhitMianCategoryId", "SubCategory", new { cancellationToken, id = subCategoryDto.MainCategoryId });
         }
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
             await _subCategoryAppService.Delete(id, cancellationToken);
-            return RedirectToAction("ShowListOfSubCategories", "SubCategory");
+            return RedirectToAction("ShowListOfSubCategoriesWhitMianCategoryId", "SubCategory");
+        }
+        public async Task<IActionResult> ShowListOfSubCategoriesWhitMianCategoryId(CancellationToken cancellationToken, int id = 0)
+        {
+            if (id > 0)
+            {
+                List<SubCategoryDto> subDtos = await _subCategoryAppService.ShowListOfSubCategoriesWhitMianCategoryId(id, cancellationToken);
+                ViewData["subCategoryEntities"] = subDtos;
+                TempData["mainCategoryId"] = id;
+            }
+            return View();
         }
         public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
         {
             (SubCategoryDto?, bool) subDto = await _subCategoryAppService.GetById(id, cancellationToken);
-            ViewData["subCategoryEntity"] = subDto;
+            ViewData["subCategoryEntity"] = subDto.Item1;
             return View();
         }
         public async Task<IActionResult> Update(SubCategoryDto subCategoryDto, CancellationToken cancellationToken)
         {
-            _subCategoryAppService.Update(subCategoryDto, cancellationToken);
-            return RedirectToAction("ShowListOfSubCategories", "SubCategory");
+            await _subCategoryAppService.Update(subCategoryDto, cancellationToken);
+            // ViewData["mainCategoryId"] = subCategoryDto.MainCategoryId;
+            return RedirectToAction("ShowListOfSubCategoriesWhitMianCategoryId", "SubCategory", new { cancellationToken, id = subCategoryDto.MainCategoryId });
         }
 
     }

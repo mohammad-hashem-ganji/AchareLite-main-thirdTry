@@ -19,7 +19,7 @@ namespace App.Domain.Services
         public async Task<List<SubCategoryDto>> GetAll(CancellationToken cancellationToken) => await _subCategoryRepository.GetAll(cancellationToken);
 
         public async Task<bool> Update(SubCategoryDto main, CancellationToken cancellationToken) => await _subCategoryRepository.Update(main,cancellationToken);
+        public async Task<List<SubCategoryDto>> ShowListOfSubCategoriesWhitMianCategoryId(int id, CancellationToken cancellationToken) => await _subCategoryRepository.ShowListOfSubCategoriesWhitMianCategoryId(id, cancellationToken);
 
-       
     }
 }

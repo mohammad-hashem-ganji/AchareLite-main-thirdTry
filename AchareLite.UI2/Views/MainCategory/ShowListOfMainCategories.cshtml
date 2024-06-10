@@ -5,6 +5,7 @@
 }
 
 <h1>ShowListOfMainCategories</h1>
+ <form asp-action= "Create" asp-controller = "MainCategory" > <button type="submit" class="btn btn-primary mx-auto" >ایجاد </button></form>
 <table class="table table-striped-columns">
   <thead>
     <tr>
@@ -15,16 +16,18 @@
   <tbody>
         @foreach (var item in ViewData["mainCategories"] as List<App.Domain.Core.CategoryService.DTOs.MainCategoryDto>)
         {
-             <tr>
-              <th scope="row">1</th>
-              <td>@item.Title</td>
-              <td><form asp-action= "Delete" asp-controller = "MainCategory"><input value = "@item.Id" name = "id" type = "hidden" /><button type="submit" class="btn btn-danger">حذف</button></form></td>
-              <td>
-                 <a asp-action = "Edit" asp-controller = "MainCategory" asp-route-Id = "@item.Id" value = "@item.Id" name = "id" type = "hidden">ویرایش</a>
-              </td>
-             </tr>
-        }        
-        <form asp-action= "Create" asp-controller = "MainCategory" > <button type="submit" class="btn btn-primary mx-auto" >ایجاد </button></form>
+               <tr>
+                <th scope="row">1</th>
+                <td>@item.Title</td>
+                <td><form asp-action= "Delete" asp-controller = "MainCategory"><input value = "@item.Id" name = "id" type = "hidden" /><button type="submit" class="btn btn-danger">حذف</button></form></td>
+                <td>
+                   <a asp-action = "Edit" asp-controller = "MainCategory" asp-route-Id = "@item.Id" value = "@item.Id" name = "id" type = "hidden">ویرایش</a>
+                </td>
+                <td>
+                   <a asp-action = "ShowListOfSubCategoriesWhitMianCategoryId" asp-controller = "SubCategory" asp-route-Id = "@item.Id" value = "@item.Id" name = "id" type = "hidden">نمایش لیست زیر مجموعه</a>
+                </td>
+               </tr>
+        }              
   </tbody>
 </table>
 
