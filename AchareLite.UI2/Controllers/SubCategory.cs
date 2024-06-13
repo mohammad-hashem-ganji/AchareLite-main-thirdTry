@@ -15,8 +15,8 @@ namespace AchareLite.UI2.Controllers
         }
         public async Task<IActionResult> ShowListOfSubCategories(CancellationToken cancellationToken)
         {
-            List<SubCategoryDto> SubCategoryEntities = await _subCategoryAppService.GetAll(cancellationToken);
-            ViewData["SubCategories"] = SubCategoryEntities;
+            List<SubCategoryDto> SubCategoryDtos = await _subCategoryAppService.GetAll(cancellationToken);
+            ViewData["SubCategories"] = SubCategoryDtos;
             return View();
         }
         public async Task<IActionResult> Create()

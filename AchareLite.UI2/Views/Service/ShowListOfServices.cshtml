@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "ShowListOfServices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ShowListOfServices</h1>
+<table class="table table-striped-columns">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">نام</th>
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (var item in ViewData["Services"] as List<App.Domain.Core.CategoryService.DTOs.ServiceDto>)
+        {
+             <tr>
+              <th scope="row">#</th>
+              <td>@item.Title</td>
+              <td><form asp-action= "Delete" asp-controller = "SubCategory"><input value = "@item.Id" name = "id" type = "hidden" /><button type="submit" class="btn btn-danger">حذف</button></form></td>
+              <td>
+                 <a asp-action = "Edit" asp-controller = "SubCategory" asp-route-Id = "@item.Id" value = "@item.Id" name = "id" type = "hidden">ویرایش</a>
+              </td>
+             </tr>
+        }        
+        <form asp-action= "Create" asp-controller = "SubCategory" > <button type="submit" class="btn btn-primary mx-auto" >ایجاد </button></form>
+  </tbody>
+</table>
+
+

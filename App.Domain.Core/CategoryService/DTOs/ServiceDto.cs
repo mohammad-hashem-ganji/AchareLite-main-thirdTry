@@ -1,5 +1,4 @@
-﻿using App.Domain.Core.CategoryService.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace App.Domain.Core.CategoryService.DTOs
 {
-    public class SubCategoryDto
+    public class ServiceDto
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public int MainCategoryId { get; set; }
+        public int SubCategoryId { get; set; }
     }
 }

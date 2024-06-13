@@ -14,10 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMainCategoryRepository, MainCategoryRepository>();
 builder.Services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IMainCategoryService, MainCategoryService>();
 builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IMainCategoryAppService, MainCategoryAppService>();
 builder.Services.AddScoped<ISubCategoryAppService, SubCategoryAppService>();
+builder.Services.AddScoped<IServiceAppService, ServiceAppService>();
 
 builder.Services.AddDbContext<AchareDbContext>(options
     => options.UseSqlServer("Data Source =.; Initial Catalog = AchareCodefirst; Integrated Security = True; TrustServerCertificate = True"));
