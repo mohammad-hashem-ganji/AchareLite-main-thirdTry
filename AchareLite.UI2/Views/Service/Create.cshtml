@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+@{
+    int subCategoryId = (int)ViewData["subCategoryId"];
+
+    int myId = 0;
+}
+<div class="container px-5 my-5">
+    <form id="contactForm" data-sb-form-api-token="API_TOKEN"
+ asp-action = "CreateConfirm"   asp-controller = "Service">
+        <div class="form-floating mb-3">
+            <input class="form-control" id="عنوان سرویس" type="text" placeholder="عنوان سرویس" data-sb-validations="required" name = "Title" />
+            <label for="عنواندستهبندی">عنوان سرویس </label>
+            <input class="form-control" type="hidden"  id=" عنوان زیر دسته" type="text" value = "@subCategoryId" placeholder="عنوان زیر دسته" data-sb-validations="required" name = "SubCategoryId" />
+            @*            <div class="invalid-feedback" data-sb-feedback="عنواندستهبندیاصلی:required">عنوان دسته بندی اصلی is required.</div>*@
+        </div>
+        @*        <div class="d-none" id="submitSuccessMessage">
+            <div class="text-center mb-3">
+            <div class="fw-bolder">Form submission successful!</div>
+            <p>To activate this form, sign up at</p>
+            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+            </div>
+            </div>
+            <div class="d-none" id="submitErrorMessage">
+            <div class="text-center text-danger mb-3">Error sending message!</div>
+            </div>*@
+        <div class="d-grid">
+            <button class="btn btn-primary btn-lg " id="submitButton" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>

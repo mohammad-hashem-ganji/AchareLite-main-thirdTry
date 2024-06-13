@@ -24,6 +24,9 @@
                 <td>
                    <a asp-action = "Edit" asp-controller = "SubCategory" asp-route-Id = "@item.Id" value = "@item.Id" name = "id" type = "hidden">ویرایش</a>
                 </td>
+                <td>
+                   <a asp-action = "ShowListOfServicesWithSubcategoryId" asp-controller = "Service" asp-route-Id = "@item.Id" value = "@item.Id" name = "id" type = "hidden">نمایش لیست زیر مجموعه</a>
+                </td>
                </tr>
         }              
   </tbody>
