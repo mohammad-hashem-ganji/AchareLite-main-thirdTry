@@ -1,4 +1,4 @@
-﻿
+﻿@*
 @{
     ViewData["Title"] = "ShowListOfMainCategories";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -29,5 +29,60 @@
                </tr>
         }              
   </tbody>
+</table>*@
+
+@{/////////////////////////////////////////}
+}
+@{
+  ViewData["Title"] = "ShowListOfMainCategories";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form asp-action="Create" asp-controller="MainCategory" class="ms-3">
+  <button type="submit" class="btn btn-primary mx-auto " >ایجاد</button>
+</form>
+
+<h1>نمایش لیست گروه های اصلی </h1>
+
+ <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+ <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">نام</th>
+      <th scope="col">عملیات</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in ViewData["mainCategories"] as List<App.Domain.Core.CategoryService.DTOs.MainCategoryDto>)
+    {
+      <tr>
+        <th scope="row">@item.Id</th>
+        <td>@item.Title</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Category Actions">
+            <a asp-action="Edit" asp-controller="MainCategory" asp-route-Id="@item.Id" class="btn btn-sm btn-outline-primary "><i class="bi bi-pencil-square"></i>ویرایش</a>
+            <form asp-action="Delete" asp-controller="MainCategory">
+              <input value="@item.Id" name="id" type="hidden" />
+              <button type="submit" class="btn btn-sm btn-outline-danger "><i class="bi bi-trash"></i>حذف</button>
+            </form>
+            <a asp-action="ShowListOfSubCategoriesWhitMianCategoryId" asp-controller="SubCategory" asp-route-Id="@item.Id" class="btn btn-sm btn-outline-info "><i class="bi bi-list"></i>نمایش لیست زیر مجموعه</a>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
 </table>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>  ```
+
+**Explanation:**
+
+1. **Title:** The title is set to "نمایش لیست گروه های اصلی" (Show List of Main Categories) in Farsi.
+2. **Bootstrap CDN Links:** Assuming you're using Bootstrap via a CDN, links for CSS and JavaScript are included using `asp-append-version` to ensure proper versioning. Replace these with your actual paths if using local files.
+3. **Table Styling:** The table now utilizes Bootstrap classes `table table-striped` for basic styling and alternating row colors for better readability.
+4. **Button Group:** The edit, delete, and view subcategory buttons are grouped using the `btn-group` class for visual organization.
+5. **Icons:** Bootstrap icon classes (`bi bi-pencil-square`, `bi bi-trash`, `bi bi-list`) are used for better clarity, assuming you have Bootstrap icons included in your project.
+6. **Script:** The Bootstrap JavaScript bundle is included for interactivity features like button dropdowns (if applicable).
+
+Remember to replace placeholder icon class names with the desired Bootstrap icons. This code provides a well-formatted and visually appealing view for your ASP.NET MVC application.
 

@@ -23,7 +23,7 @@ namespace App.Infra.DataAccess.Repo.Ef
         }
         public async Task Create(string name,int mainCategoryId, CancellationToken cancellationToken)
         {
-            var mainCategory = await _dbContext.MainCategories.FirstOrDefaultAsync(x => x.Id == mainCategoryId);
+            var mainCategory = await _dbContext.MainCategories.FirstOrDefaultAsync(x => x.Id == mainCategoryId,cancellationToken);
             if (mainCategory != null)
             {
                 _dbContext.SubCategories.Add(new SubCategory

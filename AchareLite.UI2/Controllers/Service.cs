@@ -17,8 +17,7 @@ namespace AchareLite.UI2.Controllers
             List<ServiceDto> serviceDtos = await _serviceAppService.GetAll(cancellationToken);
             ViewData["Services"] = serviceDtos;
             return View();
-        }
-        
+        }      
         public async Task<IActionResult> ShowListOfServicesWithSubcategoryId(CancellationToken cancellationToken, int id =0)
         {
             if (id > 0)

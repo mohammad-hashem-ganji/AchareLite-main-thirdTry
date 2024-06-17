@@ -3,13 +3,7 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Edit</h1>
-@{
-    var serviceDto = ViewData["serviceDto"] as ServiceDto; // object to self define class   
-}
-
-        <div class="container px-5 my-5">
+@*<div class="container px-5 my-5">
     <form id="contactForm" data-sb-form-api-token="API_TOKEN"
     asp-action = "Update" asp-route-Id = "@serviceDto.Id"  asp-controller = "Service">
         <div class="form-floating mb-3">
@@ -23,5 +17,36 @@
         </div>
     </form>
 </div>
-<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>*@
+
+@{
+//---------------------------------------------------------
+}
+<h1>Edit</h1>
+@{
+    var serviceDto = ViewData["serviceDto"] as ServiceDto;   
+}
+<div class="container px-5 my-5">
+  <h1>Edit Service</h1>
+
+  <form id="contactForm" asp-action="Update" asp-route-Id="@serviceDto.Id" asp-controller="Service">
+    <table class="table table-striped">
+      <tbody>
+            <input type="hidden" class="form-control" id="عنوان سرویس" value="@serviceDto.Id" name="id" />
+        <tr>
+          <th scope="row">عنوان سرویس</th>
+          <td>
+            <input class="form-control" id="عنوان سرویس" type="text" placeholder="عنوان سرویس" value="@serviceDto.Title" name="title" />
+            <div class="invalid-feedback" data-sb-feedback="title:required">عنوان سرویس is required.</div>
+          </td>
+        </tr>
+            <input type="hidden" class="form-control" id="عنوان دسته بندی" type="text" placeholder="عنوان دسته بندی" value="@serviceDto.SubCategoryId" name="SubCategoryId" />
+@*            <span>@serviceDto.SubCategoryId</span>*@
+      </tbody>
+    </table>
+    <div class="d-grid">
+      <button class="btn btn-primary btn-lg" id="submitButton" type="submit">ذخیره</button>
+    </div>
+  </form>
+</div>
 

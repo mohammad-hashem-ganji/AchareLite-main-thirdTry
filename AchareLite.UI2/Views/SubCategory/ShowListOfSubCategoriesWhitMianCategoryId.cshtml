@@ -1,10 +1,7 @@
 ﻿
-@{
-    ViewData["Title"] = "ShowListOfSubCategoriesWhitMianCategoryId";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h1>ShowListOfSubCategoriesWhitMianCategoryId</h1>
+
+@*<h1>ShowListOfSubCategoriesWhitMianCategoryId</h1>
 
  <form asp-action= "Create" asp-controller = "SubCategory" > <button type="submit" class="btn btn-primary mx-auto" >ایجاد </button></form>
 <table class="table table-striped-columns">
@@ -29,5 +26,45 @@
                 </td>
                </tr>
         }              
+  </tbody>
+</table>*@
+@{
+    //---------------------------------------------------------------
+}
+@{
+    ViewData["Title"] = "ShowListOfSubCategoriesWhitMianCategoryId";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Show List Of SubCategories</h1>
+
+<form asp-action="Create" asp-controller="SubCategory" class="ms-3">
+  <button type="submit" class="btn btn-primary mx-auto">ایجاد</button>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">نام</th>
+      <th scope="col">عملیات</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in ViewData["subCategoryEntities"] as List<App.Domain.Core.CategoryService.DTOs.SubCategoryDto>)
+    {
+      <tr>
+        <th scope="row">1</th> <td>@item.Title</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="SubCategory Actions">
+            <a asp-action="Edit" asp-controller="SubCategory" asp-route-Id="@item.Id" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil-square"></i>ویرایش</a>
+            <form asp-action="Delete" asp-controller="SubCategory">
+              <input value="@item.Id" name="id" type="hidden" />
+              <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i>حذف</button>
+            </form>
+            <a asp-action="ShowListOfServicesWithSubcategoryId" asp-controller="Service" asp-route-Id="@item.Id" class="btn btn-sm btn-outline-info"><i class="bi bi-list"></i>نمایش لیست خدمات</a>
+          </div>
+        </td>
+      </tr>
+    }
   </tbody>
 </table>
