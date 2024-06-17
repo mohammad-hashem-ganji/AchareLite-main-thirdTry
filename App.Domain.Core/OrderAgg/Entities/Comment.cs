@@ -12,6 +12,7 @@ namespace App.Domain.Core.OrderAgg.Entities
         public int Id { get; set; }
         public string Text { get; set; }
         public int Score { get; set; }
+        public bool IsAccept { get; set; }
 
         public Expert Expert { get; set; }
         public int ExpertId { get; set; }

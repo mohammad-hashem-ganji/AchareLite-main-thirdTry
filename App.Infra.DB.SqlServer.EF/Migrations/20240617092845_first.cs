@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace App.Infra.DB.SqlServer.EF.Migrations
 {
-    public partial class init : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -112,6 +112,7 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Score = table.Column<int>(type: "int", nullable: false),
+                    IsAccept = table.Column<bool>(type: "bit", nullable: false),
                     ExpertId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -270,6 +271,27 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                     { 18, 6, "حیوانات خانگی" },
                     { 19, 6, "پیرایش و زیبایی آقایان" },
                     { 20, 6, "تندرستی و ورزش" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Services",
+                columns: new[] { "Id", "SubCategoryId", "Title" },
+                values: new object[,]
+                {
+                    { 1, 1, "سرویس عادی نظافت" },
+                    { 2, 1, "سرویس ویزه نظافت" },
+                    { 3, 1, "سرویس لوکس نظافت" },
+                    { 4, 1, "نظافت راه پله" },
+                    { 5, 1, "سرویس نظافت فوری" },
+                    { 6, 1, "پذیرایی" },
+                    { 7, 2, "شست و شو در محل" },
+                    { 8, 2, "قالیشویی" },
+                    { 9, 2, "خشکشویی" },
+                    { 10, 2, "پرده شویی" },
+                    { 11, 3, "تعمیر و سرویس کولر آبی" },
+                    { 12, 3, "تعمیر کولر گازی و داکت اسپیلت" },
+                    { 13, 3, "تعمیر و سرویس پکیج" },
+                    { 14, 3, "تعمیر و سرویس آبگرمکن" }
                 });
 
             migrationBuilder.CreateIndex(

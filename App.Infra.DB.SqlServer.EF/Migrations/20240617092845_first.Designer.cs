@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Infra.DB.SqlServer.EF.Migrations
 {
     [DbContext(typeof(AchareDbContext))]
-    [Migration("20240607061511_ll")]
-    partial class ll
+    [Migration("20240617092845_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -146,6 +146,92 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            SubCategoryId = 1,
+                            Title = "سرویس عادی نظافت"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            SubCategoryId = 1,
+                            Title = "سرویس ویزه نظافت"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            SubCategoryId = 1,
+                            Title = "سرویس لوکس نظافت"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            SubCategoryId = 1,
+                            Title = "نظافت راه پله"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            SubCategoryId = 1,
+                            Title = "سرویس نظافت فوری"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            SubCategoryId = 1,
+                            Title = "پذیرایی"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            SubCategoryId = 2,
+                            Title = "شست و شو در محل"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            SubCategoryId = 2,
+                            Title = "قالیشویی"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            SubCategoryId = 2,
+                            Title = "خشکشویی"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            SubCategoryId = 2,
+                            Title = "پرده شویی"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            SubCategoryId = 3,
+                            Title = "تعمیر و سرویس کولر آبی"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            SubCategoryId = 3,
+                            Title = "تعمیر کولر گازی و داکت اسپیلت"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            SubCategoryId = 3,
+                            Title = "تعمیر و سرویس پکیج"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            SubCategoryId = 3,
+                            Title = "تعمیر و سرویس آبگرمکن"
+                        });
                 });
 
             modelBuilder.Entity("App.Domain.Core.CategoryService.Entities.SubCategory", b =>
@@ -386,6 +472,9 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
 
                     b.Property<int>("ExpertId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsAccept")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
