@@ -12,6 +12,6 @@ namespace App.Domain.Core.CategoryService.Entities
         public string Title { get; set; }
         public int MainCategoryId { get; set; }
         public MainCategory MainCategory { get; set; }
-        public ICollection<Service> Services { get; set; }
+        public ICollection<Service>? Services { get; set; }
     }
 }

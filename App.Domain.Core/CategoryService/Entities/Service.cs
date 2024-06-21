@@ -8,6 +8,6 @@ namespace App.Domain.Core.CategoryService.Entities
         public string Title { get; set; }
         public int SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
-        public List<Expert> Experts { get; set; }
+        public List<Expert>? Experts { get; set; }
     }
 }

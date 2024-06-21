@@ -10,6 +10,6 @@ namespace App.Domain.Core.CategoryService.Entities
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public ICollection<SubCategory> SubCategories { get; set; }
+        public ICollection<SubCategory>? SubCategories { get; set; }
     }
 }

@@ -3,6 +3,8 @@ using App.Domain.Core.CategoryService.Entities;
 using App.Domain.Core.Member.Entities;
 using App.Domain.Core.OrderAgg.Entities;
 using App.Infra.DB.SqlServer.EF.EntitiesConfigoration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace App.Infra.DB.SqlServer.EF.DB_Achare.Ef
 {
-    public class AchareDbContext : DbContext
+    public class AchareDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
     {
         public AchareDbContext(DbContextOptions<AchareDbContext> options) : base(options)
         {
@@ -30,12 +32,12 @@ namespace App.Infra.DB.SqlServer.EF.DB_Achare.Ef
             modelBuilder.ApplyConfiguration(new ExpertConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
-
+            UserConfiguration.SeedUsers(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
 
-        public Expert Experts { get; set; }
-        public Customer Customers { get; set; }
+        public DbSet<Expert>Experts { get; set; }
+        public DbSet<Customer>Customers { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Comment> Comments { get; set; }

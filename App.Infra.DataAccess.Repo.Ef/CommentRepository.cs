@@ -2,6 +2,7 @@
 using App.Domain.Core.OrderAgg.DTOs;
 using App.Domain.Core.OrderAgg.Entities;
 using App.Infra.DB.SqlServer.EF.DB_Achare.Ef;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,20 @@ namespace App.Infra.DataAccess.Repo.Ef
 
         public async Task Create(CancellationToken cancellationToken, string text, int scor = 0, bool isAccept = false, int expertId = 0, int customerId = 0)
         {
-            _dbContext.Comments.Add(new Comment
+            var expert = await _dbContext.Experts.FirstOrDefaultAsync(x => x.Id == expertId);
+            if (expert != null)
             {
-                Text = text,
-                Score = scor,
-                IsAccept = isAccept,
-                ExpertId = expertId,
-                CustomerId = customerId
-            });
-            await _dbContext.SaveChangesAsync();
+                _dbContext.Comments.Add(new Comment
+                {
+                    Text = text,
+                    Score = scor,
+                    IsAccept = isAccept,
+                    ExpertId = expertId,
+                    CustomerId = customerId
+                });
+                await _dbContext.SaveChangesAsync();
+            }
+            
         }
 
         public Task Delete(int id, CancellationToken cancellationToken)

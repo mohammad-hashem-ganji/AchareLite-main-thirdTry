@@ -13,6 +13,6 @@ namespace App.Domain.Core.OrderAgg.Entities
         public Status Status { get; set; }
         public Customer Customer { get; set; }
         public int CustomerId { get; set; }
-        public ICollection<Bid> Bids { get; set; }
+        public ICollection<Bid>? Bids { get; set; }
     }
 }
