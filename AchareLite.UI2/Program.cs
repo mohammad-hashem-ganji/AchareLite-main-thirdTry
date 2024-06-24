@@ -65,6 +65,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=MainCategory}/{action=ShowListOfMainCategories}/{id?}");
+    pattern: "{controller=Home}/{action=ShowMainPage}/{id?}");
 
 app.Run();

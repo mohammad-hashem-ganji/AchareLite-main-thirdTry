@@ -1,0 +1,38 @@
+﻿@using App.Domain.Core.CategoryService.DTOs;
+@{
+    ViewData["Title"] = "showServices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>showServices</h1>
+
+<body>
+  <main class="main">
+    <div class="container-fluid"> 
+        <div class="row">        
+            <div class="col-md-12">   
+                 
+                    <div class="service-categories">
+                        <h3 class="section-title">دسته بندی خدمات</h3>
+                            <div class="row row-cols-1 row-cols-md-3 g-4"> 
+                                @foreach (var service in ViewData["serviceEntities"] as List<ServiceDto>)
+                {
+                                  <div class="col">  
+                                      <div class="card h-100">  
+                                          <img src="~/assets/img/service/@(service.Id).jpg" class="card-img-top" style="object-fit: cover; height: 200px;" alt="@service.Title"> 
+                                            <div class="card-body">  
+                                               <h5 class="card-title">@service.Title</h5>
+                                            </div>
+                                      </div>  
+                                  </div>  
+                }
+              </div>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+
