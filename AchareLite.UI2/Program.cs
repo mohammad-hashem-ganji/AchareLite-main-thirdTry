@@ -2,6 +2,7 @@ using App.Domain.AppServices;
 using App.Domain.Core.CategoryService.AppServices;
 using App.Domain.Core.CategoryService.Data.Repositories;
 using App.Domain.Core.CategoryService.Services;
+using App.Domain.Core.Member.AppServices;
 using App.Domain.Core.Member.Entities;
 using App.Domain.Services;
 using App.Infra.DataAccess.Repo.Ef;
@@ -23,6 +24,7 @@ builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IMainCategoryAppService, MainCategoryAppService>();
 builder.Services.AddScoped<ISubCategoryAppService, SubCategoryAppService>();
 builder.Services.AddScoped<IServiceAppService, ServiceAppService>();
+builder.Services.AddScoped<IAccountAppService, AccountAppService>();
 
 builder.Services.AddDbContext<AchareDbContext>(options
     => options.UseSqlServer("Data Source =.; Initial Catalog = AchareCodefirst; Integrated Security = True; TrustServerCertificate = True"));

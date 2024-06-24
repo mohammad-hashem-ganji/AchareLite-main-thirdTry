@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "LoginView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model AchareLite.UI2.Controllers.Login.InputModel
+<h1>LoginView</h1>
+
+@*<div class="sign widget ">
+    <div class="section-title">
+        <h5>ورود به حساب</h5>
+    </div>
+    <form class="sign-form widget-form " method="post" >*@@*asp-action="LoginConfirm" asp-controller="Login"*@
+@*        
+        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+        <div class="form-group">
+            <input asp-for="Email" type="text" class="form-control" placeholder="نام کاربری *">
+        </div>
+        <div class="form-group">
+            <input asp-for="Password" type="password" class="form-control" placeholder="رمز عبور *">
+        </div>
+        <div class="sign-controls form-group">
+
+            <a href="#" class="btn-link  ml-auto">رمز عبور خود را فراموش کرده اید؟</a>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn-custom">ورود به حساب</button>
+        </div>
+
+        <p <form>class="form-group text-center">حساب کاربری ندارید؟ <a asp-controller="Register" asp-action="RegisterView" class="btn-link">ثبت نام کنید</a></form> </p>
+
+    </form>
+</div>*@
+
+
+<div class="sign widget ">
+  <div class="section-title">
+    <h5>ورود به حساب</h5>
+  </div>
+  <form class="sign-form widget-form " method="post" asp-controllr="Login" asp-action="LoginConfirm">  
+      <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+    <div class="form-group">
+      <input asp-for="Email" type="text" class="form-control" placeholder="نام کاربری *">
+    </div>
+    <div class="form-group">
+      <input asp-for="Password" type="password" class="form-control" placeholder="رمز عبور *">
+    </div>
+    <div class="sign-controls form-group">
+
+      <a href="#" class="btn-link ml-auto">رمز عبور خود را فراموش کرده اید؟</a>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn-custom">ورود به حساب</button>
+    </div>
+
+    <p class="form-group text-center">حساب کاربری ندارید؟ <a  class="btn-link">ثبت نام کنید</a></p>
+
+  </form>
+</div>

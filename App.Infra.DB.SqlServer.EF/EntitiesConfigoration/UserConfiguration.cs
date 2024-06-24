@@ -24,6 +24,7 @@ namespace App.Infra.DB.SqlServer.EF.EntitiesConfigoration
                     NormalizedUserName = "ADMIN",
                     Email = "admin@gmail.com",
                     NormalizedEmail = "ADMIN@GMAIL.COM",
+                    
                     LockoutEnabled = false,
                     PhoneNumber ="09179197331",
                     SecurityStamp = Guid.NewGuid().ToString()
@@ -77,7 +78,7 @@ namespace App.Infra.DB.SqlServer.EF.EntitiesConfigoration
             foreach (var user in users)
             {
                 var passwordHasher = new PasswordHasher<ApplicationUser>();
-                user.PasswordHash = passwordHasher.HashPassword(user, "1234");
+                user.PasswordHash = passwordHasher.HashPassword(user, "123456789");
 
                 builder.Entity<ApplicationUser>().HasData(user);
             }

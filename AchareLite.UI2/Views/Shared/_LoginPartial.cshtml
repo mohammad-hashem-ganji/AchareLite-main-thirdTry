@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using App.Domain.Core.Member.Entities;
+@using App.Domain.Core.Member.AppServices;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Account" asp-page="/Profile" title="پروفایل">@User.Identity?.Name</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Logout" asp-action="LogoutConfirm" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">خروج</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark"  asp-action="RegisterView" asp-controller="Register" >ثبت نام</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-action="LoginView" asp-controller="login" >ورود</a>
+        </li>
+    }
+</ul>

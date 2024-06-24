@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "RegisterView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model AchareLite.UI2.Controllers.Register.InputModel
+<h1>RegisterView</h1>
+
+<div class="sign widget ">
+    <div class="section-title">
+        <h5>ثبت نام</h5>
+    </div>
+    <form class="sign-form widget-form " method="post" asp-action="RegisterConfirm" asp-controller="Register">
+        
+        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+        
+        <hr/>
+        <div class="form-group">
+
+            <input type="email" asp-for="Email" name="Email" class="form-control" placeholder="آدرس ایمیل *">
+
+            </div>
+        <div class="form-group">
+
+            <input type="password" asp-for="Password" name="Password" class="form-control" placeholder="رمز عبور *">
+        </div>
+        
+
+
+        <div class="sign-controls form-group">
+            <div class="custom-control custom-checkbox">
+                <input id="IsCstomer" asp-for="IsCstomer"  type="checkbox" class="custom-control-input">
+                <label class="custom-control-label" for="IsCstomer"> کاربر </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input id="IsExpert" asp-for="IsExpert"  type="checkbox" class="custom-control-input">
+                <label class="custom-control-label" for="IsExpert"> متخصص</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn-custom">ثبت نام</button>
+        </div>
+
+        <p class="form-group text-center">حساب کاربری دارید؟ <a  class="btn-link">وارد شوید</a> </p>
+
+
+    </form>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('.sign-controls input[type="checkbox"]').click(function() {
+                var currentCheckbox = $(this);
+                $('.sign-controls input[type="checkbox"]').not(currentCheckbox).prop('checked', false);
+            });
+        });
+    </script>
+}
