@@ -4,6 +4,9 @@ using App.Domain.Core.CategoryService.Data.Repositories;
 using App.Domain.Core.CategoryService.Services;
 using App.Domain.Core.Member.AppServices;
 using App.Domain.Core.Member.Entities;
+using App.Domain.Core.OrderAgg.AppServices;
+using App.Domain.Core.OrderAgg.Data.Repositories;
+using App.Domain.Core.OrderAgg.Services;
 using App.Domain.Services;
 using App.Infra.DataAccess.Repo.Ef;
 using App.Infra.DB.SqlServer.EF.DB_Achare.Ef;
@@ -18,13 +21,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMainCategoryRepository, MainCategoryRepository>();
 builder.Services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IMainCategoryService, MainCategoryService>();
 builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IMainCategoryAppService, MainCategoryAppService>();
 builder.Services.AddScoped<ISubCategoryAppService, SubCategoryAppService>();
 builder.Services.AddScoped<IServiceAppService, ServiceAppService>();
 builder.Services.AddScoped<IAccountAppService, AccountAppService>();
+builder.Services.AddScoped<IOrderAppService, OrderAppService>();
 
 builder.Services.AddDbContext<AchareDbContext>(options
     => options.UseSqlServer("Data Source =.; Initial Catalog = AchareCodefirst; Integrated Security = True; TrustServerCertificate = True"));
@@ -42,7 +48,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>
     })
     .AddRoles<IdentityRole<int>>()
     .AddEntityFrameworkStores<AchareDbContext>();
-    //.AddErrorDescriber<PersianIdentityErrorDescriber>();
+//.AddErrorDescriber<PersianIdentityErrorDescriber>();
 
 #endregion
 var app = builder.Build();
