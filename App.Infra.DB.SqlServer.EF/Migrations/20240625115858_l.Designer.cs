@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Infra.DB.SqlServer.EF.Migrations
 {
     [DbContext(typeof(AchareDbContext))]
-    [Migration("20240621052107_userConfigurarion")]
-    partial class userConfigurarion
+    [Migration("20240625115858_l")]
+    partial class l
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -451,16 +451,16 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "96ab7b01-e796-4834-8ebc-6e9cd93a6c85",
+                            ConcurrencyStamp = "5b43721c-76cf-4ad9-a49c-eb6d9c4b2ae2",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAJQDhI9W97MsUa1xZu4niZ0764txR8Yrg1hEyKgJiO6r+7W4SLHBejuKEmRq6xxBg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENn3bUcHDhadqddTWeq9522V23EyoU2YychhsjYmkCRHeUkNaXcvPMxDoHB02N3Ylg==",
                             PhoneNumber = "09179197331",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2ce38d89-b5b8-4604-b236-469ba4911f1d",
+                            SecurityStamp = "3321814b-5971-4ebe-b2f0-7224b9e4b933",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -468,16 +468,16 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ee7ed3da-a3ef-49a0-a3e2-dd0bd51c207c",
+                            ConcurrencyStamp = "1410331c-7a38-40f5-94e4-4f0339856493",
                             Email = "mohammad@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MOHAMMAD@GMAIL.COM",
                             NormalizedUserName = "MOHAMMAD",
-                            PasswordHash = "AQAAAAEAACcQAAAAELpDm21QRmnRJotpJcVo/ZdEkbEchYaycPxU8KK6C+Mwcmx0IascX229VnItxaVyfQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJeMvNK3/JfjJV48M2HhCaoPxCor4US3rKdtA1l0EFptDZDMFPOUR3nczVGGoa+e5A==",
                             PhoneNumber = "09179197331",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2c64eeba-32cd-44e8-b49a-6136dd40417c",
+                            SecurityStamp = "868922d1-1b61-4862-bf86-2897eed26312",
                             TwoFactorEnabled = false,
                             UserName = "mohammad"
                         },
@@ -485,16 +485,16 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "902f93d9-0264-497f-820b-19c15d9cfcaa",
+                            ConcurrencyStamp = "71a13345-881c-491a-885e-b43f8a4d2aa0",
                             Email = "expert@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "EXPERT@GMAIL.COM",
                             NormalizedUserName = "EXPERT",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC1b1i96C0TuES3j13v34ewzjxyNU7CsPCkP/JtPIcgrGZq6oqn9xSJ5kooQl7rfFQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBUP7ZtUQsq4S2ugz1H84hHw0kjeIlTY/1n4KhYEDwkrvaq/eCRixvcmdNeeviWDYw==",
                             PhoneNumber = "09179197331",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cdaf8ac9-8285-4821-b090-c5f7c4bffde9",
+                            SecurityStamp = "47181ea7-a9eb-48cb-956b-3572f590ef09",
                             TwoFactorEnabled = false,
                             UserName = "expert"
                         },
@@ -502,16 +502,16 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ed52f21e-7050-413e-90d7-4cde134f32ae",
+                            ConcurrencyStamp = "bd2b54f1-8318-4844-ad22-b5493f8a72a2",
                             Email = "negin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "NEGIN@GMAIL.COM",
                             NormalizedUserName = "NEGIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENATUtnXfXoSmNCUmwfkZv5XDzTJpU5FDRBxlP48UEvKFeIqd+Tf4NLDAY4U4zj7JQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDE3K8KsKQCk69pYDFZTzbk7Hi4E/ehjYIqLdM8+zXqZsVv0WlBXLUxufEljPeKTrg==",
                             PhoneNumber = "09179197331",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7f6578a1-94e8-4db0-bae6-4707a0b1ca91",
+                            SecurityStamp = "19127b69-c12b-4a1c-ba45-a7fce6549de3",
                             TwoFactorEnabled = false,
                             UserName = "negin"
                         },
@@ -519,16 +519,16 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         {
                             Id = 5,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6de94538-226c-4096-a631-be7e62e35932",
+                            ConcurrencyStamp = "3a2aa530-ccff-4276-998a-e590e078554d",
                             Email = "ahmad@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "AHMAD@GMAIL.COM",
                             NormalizedUserName = "AHMAD",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJItY7TpdYyVjrp3G/7d05y6dnYASloOvgL26B2JU2C5cUOPjZdso9ZPeKk6JXDfcQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED/+MrtpbI6UIDxpD99yFHbnOvN/qZFjubofNZQe93qYkhzW9ZBkm/j3bVs6hOuvWA==",
                             PhoneNumber = "09179197331",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "331134bb-8a92-4e38-885e-04164f669839",
+                            SecurityStamp = "90a6bc34-e3d2-405a-a750-45a5e4f26612",
                             TwoFactorEnabled = false,
                             UserName = "ahmad"
                         });
@@ -553,28 +553,24 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastUpdate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Mobile")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -735,21 +731,21 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "4b248aa0-420f-48ac-b811-e4bb3a5ff273",
+                            ConcurrencyStamp = "bb3373b8-74cc-448d-9c6c-e601bec087d6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "d3efe057-e6bc-4827-9e5a-0f70fa79a242",
+                            ConcurrencyStamp = "e696dcc5-44ac-4447-93d8-019fd7306fec",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "396d9142-3ec8-4428-a936-0d8a08ba462e",
+                            ConcurrencyStamp = "88452d3c-67e2-43de-90c9-2a471befc51d",
                             Name = "expert",
                             NormalizedName = "EXPERT"
                         });

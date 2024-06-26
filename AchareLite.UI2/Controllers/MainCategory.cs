@@ -1,9 +1,11 @@
 ﻿using App.Domain.Core.CategoryService.AppServices;
 using App.Domain.Core.CategoryService.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AchareLite.UI2.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class MainCategory : Controller
     {
         private readonly IMainCategoryAppService _mainCategoryAppService;
@@ -12,6 +14,7 @@ namespace AchareLite.UI2.Controllers
         {
             _mainCategoryAppService = mainCategoryAppService;
         }
+        
         public async Task< IActionResult> ShowListOfMainCategories(CancellationToken cancellationToken)
         {
             List<MainCategoryDto> mainCategories = await _mainCategoryAppService.GetAll(cancellationToken);

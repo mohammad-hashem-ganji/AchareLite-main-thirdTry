@@ -2,6 +2,7 @@ using App.Domain.AppServices;
 using App.Domain.Core.CategoryService.AppServices;
 using App.Domain.Core.CategoryService.Data.Repositories;
 using App.Domain.Core.CategoryService.Services;
+using App.Domain.Core.Configs.Entities;
 using App.Domain.Core.Member.AppServices;
 using App.Domain.Core.Member.Entities;
 using App.Domain.Core.OrderAgg.AppServices;
@@ -32,8 +33,26 @@ builder.Services.AddScoped<IServiceAppService, ServiceAppService>();
 builder.Services.AddScoped<IAccountAppService, AccountAppService>();
 builder.Services.AddScoped<IOrderAppService, OrderAppService>();
 
+//builder.Services.AddDbContext<AchareDbContext>(options
+//    => options.UseSqlServer("Data Source =.; Initial Catalog = AchareCodefirst; Integrated Security = True; TrustServerCertificate = True"));
+#region Configuration
+
+
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+var siteSettings = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
+
+builder.Services.AddSingleton(siteSettings);
+
+#endregion
+#region EfConfiguration
+
 builder.Services.AddDbContext<AchareDbContext>(options
-    => options.UseSqlServer("Data Source =.; Initial Catalog = AchareCodefirst; Integrated Security = True; TrustServerCertificate = True"));
+    => options.UseSqlServer(siteSettings.SqlConfiguration.ConnectionsString));
+
+#endregion
 #region IdentityConfiguration
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>
@@ -69,8 +88,16 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=ShowMainPage}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=ShowMainPage}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "default",
+      pattern: "{controller=Home}/{action=ShowMainPage}/{id?}"
+    );
+});
 
 app.Run();
+//{area:exists}/

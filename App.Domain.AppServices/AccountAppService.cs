@@ -24,10 +24,10 @@ namespace App.Domain.AppServices
 
         public async Task<bool> Login(string email, string password)
         {
-            var user = await _userManager.Users
-             .Include(u => u.Expert)
-             .Include(x => x.Customer)
-             .FirstOrDefaultAsync(u => u.Email == email);
+            //var user = await _userManager.Users
+            // .Include(u => u.Expert)
+            // .Include(x => x.Customer)
+            // .FirstOrDefaultAsync(u => u.Email == email);
             var result = await _signInManager.PasswordSignInAsync(email, password, true, lockoutOnFailure: false);
             return result.Succeeded;
         }
@@ -42,7 +42,7 @@ namespace App.Domain.AppServices
             
             if (isExpert)
             {
-                role = "Expert";
+                role = "Admin";
                 user.Expert = new Expert()
                 {
                 };
@@ -56,6 +56,7 @@ namespace App.Domain.AppServices
 
                 };
             }
+
 
             var result = await _userManager.CreateAsync(user, password);
 

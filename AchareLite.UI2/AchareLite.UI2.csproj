@@ -20,4 +20,8 @@
     <ProjectReference Include="..\App.Domain.AppServices\App.Domain.AppServices.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\" />
+  </ItemGroup>
+
 </Project>

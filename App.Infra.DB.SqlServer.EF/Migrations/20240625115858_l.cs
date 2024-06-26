@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace App.Infra.DB.SqlServer.EF.Migrations
 {
-    public partial class first : Migration
+    public partial class l : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -188,14 +188,14 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mobile = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mobile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: true),
                     ApplicationUserId = table.Column<int>(type: "int", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -388,6 +388,28 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1, "bb3373b8-74cc-448d-9c6c-e601bec087d6", "Admin", "ADMIN" },
+                    { 2, "e696dcc5-44ac-4447-93d8-019fd7306fec", "Customer", "CUSTOMER" },
+                    { 3, "88452d3c-67e2-43de-90c9-2a471befc51d", "expert", "EXPERT" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { 1, 0, "5b43721c-76cf-4ad9-a49c-eb6d9c4b2ae2", "admin@gmail.com", false, false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAENn3bUcHDhadqddTWeq9522V23EyoU2YychhsjYmkCRHeUkNaXcvPMxDoHB02N3Ylg==", "09179197331", false, "3321814b-5971-4ebe-b2f0-7224b9e4b933", false, "admin" },
+                    { 2, 0, "1410331c-7a38-40f5-94e4-4f0339856493", "mohammad@gmail.com", false, false, null, "MOHAMMAD@GMAIL.COM", "MOHAMMAD", "AQAAAAEAACcQAAAAEJeMvNK3/JfjJV48M2HhCaoPxCor4US3rKdtA1l0EFptDZDMFPOUR3nczVGGoa+e5A==", "09179197331", false, "868922d1-1b61-4862-bf86-2897eed26312", false, "mohammad" },
+                    { 3, 0, "71a13345-881c-491a-885e-b43f8a4d2aa0", "expert@gmail.com", false, false, null, "EXPERT@GMAIL.COM", "EXPERT", "AQAAAAEAACcQAAAAEBUP7ZtUQsq4S2ugz1H84hHw0kjeIlTY/1n4KhYEDwkrvaq/eCRixvcmdNeeviWDYw==", "09179197331", false, "47181ea7-a9eb-48cb-956b-3572f590ef09", false, "expert" },
+                    { 4, 0, "bd2b54f1-8318-4844-ad22-b5493f8a72a2", "negin@gmail.com", false, false, null, "NEGIN@GMAIL.COM", "NEGIN", "AQAAAAEAACcQAAAAEDE3K8KsKQCk69pYDFZTzbk7Hi4E/ehjYIqLdM8+zXqZsVv0WlBXLUxufEljPeKTrg==", "09179197331", false, "19127b69-c12b-4a1c-ba45-a7fce6549de3", false, "negin" },
+                    { 5, 0, "3a2aa530-ccff-4276-998a-e590e078554d", "ahmad@gmail.com", false, false, null, "AHMAD@GMAIL.COM", "AHMAD", "AQAAAAEAACcQAAAAED/+MrtpbI6UIDxpD99yFHbnOvN/qZFjubofNZQe93qYkhzW9ZBkm/j3bVs6hOuvWA==", "09179197331", false, "90a6bc34-e3d2-405a-a750-45a5e4f26612", false, "ahmad" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "MainCategories",
                 columns: new[] { "Id", "Title" },
                 values: new object[,]
@@ -398,6 +420,18 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                     { 4, "اسباب کسی" },
                     { 5, "خودورو" },
                     { 6, "سلامت و زیبایی" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 },
+                    { 3, 3 },
+                    { 2, 4 },
+                    { 3, 5 }
                 });
 
             migrationBuilder.InsertData(

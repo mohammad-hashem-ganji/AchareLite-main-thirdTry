@@ -449,16 +449,16 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7f19a960-0177-4272-92ea-b962cdcdb2eb",
+                            ConcurrencyStamp = "5b43721c-76cf-4ad9-a49c-eb6d9c4b2ae2",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGcBJsh+3haXakhyRSR90z0NGi9r4sRvYEOqCrtABlP+W6Gxe7yISEj+SAKSO69WCA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENn3bUcHDhadqddTWeq9522V23EyoU2YychhsjYmkCRHeUkNaXcvPMxDoHB02N3Ylg==",
                             PhoneNumber = "09179197331",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0486a712-6d0d-42b3-b9bc-ed046fc74766",
+                            SecurityStamp = "3321814b-5971-4ebe-b2f0-7224b9e4b933",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -466,16 +466,16 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6f34d4d5-2785-46c1-b63b-a3739d18cd38",
+                            ConcurrencyStamp = "1410331c-7a38-40f5-94e4-4f0339856493",
                             Email = "mohammad@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MOHAMMAD@GMAIL.COM",
                             NormalizedUserName = "MOHAMMAD",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAqgr22u3mT2HF3TBRNLXjJbRVjIif0PulUXyLLDO1gDJ44VPDnMUi2D0qX6jF1WIw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJeMvNK3/JfjJV48M2HhCaoPxCor4US3rKdtA1l0EFptDZDMFPOUR3nczVGGoa+e5A==",
                             PhoneNumber = "09179197331",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5fbf916b-5540-4db2-a6a7-853b70427725",
+                            SecurityStamp = "868922d1-1b61-4862-bf86-2897eed26312",
                             TwoFactorEnabled = false,
                             UserName = "mohammad"
                         },
@@ -483,16 +483,16 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a31f41c9-93e6-4d4f-a17a-56a7566cfd4e",
+                            ConcurrencyStamp = "71a13345-881c-491a-885e-b43f8a4d2aa0",
                             Email = "expert@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "EXPERT@GMAIL.COM",
                             NormalizedUserName = "EXPERT",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIMPdHfig1TZ3bSbkJso1qvJT04lUukWl/IDHCJET3MhnQ1aIgNnFvFWYiZOUBqovw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBUP7ZtUQsq4S2ugz1H84hHw0kjeIlTY/1n4KhYEDwkrvaq/eCRixvcmdNeeviWDYw==",
                             PhoneNumber = "09179197331",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "efd16ec0-56aa-4f4a-9b54-20a3b8d9b367",
+                            SecurityStamp = "47181ea7-a9eb-48cb-956b-3572f590ef09",
                             TwoFactorEnabled = false,
                             UserName = "expert"
                         },
@@ -500,16 +500,16 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a6c0cdf7-c6b3-4cd3-83c4-2704c77f73fe",
+                            ConcurrencyStamp = "bd2b54f1-8318-4844-ad22-b5493f8a72a2",
                             Email = "negin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "NEGIN@GMAIL.COM",
                             NormalizedUserName = "NEGIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP48yzjKw+l3UGok9jp/VpsMMu5MVMhjGqfvsOhhpyDmvLDU744RPZuEu6IMgjCnig==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDE3K8KsKQCk69pYDFZTzbk7Hi4E/ehjYIqLdM8+zXqZsVv0WlBXLUxufEljPeKTrg==",
                             PhoneNumber = "09179197331",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3d4ef384-c691-4e3d-b59b-76c6fcacc5e5",
+                            SecurityStamp = "19127b69-c12b-4a1c-ba45-a7fce6549de3",
                             TwoFactorEnabled = false,
                             UserName = "negin"
                         },
@@ -517,16 +517,16 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         {
                             Id = 5,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1553977-c183-49ff-9cd7-4ba19cd37c1f",
+                            ConcurrencyStamp = "3a2aa530-ccff-4276-998a-e590e078554d",
                             Email = "ahmad@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "AHMAD@GMAIL.COM",
                             NormalizedUserName = "AHMAD",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPDZtfCJ1hz7oNIUP3D0vS1nlSo0mgGF5fO8HP3HizvOzeBxAsDzA/8P2kH36bVeBw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED/+MrtpbI6UIDxpD99yFHbnOvN/qZFjubofNZQe93qYkhzW9ZBkm/j3bVs6hOuvWA==",
                             PhoneNumber = "09179197331",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "53d790a9-63f0-4cf8-a9af-87107fd32eae",
+                            SecurityStamp = "90a6bc34-e3d2-405a-a750-45a5e4f26612",
                             TwoFactorEnabled = false,
                             UserName = "ahmad"
                         });
@@ -729,21 +729,21 @@ namespace App.Infra.DB.SqlServer.EF.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "0a942074-3636-4be7-a2ec-d8b2fb9c68f9",
+                            ConcurrencyStamp = "bb3373b8-74cc-448d-9c6c-e601bec087d6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "3fc4adad-2c09-45f1-a50b-d01a04fa3225",
+                            ConcurrencyStamp = "e696dcc5-44ac-4447-93d8-019fd7306fec",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "91deefd2-6a9b-411b-ac08-9a4e8662831f",
+                            ConcurrencyStamp = "88452d3c-67e2-43de-90c9-2a471befc51d",
                             Name = "expert",
                             NormalizedName = "EXPERT"
                         });

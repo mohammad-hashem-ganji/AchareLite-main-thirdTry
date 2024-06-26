@@ -33,7 +33,6 @@ namespace AchareLite.UI2.Controllers
             if (!ModelState.IsValid) return RedirectToAction("LoginView", "Login");
 
             var succeededLogin = await _accountAppServices.Login(Input.Email, Input.Password);
-
             if (succeededLogin)
                 return RedirectToAction("ShowListOfMainCategories", "MainCategory");
             //return LocalRedirect(returnUrl);

@@ -13,10 +13,10 @@ namespace AchareLite.UI2.Controllers
         }
         public async Task<IActionResult> ShowListOfOrders(CancellationToken cancellationToken) => View();
         public async Task<IActionResult> Create() => View();
-        public async Task<IActionResult> CreateConfirm(OrderDto order, CancellationToken cancellationToken)
-        {
+        //public async Task<IActionResult> CreateConfirm(OrderDto order, CancellationToken cancellationToken)
+        //{
 
-        }
+        //}
 
     }
 }
