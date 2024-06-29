@@ -22,6 +22,7 @@
                                           <img src="~/assets/img/service/@(service.Id).jpg" class="card-img-top" style="object-fit: cover; height: 200px;" alt="@service.Title"> 
                                             <div class="card-body">  
                                                <h5 class="card-title">@service.Title</h5>
+                                               <a asp-controller="Order" asp-action="Create" asp-route-Id="@service.Id">ایجاد درخواست</a>
                                             </div>
                                       </div>  
                                   </div>  

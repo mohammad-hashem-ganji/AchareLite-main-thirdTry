@@ -1,0 +1,48 @@
+﻿@using App.Domain.Core.OrderAgg.DTOs;
+@model AchareLite.UI2.Controllers.Order.InputModel
+@{
+    ViewData["Title"] = "سفارش";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    OrderDto? order = ViewData["orderDto"] as OrderDto;
+}
+<h1>Create</h1>
+
+
+
+
+@*            public int Id { get; set; }
+    public string? Title { get; set; }
+    public int ServiseId { get; set; }
+    public int StatusId { get; set; }
+    public int CustomerId { get; set; }
+    public ICollection<Bid>? Bids { get; set; }*@
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+
+    <form asp-action="AddOrder" asp-controller="Order" method="post">
+        <div class="form-group">
+            <label asp-for="ServiceName">نام سرویس:</label>
+            <input asp-for="ServiceName" class="form-control"  value="@order?.ServiceName" disabled />
+        </div>
+        <div class="form-group">
+            <label asp-for="ServiceDescription">توضیحات :</label>
+            <textarea asp-for="ServiceDescription" class="form-control" rows="3" name="title" value="@order?.Title"></textarea>
+        </div>
+        <div>
+            <input value="@order.CustomerId" name="customerId" type="hidden" />
+        </div>
+        <div>
+            <input value="@order.ServiseId" name="serviceId" type="hidden" />
+        </div>
+        @*        <div class="form-group">
+            <label asp-for="CustomerAddress">آدرس مشتری:</label>
+            <textarea asp-for="CustomerAddress" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="CustomerAddress" class="text-danger"></span>
+            </div>*@
+        <button type="submit" class="btn btn-primary">ثبت سفارش</button>
+    </form>
+</div>
+
+

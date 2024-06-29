@@ -47,5 +47,10 @@ namespace App.Domain.Services
         {
             return await _serviceRepository.Update(serviceDto, cancellationToken);
         }
+        public async Task<string> GetServiceName(int id, CancellationToken cancellationToken)
+        {
+            var service = await _serviceRepository.GetById(id, cancellationToken);
+            return service.Item1.Title;
+        }
     }
 }

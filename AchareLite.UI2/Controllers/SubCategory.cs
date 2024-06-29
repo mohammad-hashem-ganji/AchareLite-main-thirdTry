@@ -21,7 +21,8 @@ namespace AchareLite.UI2.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            ViewData["mainCategoryId"] = (int)TempData["mainCategoryId"] ;
+            ViewData["mainCategoryId"] = (int?)TempData["mainCategoryId"] ;
+            TempData.Clear();
             return View();
         }
         public async Task<IActionResult> CreateConfirm(SubCategoryDto subCategoryDto, CancellationToken cancellationToken)

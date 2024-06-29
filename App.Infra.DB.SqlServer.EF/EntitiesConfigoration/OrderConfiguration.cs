@@ -11,6 +11,16 @@ namespace App.Infra.DB.SqlServer.EF.EntitiesConfigoration
         {
             builder.HasKey(o => o.Id);
             builder.Property(o => o.Title).HasMaxLength(30);
+            builder.HasOne(x => x.Customer)
+            .WithMany(x => x.Orders)
+            .HasForeignKey(x => x.CustomerId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+    //        builder.HasOne(x => x.User)
+    //.WithMany(x => x.Comments)
+    //.HasForeignKey(x => x.VisitorId)
+    //.OnDelete(DeleteBehavior.NoAction);
+
 
         }
     }

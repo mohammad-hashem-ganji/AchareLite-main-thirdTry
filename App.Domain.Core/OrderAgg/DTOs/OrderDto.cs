@@ -11,6 +11,7 @@ namespace App.Domain.Core.OrderAgg.DTOs
     {
         public int Id { get; set; }
         public string? Title { get; set; }
+        public string ServiceName { get; set; }
         public int ServiseId { get; set; }
         public int StatusId { get; set; }
         public int CustomerId { get; set; }

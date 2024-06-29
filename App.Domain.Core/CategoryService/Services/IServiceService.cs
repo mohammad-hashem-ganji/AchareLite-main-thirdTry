@@ -16,5 +16,6 @@ namespace App.Domain.Core.CategoryService.Services
 		Task<bool> Update(ServiceDto serviceDto, CancellationToken cancellationToken);
 		//Task<List<SubCategoryDto>> GetAllCategoriesWithSubCategories(CancellationToken cancellationToken);
 		Task<List<ServiceDto>> ShowListOfServicesWithSubCategoryId(int id, CancellationToken cancellationToken);
+		Task<string> GetServiceName(int id, CancellationToken cancellationToken);
 	}
 }

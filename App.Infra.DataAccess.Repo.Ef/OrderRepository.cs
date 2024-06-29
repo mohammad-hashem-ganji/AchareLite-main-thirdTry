@@ -1,4 +1,5 @@
-﻿using App.Domain.Core.OrderAgg.Data.Repositories;
+﻿using App.Domain.Core.Member.Entities;
+using App.Domain.Core.OrderAgg.Data.Repositories;
 using App.Domain.Core.OrderAgg.DTOs;
 using App.Domain.Core.OrderAgg.Entities;
 using App.Infra.DB.SqlServer.EF.DB_Achare.Ef;
@@ -22,13 +23,22 @@ namespace App.Infra.DataAccess.Repo.Ef
 
         public async Task Create(string title, int serviceId, CancellationToken cancellationToken, int customerId = 0)
         {
-            _dbContext.Orders.Add(new Order
+            var service = await _dbContext.Services.FirstOrDefaultAsync(s => s.Id == serviceId);
+            var user = await _dbContext.Customers.FirstOrDefaultAsync(c => c.Id == customerId);
+            if (service != null && user != null )
             {
-                Title = title,
-                ServiseId = serviceId,
-                CustomerId = customerId
-            });
-            await _dbContext.SaveChangesAsync(cancellationToken);
+                _dbContext.Add(new Order
+                {
+                    Title = title,
+                    ServiseId = serviceId,
+                    Service = service,
+                    CustomerId = customerId,
+                    Customer = user
+                });
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            
+
         }
 
         public async Task Delete(int id, CancellationToken cancellationToken)
