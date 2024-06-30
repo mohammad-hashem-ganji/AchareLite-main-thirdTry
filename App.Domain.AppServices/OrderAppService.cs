@@ -46,5 +46,10 @@ namespace App.Domain.AppServices
         {
             return await _orderService.Update(order, cancellationToken);
         }
+        public async Task<OrderDto> InitializOrderDto(CancellationToken cancellationToken, string serviceName = "", int serviceId = 0, int customerId = 0, int statusId = 0)
+        {
+            return await _orderService.InitializOrderDto(cancellationToken, serviceName, serviceId, customerId, statusId);
+        }
+
     }
 }

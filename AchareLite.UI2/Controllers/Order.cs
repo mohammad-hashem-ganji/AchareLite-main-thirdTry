@@ -26,23 +26,27 @@ namespace AchareLite.UI2.Controllers
             _orderAppService = orderAppService;
             _serviceAppService = serviceAppService;
         }
-        public async Task<IActionResult> ShowListOfOrders(CancellationToken cancellationToken) => View();
+        public async Task<IActionResult> ShowListOfOrders(int id, CancellationToken cancellationToken)
+        {
+            List<OrderDto>? orders = await _orderAppService.GetCustomerOrders(id, cancellationToken);
+            ViewData["orders"] = orders;
+            return View();
+        }
         public async Task<IActionResult> Create(int id, CancellationToken cancellationToken)
         {
-            var customerId = int.Parse(User.Claims.First().Value);
+            var applicationUserId = int.Parse(User.Claims.First().Value);
             //find customer adress to show and edit   *****
-            OrderDto orderDto = new();
-            orderDto.ServiceName = await _serviceAppService.GetServiceName(id, cancellationToken);
-            orderDto.ServiseId = id;
-            orderDto.CustomerId = customerId;
-            ViewData["orderDto"] = orderDto;
+            ViewData["orderDto"] = await _orderAppService.InitializOrderDto(
+                serviceName: await _serviceAppService.GetServiceName(id, cancellationToken),
+                serviceId: id,
+                customerId: int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userCustomerId").Value),
+                cancellationToken:cancellationToken);
             return View();
         }
         public async Task<IActionResult> AddOrder(string title,int customerId, int serviceId, CancellationToken cancellationToken)
         {
-
             await _orderAppService.Create(title, serviceId, cancellationToken, customerId);
-            return RedirectToAction("ShowLisOfOrders", "Order");
+            return RedirectToAction("ShowListOfOrders", "Order", new {id = customerId, cancellationToken});
         }
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {

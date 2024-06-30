@@ -39,7 +39,6 @@ namespace App.Infra.DataAccess.Repo.Ef
         {
             var enetiy = await _dbContext.SubCategories
              .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
-
             if (enetiy != null)
             {
                 _dbContext.SubCategories.Remove(enetiy);

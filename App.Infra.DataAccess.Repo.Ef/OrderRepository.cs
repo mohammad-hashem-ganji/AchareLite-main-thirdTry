@@ -24,8 +24,8 @@ namespace App.Infra.DataAccess.Repo.Ef
         public async Task Create(string title, int serviceId, CancellationToken cancellationToken, int customerId = 0)
         {
             var service = await _dbContext.Services.FirstOrDefaultAsync(s => s.Id == serviceId);
-            var user = await _dbContext.Customers.FirstOrDefaultAsync(c => c.Id == customerId);
-            if (service != null && user != null )
+            var customer = await _dbContext.Customers.FirstOrDefaultAsync(c => c.Id == customerId);
+            if (service != null && customer != null )
             {
                 _dbContext.Add(new Order
                 {
@@ -33,19 +33,15 @@ namespace App.Infra.DataAccess.Repo.Ef
                     ServiseId = serviceId,
                     Service = service,
                     CustomerId = customerId,
-                    Customer = user
+                    Customer = customer
                 });
                 await _dbContext.SaveChangesAsync(cancellationToken);
             }
-            
-
         }
 
         public async Task Delete(int id, CancellationToken cancellationToken)
         {
-            var enetiy = await _dbContext.Orders
-                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
-
+            var enetiy = await _dbContext.Orders.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
             if (enetiy != null)
             {
                 _dbContext.Orders.Remove(enetiy);
@@ -86,6 +82,7 @@ namespace App.Infra.DataAccess.Repo.Ef
         public async Task<List<OrderDto>?> GetCustomerOrders(int id, CancellationToken cancellationToken)
         {
             List<OrderDto>? orders = await _dbContext.Orders
+                .Where(x => x.CustomerId == id)
                 .Select(x => new OrderDto
                 {
                     Id = x.Id,
@@ -94,7 +91,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                     ServiseId = x.ServiseId,
                     StatusId = x.StatusId,
                     Bids = x.Bids,
-                }).Where(x => x.CustomerId == id).ToListAsync();
+                }).ToListAsync();
             return (orders != null) ? (orders) : (null);
         }
 

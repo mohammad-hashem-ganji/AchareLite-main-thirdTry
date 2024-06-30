@@ -1,4 +1,5 @@
-﻿using App.Domain.Core.OrderAgg.Data.Repositories;
+﻿using App.Domain.Core.Member.Entities;
+using App.Domain.Core.OrderAgg.Data.Repositories;
 using App.Domain.Core.OrderAgg.DTOs;
 using App.Domain.Core.OrderAgg.Services;
 using System;
@@ -43,9 +44,17 @@ namespace App.Domain.Services
             return await _orderReposetory.GetCustomerOrders(id, cancellationToken);
         }
 
-        public Task<bool> Update(OrderDto order, CancellationToken cancellationToken)
+        public async Task<bool> Update(OrderDto order, CancellationToken cancellationToken)
         {
-            return _orderReposetory.Update(order, cancellationToken);
+            return await _orderReposetory.Update(order, cancellationToken);
+        }
+        public async Task<OrderDto> InitializOrderDto(CancellationToken cancellationToken, string serviceName="", int serviceId = 0, int customerId = 0, int statusId = 0)
+        {
+            OrderDto orderDto = new();
+            orderDto.ServiceName = serviceName;
+            orderDto.ServiseId = serviceId;
+            orderDto.CustomerId = customerId;
+            return orderDto;
         }
     }
 }
