@@ -23,7 +23,7 @@ namespace AchareLite.UI2.Controllers
             ViewData["canellationToken"] = cancellationToken;
             return View();
         }
-        public async Task<IActionResult> ShowSubCategories( CancellationToken cancellationToken, int id=0)
+        public async Task<IActionResult> ShowSubCategories(CancellationToken cancellationToken, int id = 0)
         {
             //List<SubCategoryDto> subCategories = await _subCategoryAppService.ShowListOfSubCategoriesWhitMianCategoryId(id, cancellationToken);
             //ViewData["subCategories"] = subCategories;
@@ -36,11 +36,30 @@ namespace AchareLite.UI2.Controllers
             }
             return View();
         }
-        public async Task<IActionResult> showServices(CancellationToken cancellationToken, int id =0)
+        public async Task<IActionResult> showServices(CancellationToken cancellationToken, int id = 0)
         {
             List<ServiceDto> serviceDtos = await _serviceAppService.ShowListOfServicesWithSubCategoryId(id, cancellationToken);
             ViewData["serviceEntities"] = serviceDtos;
             return View();
+        }
+        public async Task<IActionResult> CheckRole(CancellationToken cancellationToken)
+        {
+            if (User.IsInRole("Customer"))
+            {
+                return RedirectToAction("ShowMainPage", "Home");
+            }
+            else if (User.IsInRole("Expert"))
+            {
+                return RedirectToAction("ShowExpertPanel", "Expert");
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("ShowOrders", "Admin");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

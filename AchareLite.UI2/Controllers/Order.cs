@@ -34,7 +34,7 @@ namespace AchareLite.UI2.Controllers
         }
         public async Task<IActionResult> Create(int id, CancellationToken cancellationToken)
         {
-            var applicationUserId = int.Parse(User.Claims.First().Value);
+            //var applicationUserId = int.Parse(User.Claims.First().Value);
             //find customer adress to show and edit   *****
             ViewData["orderDto"] = await _orderAppService.InitializOrderDto(
                 serviceName: await _serviceAppService.GetServiceName(id, cancellationToken),

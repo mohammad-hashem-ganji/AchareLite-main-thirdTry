@@ -4,7 +4,10 @@ using App.Domain.Core.CategoryService.Data.Repositories;
 using App.Domain.Core.CategoryService.Services;
 using App.Domain.Core.Configs.Entities;
 using App.Domain.Core.Member.AppServices;
+using App.Domain.Core.Member.Data.Repositories;
+//using App.Domain.Core.Member.Data.Repositories;
 using App.Domain.Core.Member.Entities;
+using App.Domain.Core.Member.Services;
 using App.Domain.Core.OrderAgg.AppServices;
 using App.Domain.Core.OrderAgg.Data.Repositories;
 using App.Domain.Core.OrderAgg.Services;
@@ -32,6 +35,22 @@ builder.Services.AddScoped<ISubCategoryAppService, SubCategoryAppService>();
 builder.Services.AddScoped<IServiceAppService, ServiceAppService>();
 builder.Services.AddScoped<IAccountAppService, AccountAppService>();
 builder.Services.AddScoped<IOrderAppService, OrderAppService>();
+// Comment
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICommentAppService, CommentAppService>();
+// User
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserAppService, UserAppService>();
+// Customer
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
+
+
+
+
 
 //builder.Services.AddDbContext<AchareDbContext>(options
 //    => options.UseSqlServer("Data Source =.; Initial Catalog = AchareCodefirst; Integrated Security = True; TrustServerCertificate = True"));

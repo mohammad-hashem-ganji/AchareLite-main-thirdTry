@@ -52,6 +52,7 @@ namespace App.Infra.DataAccess.Repo.Ef
         public async Task<List<OrderDto>> GetAll(CancellationToken cancellationToken)
         {
             List<OrderDto> orders = await _dbContext.Orders
+                .Include(a => a.Bids  )
                 .Select(x => new OrderDto
                 {
                     Id = x.Id,
@@ -59,7 +60,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                     CustomerId = x.CustomerId,
                     ServiseId = x.ServiseId,
                     StatusId = x.StatusId,
-                    Bids = x.Bids
+                    BidsId = x.Bids!.Select(c => c.Id).ToList()
                 }).ToListAsync(cancellationToken);
             return orders;
         }
@@ -67,6 +68,7 @@ namespace App.Infra.DataAccess.Repo.Ef
         public async Task<(OrderDto?, bool)> GetById(int id, CancellationToken cancellationToken)
         {
             OrderDto? order = await _dbContext.Orders
+                .Include(a =>a.Bids)
                 .Select(x => new OrderDto
                 {
                     Id = x.Id,
@@ -74,7 +76,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                     CustomerId = x.CustomerId,
                     ServiseId = x.ServiseId,
                     StatusId = x.StatusId,
-                    Bids = x.Bids,
+                    BidsId = x.Bids!.Select(c =>c.Id).ToList()
                 }).FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
             return (order != null) ? (order, true) : (null, false);
         }
@@ -82,6 +84,7 @@ namespace App.Infra.DataAccess.Repo.Ef
         public async Task<List<OrderDto>?> GetCustomerOrders(int id, CancellationToken cancellationToken)
         {
             List<OrderDto>? orders = await _dbContext.Orders
+                .Include(a => a.Bids)
                 .Where(x => x.CustomerId == id)
                 .Select(x => new OrderDto
                 {
@@ -90,7 +93,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                     CustomerId = x.CustomerId,
                     ServiseId = x.ServiseId,
                     StatusId = x.StatusId,
-                    Bids = x.Bids,
+                    BidsId = x.Bids!.Select(c => c.Id).ToList()
                 }).ToListAsync();
             return (orders != null) ? (orders) : (null);
         }

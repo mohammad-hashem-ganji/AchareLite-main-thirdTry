@@ -21,7 +21,6 @@ namespace App.Domain.AppServices
             _signInManager = signInManager;
             _userManager = userManager;
         }
-
         public async Task<bool> Login(string email, string password)
         {
             //var user = await _userManager.Users
@@ -36,18 +35,15 @@ namespace App.Domain.AppServices
         {
             var role = string.Empty;
             var user = CreateUser();
-
             user.UserName = email;
-            user.Email = email;
-            
+            user.Email = email;   
             if (isExpert)
             {
-                role = "Admin";
+                role = "Expert";
                 user.Expert = new Expert()
                 {
                 };
             }
-
             if (isCustomer)
             {
                 role = "Customer";
@@ -56,24 +52,17 @@ namespace App.Domain.AppServices
 
                 };
             }
-
-
             var result = await _userManager.CreateAsync(user, password);
-
             if (isExpert)
             {
                 var userExpertId = user.Expert!.Id;
                 await _userManager.AddClaimAsync(user, new Claim("userExpertId", userExpertId.ToString()));
             }
-
-
             if (isCustomer)
             {
                 var userCustomerId = user.Customer!.Id;
                 await _userManager.AddClaimAsync(user, new Claim("userCustomerId", userCustomerId.ToString()));
             }
-
-
             if (result.Succeeded)
                 await _userManager.AddToRoleAsync(user, role);
 

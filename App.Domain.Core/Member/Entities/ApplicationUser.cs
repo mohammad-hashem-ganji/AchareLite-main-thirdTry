@@ -11,5 +11,6 @@ namespace App.Domain.Core.Member.Entities
     {
         public Customer? Customer { get; set; }
         public Expert? Expert { get; set; }
+        public Admin? Admin { get; set; }
     }
 }
