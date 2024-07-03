@@ -1,0 +1,51 @@
+﻿@using App.Domain.Core.OrderAgg.DTOs;
+@using App.Domain.Core.OrderAgg.Entities;
+@{
+    ViewData["Title"] = "ShowOrdersInProgress";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h1>ShowOrdersInProgress</h1>
+@{
+    var orders = ViewData["orders"] as List<OrderDto>;
+    List<SelectListItem> statusItems = Enum.GetValues<Status>()
+    .Select(s => new SelectListItem { Text = s.ToString(), Value = ((int)s).ToString() })
+    .ToList();
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Service</th>
+            <th>Customer Name</th>
+            <th>Change Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (orders != null)
+            {
+                foreach (var order in orders)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.Title</td>
+                        <td>@order.ServiceName</td>
+                        <td>@order.CustomerName</td>
+                        <td>
+                            @using (Html.BeginForm("ChangeOrderStatus", "Admin", new { orderId = @order.Id }, FormMethod.Post))
+                            {
+                                @Html.DropDownList("NewStatus", statusItems, "-- Select Status --", new { @value = "selectedStatusId" })
+                                <button type="submit" class="btn btn-sm btn-primary">Change</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <h3>سفارشی وجود ندارد</h3>
+            }
+        }
+    </tbody>
+</table>

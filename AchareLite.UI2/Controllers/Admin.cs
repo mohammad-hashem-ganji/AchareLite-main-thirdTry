@@ -2,6 +2,7 @@
 using App.Domain.Core.Member.AppServices;
 using App.Domain.Core.OrderAgg.AppServices;
 using App.Domain.Core.OrderAgg.DTOs;
+using App.Domain.Core.OrderAgg.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -21,34 +22,48 @@ namespace AchareLite.UI2.Controllers
             _serviceAppService = serviceAppService;
             _customerAppService = customerAppService;
         }
-        public async Task<IActionResult> ShowOrders(CancellationToken cancellationToken)
+        public async Task<IActionResult> ShowPendingOrders(CancellationToken cancellationToken)
         {
             List<OrderDto> orders = await _orderAppService.GetAll(cancellationToken);
             List<OrderDto> notCheckedOrdersStatus = new();
-            //List<OrderDto> ordersWithServiceAndCustomerNames = await orders.ToListAsync(cancellationToken);
             foreach (var order in orders)
             {
                 order.ServiceName = await _serviceAppService.GetServiceName(order.ServiseId, cancellationToken);
                 order.CustomerName = await _customerAppService.GetCustomerName(order.CustomerId, cancellationToken);
             }
-            foreach (var item in orders)
-            {
-                if (item.StatusId == 0)
-                {
-                    notCheckedOrdersStatus.Add(item);
-                }
-                else
-                {
-                    continue;
-                }
-            }
+            notCheckedOrdersStatus = orders.Where(order => order.StatusId== (int)Status.Pending).ToList();
             ViewData["orders"] = notCheckedOrdersStatus;
-
+            return View();
+        }
+        public async Task<IActionResult> ShowOrdersInProgress(CancellationToken cancellationToken)
+        {
+            List<OrderDto> orders = await _orderAppService.GetAll(cancellationToken);
+            List<OrderDto> inProgressOrdersStatus = new();
+            foreach (var order in orders)
+            {
+                order.ServiceName = await _serviceAppService.GetServiceName(order.ServiseId, cancellationToken);
+                order.CustomerName = await _customerAppService.GetCustomerName(order.CustomerId, cancellationToken);
+            }
+            inProgressOrdersStatus = orders.Where(order => order.StatusId == (int)Status.InProgress).ToList();
+            ViewData["orders"] = inProgressOrdersStatus;
+            return View();
+        }
+        public async Task<IActionResult> ShowCompletedOrders(CancellationToken cancellationToken)
+        {
+            List<OrderDto> orders = await _orderAppService.GetAll(cancellationToken);
+            List<OrderDto> CompleteOrdersStatus = new();
+            foreach (var order in orders)
+            {
+                order.ServiceName = await _serviceAppService.GetServiceName(order.ServiseId, cancellationToken);
+                order.CustomerName = await _customerAppService.GetCustomerName(order.CustomerId, cancellationToken);
+            }
+            CompleteOrdersStatus = orders.Where(order => order.StatusId == (int)Status.Completed).ToList();
+            ViewData["orders"] = CompleteOrdersStatus;
             return View();
         }
         public async Task<IActionResult> ChangeOrderStatus(int orderId, int NewStatus, CancellationToken cancellationToken)
         {
-            (OrderDto, bool) order = await _orderAppService.GetById(orderId, cancellationToken);
+            (OrderDto?, bool) order = await _orderAppService.GetById(orderId, cancellationToken);
             if (order.Item2 != false)
             {
                 order.Item1.StatusId = NewStatus;
@@ -56,10 +71,8 @@ namespace AchareLite.UI2.Controllers
             }
             return RedirectToAction("ShowOrders", "Admin");
         }
-
-
-
     }
 }
+
 
 

@@ -80,6 +80,23 @@ namespace App.Infra.DataAccess.Repo.Ef
                 }).FirstOrDefaultAsync(x => x.Id == id);
             return (commentDto != null) ? (commentDto, true) : (null, false);
         }
+        public async Task<List<CommentDto>?> GetExpertComments(int expertId, CancellationToken cancellationToken)
+        {
+
+            List<CommentDto>? comments = await _dbContext.Comments
+                .Select(c => new CommentDto
+                {
+                    Id = c.Id,
+                    CustomerId = c.CustomerId,
+                    ExpertId = c.ExpertId,
+                    IsAccept = c.IsAccept,
+                    Score = c.Score,
+                    Text = c.Text
+                })
+                .Where(comment => comment.ExpertId == expertId)
+                .ToListAsync(cancellationToken);
+            return comments!;
+        }
 
         public async Task<bool> Update(CommentDto commentDto, CancellationToken cancellationToken)
         {

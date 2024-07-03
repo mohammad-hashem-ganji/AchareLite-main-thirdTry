@@ -25,9 +25,6 @@ namespace AchareLite.UI2.Controllers
         }
         public async Task<IActionResult> ShowSubCategories(CancellationToken cancellationToken, int id = 0)
         {
-            //List<SubCategoryDto> subCategories = await _subCategoryAppService.ShowListOfSubCategoriesWhitMianCategoryId(id, cancellationToken);
-            //ViewData["subCategories"] = subCategories;
-
             if (id > 0)
             {
                 List<SubCategoryDto> subDtos = await _subCategoryAppService.ShowListOfSubCategoriesWhitMianCategoryId(id, cancellationToken);
@@ -44,21 +41,16 @@ namespace AchareLite.UI2.Controllers
         }
         public async Task<IActionResult> CheckRole(CancellationToken cancellationToken)
         {
-            if (User.IsInRole("Customer"))
+            switch (User.IsInRole("Customer"))
             {
-                return RedirectToAction("ShowMainPage", "Home");
-            }
-            else if (User.IsInRole("Expert"))
-            {
-                return RedirectToAction("ShowExpertPanel", "Expert");
-            }
-            else if (User.IsInRole("Admin"))
-            {
-                return RedirectToAction("ShowOrders", "Admin");
-            }
-            else
-            {
-                return View();
+                case true:
+                    return RedirectToAction("ShowMainPage", "Home");
+                case false when User.IsInRole("Expert"):
+                    return RedirectToAction("ShowExpertPanel", "Expert");
+                case false when User.IsInRole("Admin"):
+                    return RedirectToAction("ShowPendingOrders", "Admin");
+                default:
+                    return View();
             }
         }
     }

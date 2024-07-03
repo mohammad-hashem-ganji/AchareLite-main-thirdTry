@@ -19,7 +19,7 @@ namespace App.Infra.DataAccess.Repo.Ef
         }
         public async Task<string?> CheckUserType(int userId, CancellationToken cancellationToken)
         {
-            if ( await _dbContext.Customers.FirstOrDefaultAsync(c => c.Id == userId) != null)
+            if (await _dbContext.Customers.FirstOrDefaultAsync(c => c.Id == userId) != null)
             {
                 return "Customer";
             }
@@ -37,5 +37,10 @@ namespace App.Infra.DataAccess.Repo.Ef
             }
         }
 
+
+
     }
 }
+///////////////////////////////////////////
+
+

@@ -33,7 +33,9 @@ namespace App.Infra.DataAccess.Repo.Ef
                     ServiseId = serviceId,
                     Service = service,
                     CustomerId = customerId,
-                    Customer = customer
+                    Customer = customer,
+                    StatusId = (int)Status.Pending,
+                    Status = Status.Pending,
                 });
                 await _dbContext.SaveChangesAsync(cancellationToken);
             }
@@ -108,6 +110,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                 order.CustomerId = orderDto.CustomerId;
                 order.StatusId = orderDto.StatusId;
                 order.ServiseId = orderDto.ServiseId;
+                order.Status = (Status)orderDto.StatusId;
                 _dbContext.Update(order);
                 await _dbContext.SaveChangesAsync(cancellationToken);
                 return true;

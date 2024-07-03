@@ -14,5 +14,6 @@ namespace App.Domain.Core.OrderAgg.Services
         Task Delete(int id, CancellationToken cancellationToken);
         Task<(CommentDto?, bool)> GetById(int id, CancellationToken cancellationToken);
         Task<bool> Update(CommentDto commentDto, CancellationToken cancellationToken);
+        Task<List<CommentDto>> GetExpertComments(int expertId, CancellationToken cancellationToken);
     }
 }

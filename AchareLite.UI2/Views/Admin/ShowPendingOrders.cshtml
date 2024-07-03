@@ -1,11 +1,11 @@
 ﻿@using App.Domain.Core.OrderAgg.DTOs;
-@using App.Domain.Core.OrderAgg.Entities; // Add this line
+@using App.Domain.Core.OrderAgg.Entities; 
 @{
-    ViewData["Title"] = "ShowOrders";
+    ViewData["Title"] = "ShowPendingOrders";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>ShowOrders</h1>
+<h1>ShowPendingOrders</h1>
 @{
     var orders = ViewData["orders"] as List<OrderDto>;
     List<SelectListItem> statusItems = Enum.GetValues<Status>()

@@ -38,6 +38,11 @@ namespace App.Domain.AppServices
             return await _commentService.GetById(id, cancellationToken);
         }
 
+        public async Task<List<CommentDto>> GetExpertComments(int expertId, CancellationToken cancellationToken)
+        {
+            return await _commentService.GetExpertComments(expertId, cancellationToken);
+        }
+
         public async Task<bool> Update(CommentDto commentDto, CancellationToken cancellationToken)
         {
             return await _commentService.Update(commentDto, cancellationToken);
