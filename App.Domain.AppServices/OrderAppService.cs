@@ -1,4 +1,6 @@
-﻿using App.Domain.Core.OrderAgg.AppServices;
+﻿using App.Domain.Core.CategoryService.Services;
+using App.Domain.Core.Member.Services;
+using App.Domain.Core.OrderAgg.AppServices;
 using App.Domain.Core.OrderAgg.DTOs;
 using App.Domain.Core.OrderAgg.Services;
 using System;
@@ -12,9 +14,13 @@ namespace App.Domain.AppServices
     public class OrderAppService : IOrderAppService
     {
         private readonly IOrderService _orderService;
-        public OrderAppService(IOrderService orderService)
+        private readonly IServiceService _serviceService;
+        private readonly ICustomerService _customerService;
+        public OrderAppService(IOrderService orderService, IServiceService serviceService, ICustomerService customerService)
         {
             _orderService = orderService;
+            _serviceService = serviceService;
+            _customerService = customerService;
         }
 
         public async Task Create(string Title, int serviceId, CancellationToken cancellationToken, int CustomerId = 0)
@@ -49,6 +55,26 @@ namespace App.Domain.AppServices
         public async Task<OrderDto> InitializOrderDto(CancellationToken cancellationToken, string serviceName = "", int serviceId = 0, int customerId = 0, int statusId = 0)
         {
             return await _orderService.InitializOrderDto(cancellationToken, serviceName, serviceId, customerId, statusId);
+        }
+        public async Task<List<OrderDto>> ShowOrderInDifferentStatus(int status, CancellationToken cancellationToken)
+        {
+            List<OrderDto> orders = await _orderService.GetAll(cancellationToken);
+            List<OrderDto> spesificOrdersStatus = new();
+            foreach (var order in orders)
+            {
+                order.ServiceName = await _serviceService.GetServiceName(order.ServiseId, cancellationToken);
+                order.CustomerName = await _customerService.GetCustomerName(order.CustomerId, cancellationToken);
+            }
+            spesificOrdersStatus = orders.Where(order => order.StatusId == status).ToList();
+            if (spesificOrdersStatus != null)
+            {
+                return spesificOrdersStatus;
+            }
+            else
+            {
+                throw new Exception($"هیچ درخواستی با : {status} پیدا نشد");
+            }
+            
         }
 
     }

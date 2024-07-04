@@ -10,5 +10,6 @@ namespace App.Domain.Core.Member.AppServices
     public interface IExpertAppService
     {
         Task<ExpertDto?> GetById(int expertId, CancellationToken cancellationToken);
+        Task<string?> GetExpertName(int expertId, CancellationToken cancellationToken);
     }
 }

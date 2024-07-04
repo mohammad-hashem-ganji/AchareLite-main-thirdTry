@@ -15,49 +15,34 @@ namespace AchareLite.UI2.Controllers
         private readonly IOrderAppService _orderAppService;
         private readonly IServiceAppService _serviceAppService;
         private readonly ICustomerAppService _customerAppService;
+        private readonly ICommentAppService _commentAppService;
+        private readonly IExpertAppService _expertAppService;
 
-        public Admin(IOrderAppService orderAppService, IServiceAppService serviceAppService, ICustomerAppService customerAppService)
+        public Admin(IOrderAppService orderAppService, IServiceAppService serviceAppService, ICustomerAppService customerAppService, ICommentAppService commentAppService)
         {
             _orderAppService = orderAppService;
             _serviceAppService = serviceAppService;
             _customerAppService = customerAppService;
+            _commentAppService = commentAppService;
         }
         public async Task<IActionResult> ShowPendingOrders(CancellationToken cancellationToken)
         {
-            List<OrderDto> orders = await _orderAppService.GetAll(cancellationToken);
             List<OrderDto> notCheckedOrdersStatus = new();
-            foreach (var order in orders)
-            {
-                order.ServiceName = await _serviceAppService.GetServiceName(order.ServiseId, cancellationToken);
-                order.CustomerName = await _customerAppService.GetCustomerName(order.CustomerId, cancellationToken);
-            }
-            notCheckedOrdersStatus = orders.Where(order => order.StatusId== (int)Status.Pending).ToList();
+            notCheckedOrdersStatus = await _orderAppService.ShowOrderInDifferentStatus((int)Status.Pending, cancellationToken);
             ViewData["orders"] = notCheckedOrdersStatus;
             return View();
         }
         public async Task<IActionResult> ShowOrdersInProgress(CancellationToken cancellationToken)
         {
-            List<OrderDto> orders = await _orderAppService.GetAll(cancellationToken);
             List<OrderDto> inProgressOrdersStatus = new();
-            foreach (var order in orders)
-            {
-                order.ServiceName = await _serviceAppService.GetServiceName(order.ServiseId, cancellationToken);
-                order.CustomerName = await _customerAppService.GetCustomerName(order.CustomerId, cancellationToken);
-            }
-            inProgressOrdersStatus = orders.Where(order => order.StatusId == (int)Status.InProgress).ToList();
+            inProgressOrdersStatus = await _orderAppService.ShowOrderInDifferentStatus((int)Status.InProgress, cancellationToken);
             ViewData["orders"] = inProgressOrdersStatus;
             return View();
         }
         public async Task<IActionResult> ShowCompletedOrders(CancellationToken cancellationToken)
         {
-            List<OrderDto> orders = await _orderAppService.GetAll(cancellationToken);
             List<OrderDto> CompleteOrdersStatus = new();
-            foreach (var order in orders)
-            {
-                order.ServiceName = await _serviceAppService.GetServiceName(order.ServiseId, cancellationToken);
-                order.CustomerName = await _customerAppService.GetCustomerName(order.CustomerId, cancellationToken);
-            }
-            CompleteOrdersStatus = orders.Where(order => order.StatusId == (int)Status.Completed).ToList();
+            CompleteOrdersStatus = await _orderAppService.ShowOrderInDifferentStatus((int)Status.Completed, cancellationToken);
             ViewData["orders"] = CompleteOrdersStatus;
             return View();
         }
@@ -70,6 +55,17 @@ namespace AchareLite.UI2.Controllers
               bool result = await _orderAppService.Update(order.Item1, cancellationToken);
             }
             return RedirectToAction("ShowOrders", "Admin");
+        }
+        public async Task<IActionResult> ShowUnacceptedComments(CancellationToken cancellationToken)
+        {
+            List<CommentDto> comments = await _commentAppService.GetUnacceptedComments(cancellationToken);
+            foreach (var comment in comments)
+            {
+                comment.CustomerName = await _customerAppService.GetCustomerName(comment.CustomerId, cancellationToken);
+                comment.ExpertName = await _expertAppService.GetExpertName(comment.ExpertId, cancellationToken);
+            }
+            ViewData["comments"] = comments;
+            return View();
         }
     }
 }

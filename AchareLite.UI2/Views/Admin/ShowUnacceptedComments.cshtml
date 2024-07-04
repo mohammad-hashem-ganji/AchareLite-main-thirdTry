@@ -1,0 +1,49 @@
+﻿@using App.Domain.Core.OrderAgg.DTOs;
+@{
+    ViewData["Title"] = "ShowUnacceptedComments";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>ShowUnacceptedComments</h1>
+
+@*@model List<YourProjectName.Models.CommentDto>*@
+@{
+    var comments = ViewData["comments"] as List<CommentDto>;
+}
+<h1>Unaccepted Comments</h1>
+
+@if (comments.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Text</th>
+                <th>Score</th>
+                <th>Expert</th>
+                <th>Customer</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var comment in comments)
+            {
+                <tr>
+                    <td>@comment.Id</td>
+                    <td>@comment.Text</td>
+                    <td>@comment.Score</td>
+                    <td>@comment.CustomerName</td>
+                    <td>@comment.ExpertName</td>
+                    <td>
+@*                        <a asp-action="EditComment" asp-route-id="@comment.Id">Edit</a>*@
+                        <a asp-action="AcceptComment" asp-route-id="@comment.Id">Accept</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>هیچ کامنتی دریافت نشده ! </p>
+}

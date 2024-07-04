@@ -55,3 +55,63 @@ namespace AchareLite.UI2.Controllers
         }
     }
 }
+
+
+/////////////////////////////////////
+//@model YourProjectName.Models.CustomerDto
+
+//<h1>Customer Panel</h1>
+
+//<div class= "row" >
+//  < div class= "col-md-4" >
+ 
+//     < h2 > Personal Information </ h2 >
+    
+//        < form asp - action = "EditCustomer" asp - route - id = "@Model.Id" method = "post" >
+               
+//                     < div class= "form-group" >
+                
+//                        < label asp -for= "Name" > Name:</ label >
+                  
+//                          < input asp -for= "Name" class= "form-control" />
+                     
+//                             < span asp - validation -for= "Name" class= "text-danger" ></ span >
+                          
+//                                </ div >
+                          
+//                                < div class= "form-group" >
+                           
+//                                   < label asp -for= "Email" > Email:</ label >
+                             
+//                                     < input asp -for= "Email" class= "form-control" />
+                                
+//                                        < span asp - validation -for= "Email" class= "text-danger" ></ span >
+                                     
+//                                           </ div >
+                                     
+//                                           < button type = "submit" class= "btn btn-primary" > Save Changes </ button >
+                                           
+//                                               </ form >
+                                           
+//                                             </ div >
+                                           
+//                                             < div class= "col-md-8" >
+                                            
+//                                                < h2 > Actions </ h2 >
+                                            
+//                                                < ul class= "list-group" >
+                                             
+//                                                   < li class= "list-group-item" >
+                                              
+//                                                      < a asp - action = "ShowAllServices" > View Available Services</a>
+//                                                           </li>
+//      <li class= "list-group-item" >
+//        < a asp - action = "ShowMyOrders" > View My Orders</a>
+//             </li>
+//      <li class= "list-group-item" >
+//        < a asp - action = "ShowCustomerBids" > View My Bids on Orders</a>
+//      </li>
+//      </ul>
+//  </div>
+//</div>
+

@@ -13,6 +13,8 @@ namespace App.Domain.Core.OrderAgg.DTOs
         public int Score { get; set; }
         public bool IsAccept { get; set; }
         public int ExpertId { get; set; }
+        public string ExpertName { get; set; }
         public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
     }
 }

@@ -16,5 +16,6 @@ namespace App.Domain.Core.OrderAgg.AppServices
         Task Delete(int id, CancellationToken cancellationToken);
         Task<bool> Update(OrderDto order, CancellationToken cancellationToken);
         Task<OrderDto> InitializOrderDto(CancellationToken cancellationToken, string serviceName = "", int serviceId = 0, int customerId = 0, int statusId = 0);
+        Task<List<OrderDto>> ShowOrderInDifferentStatus(int status, CancellationToken cancellationToken);
     }
 }

@@ -47,5 +47,9 @@ namespace App.Domain.AppServices
         {
             return await _commentService.Update(commentDto, cancellationToken);
         }
+        public async Task<List<CommentDto>> GetUnacceptedComments(CancellationToken cancellationToken)
+        {
+            return await _commentService.GetUnacceptedComments(cancellationToken);
+        }
     }
 }

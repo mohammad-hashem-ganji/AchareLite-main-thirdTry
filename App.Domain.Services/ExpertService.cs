@@ -18,6 +18,25 @@ public ExpertService(IExpertRepository expertRepository)
         }
 
         public async Task<ExpertDto?> GetById(int expertId, CancellationToken cancellationToken) => await _expertRepository.GetById(expertId, cancellationToken);
+        public async Task<string?> GetCustomerName(int expertId, CancellationToken cancellationToken)
+        {
+            var expert = await _expertRepository.GetById(expertId, cancellationToken);
+            if (expert != null)
+            {
+                if (expert.FirstName != null)
+                {
+                    return expert.FirstName;
+                }
+                else
+                {
+                    return "متخصص نام خود را وارد نکرده است";
+                }
+            }
+            else
+            {
+                return "متخصص پیدا نشد";
+            }
+        }
 
     }
 }
