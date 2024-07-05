@@ -10,6 +10,6 @@ namespace App.Domain.Core.Member.Services
     public interface IExpertService
     {
         Task<ExpertDto?> GetById(int expertId, CancellationToken cancellationToken);
-        Task<string?> GetCustomerName(int expertId, CancellationToken cancellationToken);
+        Task<string?> GetExpertName(int expertId, CancellationToken cancellationToken);
     }
 }

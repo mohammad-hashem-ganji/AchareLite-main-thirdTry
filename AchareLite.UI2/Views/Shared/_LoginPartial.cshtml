@@ -9,10 +9,10 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Account" asp-page="/Profile" title="پروفایل">@User.Identity?.Name</a>
+            <a class="nav-link text-dark"  title="پروفایل">@User.Identity?.Name</a>
         </li>
         <li class="nav-item">
-            <form class="form-inline" asp-controller="Logout" asp-action="LogoutConfirm" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+            <form class="form-inline" asp-controller="Logout" asp-action="LogoutConfirm" )">
                 <button type="submit" class="nav-link btn btn-link text-dark">خروج</button>
             </form>
         </li>

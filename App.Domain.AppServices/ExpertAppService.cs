@@ -19,7 +19,7 @@ namespace App.Domain.AppServices
         }
         public async Task<ExpertDto?> GetById(int expertId, CancellationToken cancellationToken) => await _expertService.GetById(expertId, cancellationToken);
 
-        public async Task<string?> GetExpertName(int expertId, CancellationToken cancellationToken) => await _expertService.GetCustomerName(expertId, cancellationToken);
+        public async Task<string?> GetExpertName(int expertId, CancellationToken cancellationToken) => await _expertService.GetExpertName(expertId, cancellationToken);
 
     }
 }
