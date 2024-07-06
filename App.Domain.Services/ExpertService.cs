@@ -38,5 +38,9 @@ public ExpertService(IExpertRepository expertRepository)
             }
         }
 
+        public async Task<bool> Update(ExpertDto model, CancellationToken cancellationToken)
+        {
+            return await _expertRepository.Update(model, cancellationToken);
+        }
     }
 }

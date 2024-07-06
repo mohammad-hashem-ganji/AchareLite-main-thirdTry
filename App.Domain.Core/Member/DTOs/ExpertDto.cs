@@ -14,6 +14,7 @@ namespace App.Domain.Core.Member.DTOs
         public string? NCode { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string Mobile { get; set; }
         public int ApplicationUserId { get; set; }
         public List<int> ServiceIds { get; set; }
         public List<int> CommentIds { get; set; }

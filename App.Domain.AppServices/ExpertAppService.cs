@@ -21,5 +21,9 @@ namespace App.Domain.AppServices
 
         public async Task<string?> GetExpertName(int expertId, CancellationToken cancellationToken) => await _expertService.GetExpertName(expertId, cancellationToken);
 
+        public async Task<bool> Update(ExpertDto model, CancellationToken cancellationToken)
+        {
+            return await _expertService.Update(model, cancellationToken);
+        }
     }
 }

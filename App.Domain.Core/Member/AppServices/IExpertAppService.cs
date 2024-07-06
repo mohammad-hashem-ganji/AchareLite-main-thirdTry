@@ -11,5 +11,6 @@ namespace App.Domain.Core.Member.AppServices
     {
         Task<ExpertDto?> GetById(int expertId, CancellationToken cancellationToken);
         Task<string?> GetExpertName(int expertId, CancellationToken cancellationToken);
+        Task<bool> Update(ExpertDto model, CancellationToken cancellationToken);
     }
 }

@@ -10,5 +10,6 @@ namespace App.Domain.Core.Member.Data.Repositories
     public interface IExpertRepository
     {
         Task<ExpertDto?> GetById(int expertId, CancellationToken cancellationToken);
+        Task<bool> Update(ExpertDto model, CancellationToken cancellationToken);
     }
 }
