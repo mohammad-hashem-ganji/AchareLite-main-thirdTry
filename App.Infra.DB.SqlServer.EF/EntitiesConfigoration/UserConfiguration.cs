@@ -88,7 +88,7 @@ namespace App.Infra.DB.SqlServer.EF.EntitiesConfigoration
                 .HasData(
             new IdentityRole<int>() { Id = 1, Name = "Admin", NormalizedName = "ADMIN" },
             new IdentityRole<int>() { Id = 2, Name = "Customer", NormalizedName = "CUSTOMER" },
-            new IdentityRole<int>() { Id = 3, Name = "expert", NormalizedName = "EXPERT" }
+            new IdentityRole<int>() { Id = 3, Name = "Expert", NormalizedName = "EXPERT" }
                 );
             #endregion
             #region seed Role To user

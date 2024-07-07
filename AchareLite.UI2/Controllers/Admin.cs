@@ -47,6 +47,10 @@ namespace AchareLite.UI2.Controllers
             {
                 order.Item1!.StatusId = NewStatus;
                 bool result = await _orderAppService.Update(order.Item1, cancellationToken);
+                if (result)
+                {
+                    return RedirectToAction("ShowOrders", "Admin");
+                }
             }
             return RedirectToAction("ShowOrders", "Admin");
         }

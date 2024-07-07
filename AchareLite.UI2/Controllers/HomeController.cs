@@ -50,12 +50,13 @@ namespace AchareLite.UI2.Controllers
         }
         public async Task<IActionResult> CheckRole(CancellationToken cancellationToken)
         {
+            var item = User.Claims.Where(x => x.Type == "userExpertId");
             switch (User.IsInRole("Customer"))
             {
                 case true:
                     return RedirectToAction("ShowMainPage", "Home");
                 case false when User.IsInRole("Expert"):
-                    return RedirectToAction("ShowExpertPanel", "Expert");
+                    return RedirectToAction("ShowExpertProfile", "Expert");
                 case false when User.IsInRole("Admin"):
                     return RedirectToAction("ShowPendingOrders", "Admin");
                 default:

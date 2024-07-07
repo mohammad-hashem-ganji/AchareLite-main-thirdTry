@@ -14,8 +14,8 @@
 @{
     ExpertDto expert = ViewData["expert"] as ExpertDto;
     List<ServiceDto> availableServices = ViewData["availableServices"] as List<ServiceDto>;
+    List<OrderDto> orders = ViewData["orders"] as List<OrderDto>; // maching orders (with service)
     List<int> selectedServiceIds = expert?.ServiceIds ?? new List<int>();
-    List<OrderDto> orders = ViewData["orders"] as List<OrderDto>;
 }
 
 <h1>Expert Profile</h1>
@@ -24,48 +24,52 @@
     <div class="col-md-6">
         <h2>Personal Information</h2>
 
-        <form asp-action="UpdateExpert" asp-controller="Expert" method="post">
+        <form asp-action="UpdateExpertInformation" asp-controller="Expert" method="post">
             <div class="form-group">
-                <label>Name:</label>
                 <input type="hidden" class="form-control" name="Id" value="@expert.Id"  />
-                <span  class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Name:</label>
+                <label>نام:</label>
                 <input type="text" class="form-control" name="FirstName" value="@expert.FirstName" />
                 <span  class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label>Last Name:</label>
+                <label>نام خانوادگی:</label>
                 <input type="text" class="form-control" name="LastName" value="@expert.LastName" />
                 <span  class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label>Mobile:</label>
+                <label>موبایل:</label>
                 <input type="text" class="form-control" name="Mobile" value="@expert.Mobile" />
+                <span  class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>کد ملی:</label>
+                <input type="text" class="form-control" name="NCode" value="@expert.NCode" />
                 <span  class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
     </div>
+     <div class="col-md-6">
+         <h2>Available Services</h2> 
+           <form method="post" asp-action="UpdateExpertServices" asp-controller="Expert"> 
+             <ul class="list-group">
+                 @foreach (var service in availableServices)
+                 {
+                    <li class="list-group-item">
+                       <input type="checkbox" name="SelectedServiceIds" value="@service.Id" 
+                       @(selectedServiceIds.Contains(service.Id) ? "checked" : "") />
+                         @service.Title
+                    </li>
+                 }
+             </ul>
+          <button type="submit">Save Changes</button>  </form>
+     </div>
 
-    <div class="col-md-6">
-       <h2>Available Services</h2>
-
-          <ul class="list-group">
-             @foreach (var service in availableServices)
-             {
-                <li class="list-group-item">
-                <input type="checkbox"  name="SelectedServiceIds" value="@service.Id" 
-                @(selectedServiceIds.Contains(service.Id) ? "checked" : "") />
-                    @service.Title
-                </li>
-            }
-          </ul>
-    </div>
 
 </div>
 
@@ -86,15 +90,15 @@
             <tbody>
                 @foreach (var order in orders)
                 {
-                        <tr>
-                            <td>@order.Id</td>
-                            <td>@order.Title</td>
-                            <td>@order.ServiceName</td>
-                            <td>@order.CustomerName</td>
-                            <td>
-                                <a asp-action="CreateBid" asp-route-orderId="@order.Id">Submit Bid</a>
-                            </td>
-                        </tr>
+                      <tr>
+                          <td>@order.Id</td>
+                          <td>@order.Title</td>
+                          <td>@order.ServiceName</td>
+                          <td>@order.CustomerName</td>
+                          <td>
+                              <a asp-action="CreateBid" asp-route-orderId="@order.Id">Submit Bid</a>
+                          </td>
+                      </tr>
                 }
             </tbody>
         </table>
