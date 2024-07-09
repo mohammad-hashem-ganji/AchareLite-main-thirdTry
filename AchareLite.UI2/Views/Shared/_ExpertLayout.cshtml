@@ -125,19 +125,22 @@
                 <ul class="metismenu" id="side-menu">
                    <li>
                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">  <i class="icon-home"></i>
-                           <span>لیست کتگًری</span>
+                           <span>لیست پیشنهاد ها</span>
                        </a>
-                        <ul class="dropdown-menu">  
-                               @foreach (var category in await @MainCategoryAppService.GetAll(default))
-                                {
-                                      <li>
-                                          <a asp-action="ShowListOfSubCategoriesWhitMianCategoryId" asp-controller="SubCategory" asp-route-id="@category.Id" class="">
-                                              <i class="icon-home"></i>
-                                              <span>@category.Title</span>
-                                          </a>
-                                      </li>
-                                }
-                         </ul>
+                         <ul>
+                            <li>
+                                <a asp-action="ShowPendingOrders" asp-controller="Admin" class="">
+                                    <i class="icon-frame"></i>
+                                    <span> در انتظار</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="ShowPendingOrders" asp-controller="Admin" class="">
+                                    <i class="icon-frame"></i>
+                                    <span> تایید شده</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#" class="dropdown-toggle">

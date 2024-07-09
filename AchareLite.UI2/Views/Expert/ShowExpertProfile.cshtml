@@ -96,7 +96,7 @@
                           <td>@order.ServiceName</td>
                           <td>@order.CustomerName</td>
                           <td>
-                              <a asp-action="CreateBid" asp-route-orderId="@order.Id">Submit Bid</a>
+                              <a asp-action="Create" asp-controller="Bid" asp-route-orderId="@order.Id">Submit Bid</a>
                           </td>
                       </tr>
                 }

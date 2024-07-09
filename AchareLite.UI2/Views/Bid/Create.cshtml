@@ -1,0 +1,61 @@
+﻿@model AchareLite.UI2.Controllers.Bid.ExpertServicePriceViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_ExpertLayout.cshtml";
+}
+
+<h2>Create</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Orders</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>ServiceName</th>
+                    <th>Customer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.OrderTitle</td>
+                    <td>@Model.ServiceName</td>
+                    <td>@Model.CustomerName</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<h2>Suggest Price and Description for Bid</h2>
+<form asp-controller="Bid" asp-action="CreateConfirm">
+<div class="form-group">
+  @Html.LabelFor(m => m.Price, "Price :")
+  @Html.TextBoxFor(m => m.Price, new { @type = "number", @class = "form-control" })
+@*  @Html.ValidationMessageFor(m => m.Price, "", @class = "text-danger")*@
+</div>
+
+<div class="form-group">
+  @Html.LabelFor(m => m.Description, "Description of Work:")
+  @Html.TextAreaFor(m => m.Description, new { @rows = 5, @class = "form-control" })
+@*  @Html.ValidationMessageFor(m => m.Description, "", @class = "text-danger")*@
+</div>
+
+@Html.HiddenFor(m => m.OrderId)
+@Html.HiddenFor(m => m.ExpertId)
+@Html.HiddenFor(m => m.StatusId)
+@Html.HiddenFor(m => m.CustomerId)
+@Html.HiddenFor(m => m.CustomerName)
+@Html.HiddenFor(m => m.ServiceId)
+@Html.HiddenFor(m => m.ServiceName)
+
+
+<button type="submit" class="btn btn-primary">Submit Bid</button>
+</form>
+@*@section Scripts {
+  @Scripts.Render("@(Url.Content("~/lib/jquery.validate/jquery.validate.min.js"))")
+  @Scripts.Render("@(Url.Content("~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"))")
+}*@
+
+
+
+

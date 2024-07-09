@@ -13,12 +13,14 @@ namespace AchareLite.UI2.Controllers
         private readonly IExpertAppService _expertAppService;
         private readonly IServiceAppService _serviceAppService;
         private readonly IOrderAppService _orderAppService;
+        private readonly IBidAppService _bidAppService;
 
-        public Expert(IExpertAppService expertAppService, IServiceAppService serviceAppService, IOrderAppService orderAppService)
+        public Expert(IExpertAppService expertAppService, IServiceAppService serviceAppService, IOrderAppService orderAppService, IBidAppService bidAppService)
         {
             _expertAppService = expertAppService;
             _serviceAppService = serviceAppService;
             _orderAppService = orderAppService;
+            _bidAppService = bidAppService;
         }
         public ExpertProfileViewModel InputModel { get; set; }
         public class ExpertProfileViewModel
@@ -37,24 +39,28 @@ namespace AchareLite.UI2.Controllers
                 var availableServices = await _serviceAppService.GetAll(cancellationToken);
                 var orders = await _orderAppService.GetAll(cancellationToken);
                 var matchingOrders = orders.Where(o => expert.ServiceIds.Contains(o.ServiseId)).ToList();
-                //var selectedServiceIds = expert.ServiceIds ?? new List<int>();
-                //var orders = await _expertAppService.GetOrdersByExpertSevices(expert.ServiceIds, cancellationToken); // Get orders matching expert's services
-                //ViewData["expert"] = new ExpertProfileViewModel
-                //{
-                //    Expert = expert,
-                //    AvailableServices = availableServices,
-                //    SelectedServiceIds = selectedServiceIds,
-                //    Orders = orders
-                //};
                 ViewData["expert"] = expert;
                 ViewData["availableServices"] = availableServices;
                 ViewData["orders"] = matchingOrders;
                 return View();
             }
-             
             return NotFound(); // Handle case ******* ********** *****
-
         }
+        public async Task<IActionResult> ShowAcceptedBids(CancellationToken cancellationToken)
+        {
+            int expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
+            List<BidDto> expertBids = await _bidAppService.GetAll(expertId, cancellationToken);
+            List<BidDto> acceptedBids = expertBids.Where(bid => bid.StatusId == 1).ToList();
+            List<OrderDto> allOrders = await _orderAppService.GetAll(cancellationToken);
+            List<OrderDto> ordersForExpert = allOrders
+                .Where(order => acceptedBids.Any(bid => bid.OrderId == order.Id))
+                .ToList();
+            ViewData["acceptedBids"] = acceptedBids;
+            ViewData["ordersForExpert"] = ordersForExpert;
+            return View();
+        }
+
+
         public async Task<IActionResult> UpdateExpertInformation(ExpertDto model, CancellationToken cancellationToken)
         {
             if (model != null)
@@ -62,7 +68,7 @@ namespace AchareLite.UI2.Controllers
                 var updated = await _expertAppService.Update(model, cancellationToken);
                 if (updated)
                 {
-                    return RedirectToAction("ShowExpertProfile", "Expert"); /*await _expertAppService.GetById(model.Id, cancellationToken); // Return the updated expert*/
+                    return RedirectToAction("ShowExpertProfile", "Expert"); 
                 }
             }
 

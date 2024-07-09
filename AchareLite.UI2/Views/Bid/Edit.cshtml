@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_ExpertLayout.cshtml";
+}
+@{
+    var bid = ViewData["editBidDto"] as AchareLite.UI2.Controllers.Bid.ExpertServicePriceViewModel;
+}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Orders</h2>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>ServiceName</th>
+                    <th>Customer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@bid.OrderTitle</td>
+                    <td>@bid.ServiceName</td>
+                    <td>@bid.CustomerName</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<h2>Suggest Price and Description for Bid</h2>
+<form asp-controller="Bid" asp-action="CreateConfirm">
+<div class="form-group">
+  @Html.LabelFor(m => bid.Price, bid.Price.ToString())
+  @Html.TextBoxFor(m => bid.Price, new { @type = "number", @class = "form-control" })
+@*  @Html.ValidationMessageFor(m => m.Price, "", @class = "text-danger")*@
+</div>
+
+<div class="form-group">
+  @Html.LabelFor(m => bid.Description, "Description of Work:")
+  @Html.TextAreaFor(m => bid.Description, new { @rows = 5, @class = "form-control" })
+@*  @Html.ValidationMessageFor(m => m.Description, "", @class = "text-danger")*@
+</div>
+
+@Html.HiddenFor(m => bid.OrderId)
+@Html.HiddenFor(m => bid.ExpertId)
+@Html.HiddenFor(m => bid.StatusId)
+@Html.HiddenFor(m => bid.CustomerId)
+@Html.HiddenFor(m => bid.ServiceId)
+<button type="submit" class="btn btn-primary">Submit Bid</button>
+</form>

@@ -22,18 +22,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllersWithViews();
+//MainCategory
 builder.Services.AddScoped<IMainCategoryRepository, MainCategoryRepository>();
-builder.Services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
-builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IMainCategoryService, MainCategoryService>();
-builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
-builder.Services.AddScoped<IServiceService, ServiceService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IMainCategoryAppService, MainCategoryAppService>();
+//SubCategory
+builder.Services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
 builder.Services.AddScoped<ISubCategoryAppService, SubCategoryAppService>();
+//Service
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IServiceAppService, ServiceAppService>();
+//Account
 builder.Services.AddScoped<IAccountAppService, AccountAppService>();
+//Order
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderAppService, OrderAppService>();
 // Comment
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
@@ -51,7 +56,10 @@ builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
 builder.Services.AddScoped<IExpertRepository, ExpertRepository>();
 builder.Services.AddScoped<IExpertService, ExpertService>();
 builder.Services.AddScoped<IExpertAppService, ExpertAppService>();
-
+//Bid
+builder.Services.AddScoped<IBidRepository, BidRepository>();
+builder.Services.AddScoped<IBidService, BidService>();
+builder.Services.AddScoped<IBidAppService, BidAppService>();
 
 
 

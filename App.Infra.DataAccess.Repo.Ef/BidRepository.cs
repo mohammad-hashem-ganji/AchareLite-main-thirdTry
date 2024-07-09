@@ -1,4 +1,5 @@
-﻿using App.Domain.Core.OrderAgg.DTOs;
+﻿using App.Domain.Core.OrderAgg.Data.Repositories;
+using App.Domain.Core.OrderAgg.DTOs;
 using App.Domain.Core.OrderAgg.Entities;
 using App.Infra.DB.SqlServer.EF.DB_Achare.Ef;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace App.Infra.DataAccess.Repo.Ef
 {
-    public class BidRepository
+    public class BidRepository : IBidRepository
     {
         private readonly AchareDbContext _dbContext;
 
@@ -46,7 +47,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                 await _dbContext.SaveChangesAsync(cancellationToken);
             }
         }
-        public async Task<List<BidDto>> GetAll(CancellationToken cancellationToken)
+        public async Task<List<BidDto>> GetAll(int expertId, CancellationToken cancellationToken)
         {
             List<BidDto> bid = await _dbContext.Bids
                  .Select(x => new BidDto
@@ -55,7 +56,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                      ExpertId = x.ExpertId,
                      ExprtSujestFee = x.ExprtSujestFee,
                      StatusId = x.StatusId
-                 }).ToListAsync(cancellationToken);
+                 }).Where(b => b.ExpertId == expertId).ToListAsync(cancellationToken);
             return bid;
         }
         public async Task<(BidDto?, bool)> GetById(int bidId, CancellationToken cancellationToken)
@@ -69,6 +70,30 @@ namespace App.Infra.DataAccess.Repo.Ef
                     StatusId = x.StatusId
                 }).FirstOrDefaultAsync(b => b.Id == bidId, cancellationToken);
             return (bid != null) ? (bid, true) : (null, false);
+        }
+        public async Task<bool> Update(BidDto bidDto, CancellationToken cancellationToken)
+        {
+            var bid = await _dbContext.Bids
+                .FirstOrDefaultAsync(x => x.Id == bidDto.Id, cancellationToken);
+            var expert = await _dbContext.Experts
+                .FirstOrDefaultAsync(x => x.Id == bidDto.ExpertId);
+            var order = await _dbContext.Orders
+                .FirstOrDefaultAsync(x => x.Id == bidDto.OrderId);
+            if (bid != null)
+            {
+                bid.ExpertId = bidDto.ExpertId;
+                bid.Expert = expert;
+                bid.OrderId = bidDto.OrderId;
+                bid.Order = order;
+                bid.ExprtSujestFee = bidDto.ExprtSujestFee;
+                bid.StatusId = bidDto.StatusId;
+                bid.Status = (Status)bidDto.StatusId;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

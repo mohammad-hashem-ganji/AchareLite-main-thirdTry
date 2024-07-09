@@ -1,0 +1,18 @@
+﻿using App.Domain.Core.OrderAgg.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace App.Domain.Core.OrderAgg.AppServices
+{
+    public interface IBidAppService
+    {
+        Task Create(BidDto bid, CancellationToken cancellationToken);
+        Task Delete(int id, CancellationToken cancellationToken);
+        Task<List<BidDto>> GetAll(int expertId, CancellationToken cancellationToken);
+        Task<(BidDto?, bool)> GetById(int bidId, CancellationToken cancellationToken);
+        Task<bool> Update(BidDto bidDto, CancellationToken cancellationToken);
+    }
+}
