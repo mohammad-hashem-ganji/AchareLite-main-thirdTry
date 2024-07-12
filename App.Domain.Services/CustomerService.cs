@@ -42,5 +42,9 @@ namespace App.Domain.Services
                 return "مشتری پیدا نشد";
             }
         }
+        public async Task<bool> Update(CustomerDto customerDto, CancellationToken cancellationToken)
+        {
+            return await _customerRepository.Update(customerDto, cancellationToken);
+        }
     }
 }

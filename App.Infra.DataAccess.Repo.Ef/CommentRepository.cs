@@ -93,7 +93,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                     Score = c.Score,
                     Text = c.Text
                 })
-                .Where(comment => comment.ExpertId == expertId)
+                .Where(comment => comment.ExpertId == expertId && comment.IsAccept == true)
                 .ToListAsync(cancellationToken);
             return comments!;
         }

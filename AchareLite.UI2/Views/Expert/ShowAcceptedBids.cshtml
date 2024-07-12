@@ -1,5 +1,4 @@
-﻿
-@using App.Domain.Core.OrderAgg.Entities;
+﻿@using App.Domain.Core.OrderAgg.Entities;
 @{
     ViewData["Title"] = "ShowAcceptedBids";
     Layout = "~/Views/Shared/_ExpertLayout.cshtml";
@@ -7,7 +6,7 @@
 <h2>ShowBids</h2>
 @{
     ViewData["Title"] = "Expert Orders and Bids";
-    var expertBids = ViewData["expertBids"] as List<App.Domain.Core.OrderAgg.DTOs.BidDto>;
+    var acceptedBids = ViewData["acceptedBids"] as List<App.Domain.Core.OrderAgg.DTOs.BidDto>;
     var ordersForExpert = ViewData["ordersForExpert"] as List<App.Domain.Core.OrderAgg.DTOs.OrderDto>;
 }
 <h2>Expert Orders and Bids</h2>
@@ -21,9 +20,10 @@
             <p>Service: @order.ServiceName</p>
             <p>Customer: @order.CustomerName</p>
 
-            <h4>Bids:</h4>
-           @{var bidsForOrder = expertBids.Where(b => b.OrderId == order.Id).ToList();}
-            if (bidsForOrder != null && bidsForOrder.Count > 0)
+            <h4>Bid:</h4>
+           @{var bidsForOrder = acceptedBids.Where(b => b.OrderId == order.Id).ToList();}
+           @{
+           if (bidsForOrder != null && bidsForOrder.Count > 0 )
             {
                 <ul>
                     @foreach (var bid in bidsForOrder)
@@ -32,9 +32,9 @@
                             <p>
                                 Suggested Fee: @bid.ExprtSujestFee<br />
                                 Description: @bid.Description<br />
-                                Status: @(Status)bid.StatusId
+                                Status: @Enum.GetName(typeof(Status), bid.StatusId )
                             </p>                            
-                            <!-- Update Form -->
+@*                            <!-- Update Form -->
                             <form method="post" asp-action="Update" asp-controller="Bid">
                                 <input type="hidden" name="bidId" value="@bid.Id" />
                                 <label for="newSuggestedFee">New Suggested Fee:</label>
@@ -49,7 +49,7 @@
                             <form method="post" asp-action="Delete" asp-controller="Bid">
                                 <input type="hidden" name="bidId" value="@bid.Id" />
                                 <button type="submit">Delete</button>
-                            </form>
+                            </form>*@
                         </li>
                     }
                 </ul>
@@ -57,7 +57,7 @@
             else
             {
                 <p>No bids for this order.</p>
-            }
+            }}
         </div>
     }
 }

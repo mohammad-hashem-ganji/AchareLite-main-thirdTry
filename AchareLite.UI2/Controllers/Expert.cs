@@ -50,7 +50,7 @@ namespace AchareLite.UI2.Controllers
         {
             int expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
             List<BidDto> expertBids = await _bidAppService.GetAll(expertId, cancellationToken);
-            List<BidDto> acceptedBids = expertBids.Where(bid => bid.StatusId == 1).ToList();
+            List<BidDto> acceptedBids = expertBids.Where(bid => bid.StatusId == 4).ToList();
             List<OrderDto> allOrders = await _orderAppService.GetAll(cancellationToken);
             List<OrderDto> ordersForExpert = allOrders
                 .Where(order => acceptedBids.Any(bid => bid.OrderId == order.Id))
@@ -59,8 +59,19 @@ namespace AchareLite.UI2.Controllers
             ViewData["ordersForExpert"] = ordersForExpert;
             return View();
         }
-
-
+        public async Task<IActionResult> ShowPendingBids(CancellationToken cancellationToken)
+        {
+            int expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
+            List<BidDto> expertBids = await _bidAppService.GetAll(expertId, cancellationToken);
+            List<BidDto> pendingBids = expertBids.Where(bid => bid.StatusId == 1).ToList();
+            List<OrderDto> allOrders = await _orderAppService.GetAll(cancellationToken);
+            List<OrderDto> ordersForExpert = allOrders
+                .Where(order => pendingBids.Any(bid => bid.OrderId == order.Id))
+                .ToList();
+            ViewData["acceptedBids"] = pendingBids;
+            ViewData["ordersForExpert"] = ordersForExpert;
+            return View();
+        }
         public async Task<IActionResult> UpdateExpertInformation(ExpertDto model, CancellationToken cancellationToken)
         {
             if (model != null)

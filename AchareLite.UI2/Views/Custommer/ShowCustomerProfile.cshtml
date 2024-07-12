@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "ShowCustomerProfile";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>ShowCustomerProfile</h2>
+
+@model App.Domain.Core.Member.DTOs.CustomerDto
+
+
+<h2>Edit Profile</h2>
+
+<form asp-action="EditProfile" method="post" enctype="multipart/form-data">
+    @*@Html.AntiForgeryToken()*@
+
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NCode" class="control-label"></label>
+        <input asp-for="NCode" class="form-control" />
+        <span asp-validation-for="NCode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Mobile" class="control-label"></label>
+        <input asp-for="Mobile" class="form-control" />
+        <span asp-validation-for="Mobile" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image" class="control-label">Profile Image</label>
+        <input type="file" asp-for="Image" class="form-control" />
+        
+        @if (Model.ImageData != null && Model.ImageData.Length > 0)
+        {
+            <img width="150" src="@($"data:image/jpeg;base64,{Convert.ToBase64String(@Model.ImageData)}")" alt="Profile Image" />
+        }
+    </div>
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

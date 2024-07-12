@@ -87,6 +87,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                         }
                     }
                 }
+                _dbContext.Update(expert);
                 await _dbContext.SaveChangesAsync(cancellationToken);
                 return true;
             }

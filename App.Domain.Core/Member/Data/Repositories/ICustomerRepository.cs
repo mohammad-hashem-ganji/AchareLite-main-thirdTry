@@ -10,5 +10,6 @@ namespace App.Domain.Core.Member.Data.Repositories
     public interface ICustomerRepository
     {
         Task<CustomerDto> GetById(int id, CancellationToken cancellationToken);
+        Task<bool> Update(CustomerDto customerDto, CancellationToken cancellationToken);
     }
 }

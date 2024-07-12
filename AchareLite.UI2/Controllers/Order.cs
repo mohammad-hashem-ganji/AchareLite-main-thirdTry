@@ -26,9 +26,9 @@ namespace AchareLite.UI2.Controllers
             _orderAppService = orderAppService;
             _serviceAppService = serviceAppService;
         }
-        public async Task<IActionResult> ShowListOfOrders(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> ShowListOfOrders(int customerId, CancellationToken cancellationToken)
         {
-            List<OrderDto>? orders = await _orderAppService.GetCustomerOrders(id, cancellationToken);
+            List<OrderDto>? orders = await _orderAppService.GetCustomerOrders(customerId, cancellationToken);
             ViewData["orders"] = orders;
             return View();
         }

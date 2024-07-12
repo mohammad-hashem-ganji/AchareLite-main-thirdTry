@@ -26,5 +26,9 @@ public CustomerAppService(ICustomerService customerService)
         {
             return await _customerService.GetCustomerName(customerId, cancellationToken);
         }
+        public async Task<bool> Update(CustomerDto customerDto, CancellationToken cancellationToken)
+        {
+            return await _customerService.Update(customerDto, cancellationToken);
+        }
     }
 }

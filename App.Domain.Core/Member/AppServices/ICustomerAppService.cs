@@ -11,5 +11,6 @@ namespace App.Domain.Core.Member.AppServices
     {
         Task<CustomerDto> GetById(int id, CancellationToken cancellationToken);
         Task<string> GetCustomerName(int customerId, CancellationToken cancellationToken);
+        Task<bool> Update(CustomerDto customerDto, CancellationToken cancellationToken);
     }
 }

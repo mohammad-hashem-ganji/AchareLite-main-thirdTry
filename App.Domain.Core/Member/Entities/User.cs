@@ -15,6 +15,7 @@ namespace App.Domain.Core.Member.Entities
         public bool IsDeleted { get; set; } = false;
         public int? Gender { get; set; }
         public Address Address { get; set; }
+        public byte[]? Image { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public int ApplicationUserId { get; set; }
     }
