@@ -32,8 +32,8 @@ namespace App.Infra.DataAccess.Repo.Ef
                     ExpertId = bid.ExpertId,
                     Expert = expert,
                     ExprtSujestFee = bid.ExprtSujestFee,
-                    Status = Status.Pending,
-                    StatusId = (int)Status.Pending
+                    Status = Status.WaitingForCustomer,
+                    StatusId = (int)Status.WaitingForCustomer
                 });
                 await _dbContext.SaveChangesAsync(cancellationToken);
             }

@@ -1,4 +1,6 @@
-﻿using App.Domain.Core.OrderAgg.AppServices;
+﻿using App.Domain.Core.CategoryService.AppServices;
+using App.Domain.Core.Member.AppServices;
+using App.Domain.Core.OrderAgg.AppServices;
 using App.Domain.Core.OrderAgg.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +11,8 @@ namespace AchareLite.UI2.Controllers
     {
         private readonly IBidAppService _bidAppService;
         private readonly IOrderAppService _orderAppService;
+        private readonly IServiceAppService _serviceAppService;
+        private readonly ICustomerAppService _customerAppService;
         //public ExpertServicePriceViewModel Input { get; set; }
         [BindProperties]
         public class ExpertServicePriceViewModel
@@ -28,27 +32,26 @@ namespace AchareLite.UI2.Controllers
             public int StatusId { get; set; }
 
         }
-        public Bid(IBidAppService bidAppService, IOrderAppService orderAppService)
+        public Bid(IBidAppService bidAppService, IOrderAppService orderAppService, IServiceAppService serviceAppService, ICustomerAppService customerAppService)
         {
             _bidAppService = bidAppService;
             _orderAppService = orderAppService;
+            _serviceAppService = serviceAppService;
+            _customerAppService = customerAppService;
         }
         public async Task<IActionResult> Create(int orderId, CancellationToken cancellationToken)
         {
             var order = await _orderAppService.GetById(orderId, cancellationToken);
-            //if (order.Item2 == false)
-            //{
-            //    return NotFound(); 
-            //}
             var bidViewModel = new ExpertServicePriceViewModel
             {
-                OrderId = order.Item1.Id, 
+                OrderId = order.Item1.Id,
+                OrderTitle = order.Item1.Title,
                 CustomerId = order.Item1.CustomerId,
                 StatusId = order.Item1.StatusId,
                 ExpertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value),
-                ServiceId = order.Item1.ServiseId, 
-                ServiceName = order.Item1.ServiceName,
-                CustomerName = order.Item1.CustomerName
+                ServiceId = order.Item1.ServiseId,
+                ServiceName = await _serviceAppService.GetServiceName(order.Item1.ServiseId, cancellationToken),
+                CustomerName = await _customerAppService.GetCustomerName(order.Item1.CustomerId, cancellationToken)
             };
             return View(bidViewModel);
         }
@@ -78,7 +81,7 @@ namespace AchareLite.UI2.Controllers
                 ServiceId = order.Item1.ServiseId,
                 ServiceName = order.Item1.ServiceName,
                 CustomerName = order.Item1.CustomerName,
-                Bidid = bidDto.Item1.Id, 
+                Bidid = bidDto.Item1.Id,
                 Description = bidDto.Item1.Description,
                 Price = bidDto.Item1.ExprtSujestFee
             };

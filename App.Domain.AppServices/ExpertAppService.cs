@@ -1,6 +1,7 @@
 ﻿using App.Domain.Core.Member.AppServices;
 using App.Domain.Core.Member.DTOs;
 using App.Domain.Core.Member.Services;
+using App.Domain.Core.OrderAgg.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,10 @@ namespace App.Domain.AppServices
         public async Task<bool> Update(ExpertDto model, CancellationToken cancellationToken)
         {
             return await _expertService.Update(model, cancellationToken);
+        }
+       public async Task<(List<BidDto>, List<OrderDto>)> ShowBidInDifferentStatus(int expertId, int statusId, CancellationToken cancellationToken)
+        {
+            return await _expertService.ShowBidInDifferentStatus(expertId,statusId, cancellationToken);
         }
     }
 }

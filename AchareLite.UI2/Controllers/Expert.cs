@@ -4,6 +4,7 @@ using App.Domain.Core.Member.AppServices;
 using App.Domain.Core.Member.DTOs;
 using App.Domain.Core.OrderAgg.AppServices;
 using App.Domain.Core.OrderAgg.DTOs;
+using App.Domain.Core.OrderAgg.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AchareLite.UI2.Controllers
@@ -38,7 +39,7 @@ namespace AchareLite.UI2.Controllers
             {
                 var availableServices = await _serviceAppService.GetAll(cancellationToken);
                 var orders = await _orderAppService.GetAll(cancellationToken);
-                var matchingOrders = orders.Where(o => expert.ServiceIds.Contains(o.ServiseId)).ToList();
+                var matchingOrders = orders.Where(o => expert.ServiceIds.Contains(o.ServiseId) && o.StatusId == (int)Status.Pending).ToList();
                 ViewData["expert"] = expert;
                 ViewData["availableServices"] = availableServices;
                 ViewData["orders"] = matchingOrders;
@@ -49,27 +50,19 @@ namespace AchareLite.UI2.Controllers
         public async Task<IActionResult> ShowAcceptedBids(CancellationToken cancellationToken)
         {
             int expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
-            List<BidDto> expertBids = await _bidAppService.GetAll(expertId, cancellationToken);
-            List<BidDto> acceptedBids = expertBids.Where(bid => bid.StatusId == 4).ToList();
-            List<OrderDto> allOrders = await _orderAppService.GetAll(cancellationToken);
-            List<OrderDto> ordersForExpert = allOrders
-                .Where(order => acceptedBids.Any(bid => bid.OrderId == order.Id))
-                .ToList();
-            ViewData["acceptedBids"] = acceptedBids;
-            ViewData["ordersForExpert"] = ordersForExpert;
+            var acceptedBids = await _expertAppService
+                .ShowBidInDifferentStatus(expertId, (int)Status.accepted, cancellationToken);
+            ViewData["acceptedBids"] = acceptedBids.Item1;
+            ViewData["ordersForExpert"] = acceptedBids.Item2;
             return View();
         }
-        public async Task<IActionResult> ShowPendingBids(CancellationToken cancellationToken)
+        public async Task<IActionResult> ShowWaitingForCustomerBids(CancellationToken cancellationToken)
         {
             int expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
-            List<BidDto> expertBids = await _bidAppService.GetAll(expertId, cancellationToken);
-            List<BidDto> pendingBids = expertBids.Where(bid => bid.StatusId == 1).ToList();
-            List<OrderDto> allOrders = await _orderAppService.GetAll(cancellationToken);
-            List<OrderDto> ordersForExpert = allOrders
-                .Where(order => pendingBids.Any(bid => bid.OrderId == order.Id))
-                .ToList();
-            ViewData["acceptedBids"] = pendingBids;
-            ViewData["ordersForExpert"] = ordersForExpert;
+            var pendingBids = await _expertAppService
+                .ShowBidInDifferentStatus(expertId, (int)Status.WaitingForCustomer, cancellationToken);
+            ViewData["acceptedBids"] = pendingBids.Item1;
+            ViewData["ordersForExpert"] = pendingBids.Item2;
             return View();
         }
         public async Task<IActionResult> UpdateExpertInformation(ExpertDto model, CancellationToken cancellationToken)

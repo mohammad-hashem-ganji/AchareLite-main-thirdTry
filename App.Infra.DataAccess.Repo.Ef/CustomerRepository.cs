@@ -20,7 +20,7 @@ namespace App.Infra.DataAccess.Repo.Ef
         {
             _dbContext = dbContext;
         }
-        public async Task<CustomerDto> GetById(int id, CancellationToken cancellationToken)
+        public async Task<CustomerDto> GetById(int customerId, CancellationToken cancellationToken)
         {
             CustomerDto? customer = await _dbContext.Customers
                 .Include(a => a.Orders)
@@ -32,10 +32,14 @@ namespace App.Infra.DataAccess.Repo.Ef
                     ApplicationUserId = x.ApplicationUserId,
                     NCode = x.NCode,
                     OrderIds = x.Orders.Select(x => x.Id).ToList(),
-                    ImageData = x.Image.ToArray()
-                }).FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
+                    ImageData = x.Image!,
+                    Mobile = x.Mobile
+                }).FirstOrDefaultAsync(m => m.Id == customerId, cancellationToken);
+            if (customer?.ImageData != null)
+            {
+                customer.ExistingImageBase64 = Convert.ToBase64String(customer.ImageData);
+            }
             return (customer == null) ? null! : customer;
-
         }
         public async Task<bool> Update(CustomerDto customerDto, CancellationToken cancellationToken)
         {
@@ -86,6 +90,23 @@ namespace App.Infra.DataAccess.Repo.Ef
             {
                 return false;
             }
+            //// Update address
+            //var address = customerEntity.Address ?? new Address();
+            //address.Street = customerDto.Street;
+            //address.PostalCode = customerDto.PostalCode;
+            //address.CityId = customerDto.CityId;
+
+            //// Save changes to the database
+            //await _customerRepository.Update(customerEntity, cancellationToken);
+            //if (address.Id == 0)
+            //{
+            //    address.UserId = customerEntity.Id;
+            //    await _addressRepository.Add(address, cancellationToken);
+            //}
+            //else
+            //{
+            //    await _addressRepository.Update(address, cancellationToken);
+            //}
 
         }  
     }

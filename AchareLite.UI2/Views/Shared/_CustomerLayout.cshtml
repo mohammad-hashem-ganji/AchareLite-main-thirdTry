@@ -1,8 +1,7 @@
 ﻿@*@using Framework*@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl" class="rtl">
-@using App.Domain.Core.CategoryService.AppServices
-@inject IMainCategoryAppService MainCategoryAppService
+
 <!-- Mirrored from www.rayanik.com/demo/modiran/light/blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 May 2022 15:30:57 GMT -->
 <head>
     <title>مدیر</title>
@@ -67,13 +66,28 @@
                         </a>
                     </li>
 
-
-                    <li class="dropdown dropdown-user">
-                        <a href="#" class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">
+@*                        <a href="#" class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">
                                         <img src="" alt="عکس پرفایل" class="img-circle img-responsive">
                                         <span></span>
                                         <i class="icon-arrow-down"></i>
-                                    </a>
+                                    </a>*@
+                    <li class="dropdown dropdown-user">
+                   @{
+                        var existingImageBase64 = ViewData["ExistingImageBase64"] as string;
+                    }
+                        <a class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">
+                                        @*<img src="@RenderSection("ExistingImageBase64", required: false)"  alt="عکس پرفایل" class="img-circle img-responsive">*@
+                        @{if (!string.IsNullOrEmpty(@existingImageBase64))
+                        {
+                            <img src="@($"data:image/jpeg;base64,{@existingImageBase64}")" alt="Profile Photo" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" class="img-circle img-responsive">
+                        }}
+                        @{else
+                        {
+                            <img src="" alt="Profile Photo" class="img-circle img-responsive">
+                        }}
+                        <span></span>
+                        <i class="icon-arrow-down"></i>
+                        </a>
                         <ul class="dropdown-menu">
 @*                            <li>
                                             <a href="edit_profile.html">
@@ -123,12 +137,12 @@
         <div id="sidebar">
             <div class="side-menu-container">
                 <ul class="metismenu" id="side-menu">
-                   <li>
+@*                   <li>
                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">  <i class="icon-home"></i>
                            <span>لیست کتگًری</span>
                        </a>
                         <ul class="dropdown-menu">  
-                               @foreach (var category in await @MainCategoryAppService.GetAll(default))
+                               @foreach (var category in await @CustomerAppService.GetCustomerProfilePhoto(int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userCustomerId").Value)))
                                 {
                                       <li>
                                           <a asp-action="ShowListOfSubCategoriesWhitMianCategoryId" asp-controller="SubCategory" asp-route-id="@category.Id" class="">
@@ -138,7 +152,7 @@
                                       </li>
                                 }
                          </ul>
-                    </li>
+                    </li>*@
                     <li>
                         <a href="#" class="dropdown-toggle">
                             <i class="icon-home"></i>

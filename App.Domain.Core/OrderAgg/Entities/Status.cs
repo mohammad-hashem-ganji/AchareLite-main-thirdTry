@@ -6,6 +6,6 @@
         InProgress = 2,
         Completed = 3,
         accepted = 4,
-
+        WaitingForCustomer = 5,
     }
 }

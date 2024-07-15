@@ -46,7 +46,7 @@ namespace AchareLite.UI2.Controllers
         public async Task<IActionResult> AddOrder(string title,int customerId, int serviceId, CancellationToken cancellationToken)
         {
             await _orderAppService.Create(title, serviceId, cancellationToken, customerId);
-            return RedirectToAction("ShowListOfOrders", "Order", new {id = customerId, cancellationToken});
+            return RedirectToAction("ShowListOfOrders", "Order", new { customerId = customerId, cancellationToken});
         }
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {

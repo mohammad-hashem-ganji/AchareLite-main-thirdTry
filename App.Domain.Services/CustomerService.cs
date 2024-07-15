@@ -1,5 +1,6 @@
 ﻿using App.Domain.Core.Member.Data.Repositories;
 using App.Domain.Core.Member.DTOs;
+//using App.Domain.Core.Member.Entities;
 using App.Domain.Core.Member.Services;
 using System;
 using System.Collections.Generic;
@@ -46,5 +47,6 @@ namespace App.Domain.Services
         {
             return await _customerRepository.Update(customerDto, cancellationToken);
         }
+
     }
 }
