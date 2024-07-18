@@ -1,0 +1,43 @@
+﻿@model List<App.Domain.Core.OrderAgg.DTOs.BidDto>
+@using App.Domain.Core.OrderAgg.Entities
+@{
+    ViewData["Title"] = "GetBidsByOrderId";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>GetBidsByOrderId</h2>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Expert Suggest Fee</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var bid in Model)
+    {
+        <tr>
+            <td>@bid.ExprtSujestFee</td>
+            <td>@bid.Description</td>
+            <td>@((Status)bid.StatusId)</td>
+            <td>
+                @if (bid.StatusId == (int)Status.WaitingForCustomer)
+                {
+                    <form asp-action="AcceptBid" method="post">
+                        <input type="hidden" name="bidId" value="@bid.Id" />
+                        <button type="submit" class="btn btn-primary">Accept</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

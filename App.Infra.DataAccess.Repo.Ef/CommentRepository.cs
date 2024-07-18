@@ -20,20 +20,20 @@ namespace App.Infra.DataAccess.Repo.Ef
             _dbContext = dbContext;
         }
 
-        public async Task Create(CancellationToken cancellationToken, string text, int scor = 0, bool isAccept = false, int expertId = 0, int customerId = 0)
+        public async Task Create(CommentDto comment,CancellationToken cancellationToken)
         {
-            var expert = await _dbContext.Experts.FirstOrDefaultAsync(x => x.Id == expertId);
-            var customer = await _dbContext.Customers.FirstOrDefaultAsync(c => c.Id == customerId);
+            var expert = await _dbContext.Experts.FirstOrDefaultAsync(x => x.Id == comment.ExpertId);
+            var customer = await _dbContext.Customers.FirstOrDefaultAsync(c => c.Id == comment.CustomerId);
             if (expert != null && customer != null)
             {
                 _dbContext.Comments.Add(new Comment
                 {
-                    Text = text,
-                    Score = scor,
-                    IsAccept = isAccept,
-                    ExpertId = expertId,
+                    Text = comment.Text,
+                    Score = comment.Score,
+                    IsAccept = comment.IsAccept,
+                    ExpertId = comment.ExpertId,
                     Expert = expert,
-                    CustomerId = customerId,
+                    CustomerId = comment.CustomerId,
                     Customer = customer
                 });
                 await _dbContext.SaveChangesAsync();

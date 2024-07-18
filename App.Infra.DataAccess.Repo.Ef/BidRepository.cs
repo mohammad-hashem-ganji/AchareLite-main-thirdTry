@@ -95,6 +95,20 @@ namespace App.Infra.DataAccess.Repo.Ef
                 return false;
             }
         }
+        public async Task<List<BidDto>> GetBidsByOrderId(int orderId,int statusId, CancellationToken cancellationToken)
+        {
+            return await _dbContext.Bids
+                .Where(b => b.OrderId == orderId && b.StatusId == statusId)
+                .Select(b => new BidDto
+                {
+                    Id = b.Id,
+                    ExprtSujestFee = b.ExprtSujestFee,
+                    Description = b.Description,
+                    OrderId = b.OrderId,
+                    ExpertId = b.ExpertId,
+                    StatusId = b.StatusId
+                }).ToListAsync(cancellationToken);
+        }
     }
 }
 //public int Id { get; set; }

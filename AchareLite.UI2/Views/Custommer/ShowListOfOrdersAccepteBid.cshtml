@@ -1,0 +1,60 @@
+﻿@using App.Domain.Core.OrderAgg.DTOs
+@using App.Domain.Core.OrderAgg.Entities
+@{
+    ViewData["Title"] = "ShowListOfOrdersAccepteBid";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+@{
+    var orders = ViewData["orders"] as List<OrderDto>;
+}
+<h2>ShowListOfOrdersAccepteBid</h2>
+@{
+    if (orders == null)
+    {
+        <h3>هنوز درخواستی پذیرفته نشده</h3>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order Title</th>
+                    <th>Service Name</th>
+                    <th>Status</th>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in orders)
+                {
+                    <tr>
+                        <td>@order.Title</td>
+                        <td>@order.ServiceName</td>
+                        <td>@((Status)order.StatusId)</td>
+                        <td>
+                            <form asp-action="AddComment" method="post">
+                                <input type="hidden" name="OrderId" value="@order.Id" />
+                                <input type="hidden" name="ExpertId" value="@order.BidsId" />
+                                <input type="hidden" name="ExpertName" value="@order.ServiceName" /> 
+                                <div class="form-group">
+                                    <label for="Text">Comment</label>
+                                    <textarea name="Text" class="form-control" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Score">Score</label>
+                                    <input type="number" name="Score" class="form-control" min="1" max="5" required />
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+
+
+
+@*<a asp-action="ShowAcceptedOrders" asp-controller="Custommer" asp-route-customerId="@User.Claims.FirstOrDefault(c => c.Type == "userCustomerId")?.Value">View Accepted Orders</a>*@

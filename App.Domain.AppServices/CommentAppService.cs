@@ -18,9 +18,9 @@ namespace App.Domain.AppServices
             _commentService = commentService;
         }
 
-        public async Task Create(CancellationToken cancellationToken, string text, int scor = 0, bool isAccept = false, int expertId = 0, int customerId = 0)
+        public async Task Create(CommentDto comment, CancellationToken cancellationToken)
         {
-            await _commentService.Create(cancellationToken, text, scor, isAccept, expertId, customerId);
+            await _commentService.Create(comment, cancellationToken);
         }
 
         public async Task Delete(int id, CancellationToken cancellationToken)

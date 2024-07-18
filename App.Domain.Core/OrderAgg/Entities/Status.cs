@@ -7,5 +7,6 @@
         Completed = 3,
         accepted = 4,
         WaitingForCustomer = 5,
+        unAccepted = 6,
     }
 }

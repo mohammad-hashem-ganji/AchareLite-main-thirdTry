@@ -76,6 +76,10 @@ namespace App.Domain.AppServices
             }
             
         }
+        public async Task<List<OrderDto>> GetOrdersAcceptedBids(int customerId, CancellationToken cancellationToken)
+        {
+            return await _orderService.GetOrdersAcceptedBids(customerId, cancellationToken);
+        }
 
     }
 }

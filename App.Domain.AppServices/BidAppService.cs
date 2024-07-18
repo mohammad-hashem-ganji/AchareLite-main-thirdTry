@@ -33,6 +33,11 @@ namespace App.Domain.AppServices
             return await _bidService.GetAll(expertId,cancellationToken);
         }
 
+        public async Task<List<BidDto>> GetBidsByOrderId(int orderId, int statusId, CancellationToken cancellationToken)
+        {
+            return await _bidService.GetBidsByOrderId(orderId,statusId, cancellationToken);
+        }
+
         public async Task<(BidDto?, bool)> GetById(int bidId, CancellationToken cancellationToken)
         {
             return await _bidService.GetById(bidId, cancellationToken);

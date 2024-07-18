@@ -25,9 +25,9 @@ namespace App.Domain.Services
             _expertService = expertService;
         }
 
-        public async Task Create(CancellationToken cancellationToken, string text, int scor = 0, bool isAccept = false, int expertId = 0, int customerId = 0)
+        public async Task Create(CommentDto comment, CancellationToken cancellationToken)
         {
-            await _commentRepository.Create(cancellationToken, text, scor, isAccept, expertId, customerId);
+            await _commentRepository.Create( comment, cancellationToken);
         }
         public async Task Delete(int id, CancellationToken cancellationToken)
         {

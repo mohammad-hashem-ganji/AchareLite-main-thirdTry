@@ -1,6 +1,7 @@
 ﻿using App.Domain.Core.Member.Entities;
 using App.Domain.Core.OrderAgg.Data.Repositories;
 using App.Domain.Core.OrderAgg.DTOs;
+using App.Domain.Core.OrderAgg.Entities;
 using App.Domain.Core.OrderAgg.Services;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,23 @@ namespace App.Domain.Services
             orderDto.ServiseId = serviceId;
             orderDto.CustomerId = customerId;
             return orderDto;
+        }
+        public async Task<List<OrderDto>> GetOrdersAcceptedBids(int customerId, CancellationToken cancellationToken)
+        {
+            var orders = await _orderReposetory.GetCustomerOrders(customerId, cancellationToken);
+            var acceptedBids = orders.Where(o => o.CustomerId == customerId && o.StatusId == (int)Status.InProgress) 
+            .ToList();
+            return orders.Select(o => new OrderDto
+            {
+                Id = o.Id,
+                Title = o.Title,
+                ServiceName = o.ServiceName,
+                ServiseId = o.ServiseId,
+                StatusId = o.StatusId,
+                CustomerId = o.CustomerId,
+                BidsId = o.BidsId,
+                CustomerName = o.CustomerName,
+            }).ToList();
         }
     }
 }

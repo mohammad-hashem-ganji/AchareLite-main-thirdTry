@@ -14,5 +14,6 @@ namespace App.Domain.Core.OrderAgg.Services
         Task<List<BidDto>> GetAll(int expertId, CancellationToken cancellationToken);
         Task<(BidDto?, bool)> GetById(int bidId, CancellationToken cancellationToken);
         Task<bool> Update(BidDto bidDto, CancellationToken cancellationToken);
+        Task<List<BidDto>> GetBidsByOrderId(int orderId,int statusid, CancellationToken cancellationToken);
     }
 }

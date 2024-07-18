@@ -9,7 +9,7 @@ namespace App.Domain.Core.OrderAgg.AppServices
 {
     public interface ICommentAppService
     {
-        Task Create(CancellationToken cancellationToken, string text, int scor = 0, bool isAccept = false, int expertId = 0, int customerId = 0);
+        Task Create(CommentDto comment, CancellationToken cancellationToken);
         Task<List<CommentDto>> GetAll(CancellationToken cancellationToken);
         Task Delete(int id, CancellationToken cancellationToken);
         Task<(CommentDto?, bool)> GetById(int id, CancellationToken cancellationToken);
