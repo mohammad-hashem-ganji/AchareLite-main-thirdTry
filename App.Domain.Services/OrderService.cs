@@ -40,9 +40,9 @@ namespace App.Domain.Services
             return await _orderReposetory.GetById(id, cancellationToken);
         }
 
-        public async Task<List<OrderDto>?> GetCustomerOrders(int id, CancellationToken cancellationToken)
+        public async Task<List<OrderDto>?> GetCustomerOrders(int id,int bidStatusId, CancellationToken cancellationToken)
         {
-            return await _orderReposetory.GetCustomerOrders(id, cancellationToken);
+            return await _orderReposetory.GetCustomerOrders(id, bidStatusId, cancellationToken);
         }
 
         public async Task<bool> Update(OrderDto order, CancellationToken cancellationToken)
@@ -59,8 +59,8 @@ namespace App.Domain.Services
         }
         public async Task<List<OrderDto>> GetOrdersAcceptedBids(int customerId, CancellationToken cancellationToken)
         {
-            var orders = await _orderReposetory.GetCustomerOrders(customerId, cancellationToken);
-            var acceptedBids = orders.Where(o => o.CustomerId == customerId && o.StatusId == (int)Status.InProgress) 
+            var orders = await _orderReposetory.GetCustomerOrders(customerId,(int)Status.accepted, cancellationToken);
+            var acceptedBids = orders.Where(o => o.CustomerId == customerId && o.StatusId == (int)Status.InProgress ) 
             .ToList();
             return orders.Select(o => new OrderDto
             {

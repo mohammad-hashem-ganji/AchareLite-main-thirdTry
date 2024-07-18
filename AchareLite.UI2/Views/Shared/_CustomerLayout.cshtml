@@ -75,11 +75,10 @@
                    @{
                         var existingImageBase64 = ViewData["ExistingImageBase64"] as string;
                     }
-                        <a class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">
-                                        @*<img src="@RenderSection("ExistingImageBase64", required: false)"  alt="عکس پرفایل" class="img-circle img-responsive">*@
+                        <a class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">                                       
                         @{if (!string.IsNullOrEmpty(@existingImageBase64))
                         {
-                            <img src="@($"data:image/jpeg;base64,{@existingImageBase64}")" alt="Profile Photo" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" class="img-circle img-responsive">
+                            <img src="@($"data:image/jpeg;base64,{@existingImageBase64}")" alt="عکس پرفایل" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" class="img-circle img-responsive">
                         }}
                         @{else
                         {
@@ -160,9 +159,9 @@
                         </a>
                         <ul>
                             <li>
-                                <a asp-action="ShowPendingOrders" asp-controller="Admin" class="">
+                                <a asp-action="ShowListOfOrders" asp-controller="Order" class="">
                                     <i class="icon-home"></i>
-                                    <span> در انتظار</span>
+                                    <span> مشاهده درخواست ها</span>
                                 </a>
                             </li>
                             <li>
@@ -182,13 +181,13 @@
                     <li>
                         <a href="#" class="dropdown-toggle">
                             <i class="icon-frame"></i>
-                            <span>کامنت ها</span>
+                            <span>پیشنهاد ها</span>
                         </a>
                         <ul>
                             <li>
-                                <a href="forms.html" class="">
+                                <a asp-action="ShowAcceptedOrders" asp-controller="Custommer" asp-route-customerId="@User.Claims.FirstOrDefault(c => c.Type == "userCustomerId")?.Value" class="">
                                     <i class="icon-frame"></i>
-                                    <span>کامنت های تایید نشده</span>
+                                    <span>پیشنهاد های تایید شده</span>
                                 </a>
                             </li>
                         </ul>

@@ -31,7 +31,7 @@
             <td>
                 @if (bid.StatusId == (int)Status.WaitingForCustomer)
                 {
-                    <form asp-action="AcceptBid" method="post">
+                    <form asp-action="AcceptBid" asp-controller="Custommer" method="post">
                         <input type="hidden" name="bidId" value="@bid.Id" />
                         <button type="submit" class="btn btn-primary">Accept</button>
                     </form>

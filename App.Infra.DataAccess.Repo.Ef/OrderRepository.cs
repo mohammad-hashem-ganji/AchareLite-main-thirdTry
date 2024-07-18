@@ -82,10 +82,10 @@ namespace App.Infra.DataAccess.Repo.Ef
                 }).FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
             return (order != null) ? (order, true) : (null, false);
         }
-        public async Task<List<OrderDto>?> GetCustomerOrders(int id, CancellationToken cancellationToken)
+        public async Task<List<OrderDto>?> GetCustomerOrders(int id,int bidStatusId, CancellationToken cancellationToken)
         {
             List<OrderDto>? orders = await _dbContext.Orders
-                .Include(a => a.Bids)
+                .Include(a => a.Bids.Where(o => o.StatusId == bidStatusId))
                 .Where(x => x.CustomerId == id)
                 .Select(x => new OrderDto
                 {

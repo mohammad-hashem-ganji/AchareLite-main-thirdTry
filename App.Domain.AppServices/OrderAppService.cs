@@ -43,9 +43,9 @@ namespace App.Domain.AppServices
             return await _orderService.GetById(id, cancellationToken);
         }
 
-        public async Task<List<OrderDto>?> GetCustomerOrders(int id, CancellationToken cancellationToken)
+        public async Task<List<OrderDto>?> GetCustomerOrders(int id,int bidStatusId, CancellationToken cancellationToken)
         {
-            return await _orderService.GetCustomerOrders(id, cancellationToken);
+            return await _orderService.GetCustomerOrders(id, bidStatusId, cancellationToken);
         }
 
         public async Task<bool> Update(OrderDto order, CancellationToken cancellationToken)

@@ -2,6 +2,7 @@
 
 using App.Domain.Core.OrderAgg.AppServices;
 using App.Domain.Core.OrderAgg.DTOs;
+using App.Domain.Core.OrderAgg.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AchareLite.UI2.Controllers
@@ -28,7 +29,7 @@ namespace AchareLite.UI2.Controllers
         }
         public async Task<IActionResult> ShowListOfOrders(int customerId, CancellationToken cancellationToken)
         {
-            List<OrderDto>? orders = await _orderAppService.GetCustomerOrders(customerId, cancellationToken);
+            List<OrderDto>? orders = await _orderAppService.GetCustomerOrders(customerId,(int)Status.Pending, cancellationToken);
             ViewData["orders"] = orders;
             return View();
         }

@@ -12,7 +12,8 @@
         <tr>
             <th>#</th>
             <th>Title</th>
-            </tr>
+            <th>Show Bids</th>
+        </tr>
     </thead>
     <tbody>
         @foreach (var order in orders)
@@ -20,7 +21,11 @@
             <tr>
                 <td>@order.Id</td>
                 <td>@order.Title</td>
-                </tr>
+                <form asp-action="GetBidsByOrderId" asp-controller="Custommer" asp-route-orderId="@order.Id">
+                    <td><button >مشاهده پیشنهاد ها</button></td>
+                </form>
+                
+            </tr>
         }
     </tbody>
 </table>
