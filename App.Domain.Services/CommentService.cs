@@ -53,13 +53,13 @@ namespace App.Domain.Services
         public async Task<List<CommentDto>> GetUnacceptedComments(CancellationToken cancellationToken)
         {
             List<CommentDto> comments = await _commentRepository.GetAll(cancellationToken);
-            comments.Select(x => x.IsAccept == false);
-            foreach (var comment in comments)
+            var unacceptedComments = comments.Where(x => x.IsAccept == false).ToList();
+            foreach (var comment in unacceptedComments)
             {
                 comment.CustomerName = await _customerService.GetCustomerName(comment.CustomerId, cancellationToken);
                 comment.ExpertName = await _expertService.GetExpertName(comment.ExpertId, cancellationToken);
             }
-            return comments;
+            return unacceptedComments;
         }
         public async Task<List<CommentDto>> GetCommentsByExpertIds(List<int> expertIds, CancellationToken cancellationToken)
         {

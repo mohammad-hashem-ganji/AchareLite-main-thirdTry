@@ -155,5 +155,6 @@ namespace AchareLite.UI2.Controllers
                 return RedirectToAction("ShowListOfOrdersAccepteBid", new { customerId = model.CustomerId });
             }
         }
+
     }
 }

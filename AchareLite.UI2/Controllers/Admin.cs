@@ -60,6 +60,37 @@ namespace AchareLite.UI2.Controllers
             ViewData["comments"] = comments;
             return View();
         }
+        public async Task<IActionResult> AcceptComment(int id, CancellationToken cancellationToken)
+        {
+            var comment = await _commentAppService.GetById(id, cancellationToken);
+            if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "Invalid comment ID.";
+                return RedirectToAction("Error");
+            }
+            if (comment.Item2)
+            {
+                comment.Item1.IsAccept = true;
+                await _commentAppService.Update(comment.Item1, cancellationToken);
+                return RedirectToAction("ShowUnacceptedComments", "Admin");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "کامنت پیدا نشد";
+                return RedirectToAction("Error");
+                //return NotFound("Comment not found or could not be accepted.");
+            }
+
+        }
+        public IActionResult Error()
+        {
+            // This view will show the error messages
+            var errorMessage = TempData["ErrorMessage"] as string;
+            var successMessage = TempData["SuccessMessage"] as string;
+            ViewData["ErrorMessage"] = errorMessage;
+            ViewData["SuccessMessage"] = successMessage;
+            return View();
+        }
     }
 }
 

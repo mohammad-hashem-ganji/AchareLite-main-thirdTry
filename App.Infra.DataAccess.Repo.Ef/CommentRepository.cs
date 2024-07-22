@@ -36,8 +36,8 @@ namespace App.Infra.DataAccess.Repo.Ef
                     CustomerId = comment.CustomerId,
                     Customer = customer
                 });
-                int item = await _dbContext.SaveChangesAsync(cancellationToken);
-                item.GetType();
+                await _dbContext.SaveChangesAsync(cancellationToken);
+
             }
 
         }
@@ -111,6 +111,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                 comment.IsAccept = commentDto.IsAccept;
                 comment.Text = commentDto.Text;
                 _dbContext.Update(comment);
+                await _dbContext.SaveChangesAsync(cancellationToken);
                 return true;
             }
             else
