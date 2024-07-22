@@ -60,9 +60,9 @@ namespace App.Domain.Services
         public async Task<List<OrderDto>> GetOrdersAcceptedBids(int customerId, CancellationToken cancellationToken)
         {
             var orders = await _orderReposetory.GetCustomerOrders(customerId,(int)Status.accepted, cancellationToken);
-            var acceptedBids = orders.Where(o => o.CustomerId == customerId && o.StatusId == (int)Status.InProgress ) 
+            var acceptedBids = orders.Where(o => o.StatusId == (int)Status.InProgress) // o.CustomerId == customerId &&
             .ToList();
-            return orders.Select(o => new OrderDto
+            return acceptedBids.Select(o => new OrderDto
             {
                 Id = o.Id,
                 Title = o.Title,

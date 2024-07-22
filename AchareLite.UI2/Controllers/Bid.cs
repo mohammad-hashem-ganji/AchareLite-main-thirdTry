@@ -2,11 +2,13 @@
 using App.Domain.Core.Member.AppServices;
 using App.Domain.Core.OrderAgg.AppServices;
 using App.Domain.Core.OrderAgg.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace AchareLite.UI2.Controllers
 {
+    [Authorize(Roles = "Expert")]
     public class Bid : Controller
     {
         private readonly IBidAppService _bidAppService;
@@ -106,37 +108,5 @@ namespace AchareLite.UI2.Controllers
             await _bidAppService.Delete(bidId, cancellationToken);
             return RedirectToAction("ShowExpertProfile", "Expert");
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> UpdateBid(int bidId, string newSuggestedFee, string newDescription, CancellationToken cancellationToken)
-        //{
-        //    var bid = await _bidAppService.GetById(bidId, cancellationToken);
-        //    if (bid != null)
-        //    {
-        //        bid.ExprtSujestFee = newSuggestedFee;
-        //        bid.Description = newDescription;
-        //        await _bidAppService.UpdateBid(bid, cancellationToken);
-        //    }
-        //    return RedirectToAction(nameof(ShowBids));
-        //}
-
-
     }
-
 }
-
-
-//public int Id { get; set; }
-//public string ExprtSujestFee { get; set; }
-//public int OrderId { get; set; }
-//public int ExpertId { get; set; }
-//public int StatusId { get; set; }
-
-//public int Id { get; set; }
-//public string? Title { get; set; }
-//public string ServiceName { get; set; }
-//public int ServiseId { get; set; }
-//public int StatusId { get; set; }
-//public int CustomerId { get; set; }
-//public List<int>? BidsId { get; set; }
-//public string CustomerName { get; set; }

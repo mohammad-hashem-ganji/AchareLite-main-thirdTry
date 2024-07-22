@@ -51,5 +51,10 @@ namespace App.Domain.AppServices
         {
             return await _commentService.GetUnacceptedComments(cancellationToken);
         }
+        public async Task<List<CommentDto>> GetCommentsByExpertIds(List<int> expertIds, CancellationToken cancellationToken)
+        {
+            return await _commentService.GetCommentsByExpertIds(expertIds, cancellationToken);
+
+        }
     }
 }

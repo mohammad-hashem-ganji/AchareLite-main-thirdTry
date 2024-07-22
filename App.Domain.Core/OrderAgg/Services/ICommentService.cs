@@ -16,5 +16,6 @@ namespace App.Domain.Core.OrderAgg.Services
         Task<bool> Update(CommentDto commentDto, CancellationToken cancellationToken);
         Task<List<CommentDto>> GetExpertComments(int expertId, CancellationToken cancellationToken);
         Task<List<CommentDto>> GetUnacceptedComments(CancellationToken cancellationToken);
+        Task<List<CommentDto>> GetCommentsByExpertIds(List<int> expertIds, CancellationToken cancellationToken);
     }
 }

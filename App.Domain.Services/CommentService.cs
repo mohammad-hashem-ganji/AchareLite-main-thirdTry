@@ -27,7 +27,7 @@ namespace App.Domain.Services
 
         public async Task Create(CommentDto comment, CancellationToken cancellationToken)
         {
-            await _commentRepository.Create( comment, cancellationToken);
+            await _commentRepository.Create(comment, cancellationToken);
         }
         public async Task Delete(int id, CancellationToken cancellationToken)
         {
@@ -58,6 +58,18 @@ namespace App.Domain.Services
             {
                 comment.CustomerName = await _customerService.GetCustomerName(comment.CustomerId, cancellationToken);
                 comment.ExpertName = await _expertService.GetExpertName(comment.ExpertId, cancellationToken);
+            }
+            return comments;
+        }
+        public async Task<List<CommentDto>> GetCommentsByExpertIds(List<int> expertIds, CancellationToken cancellationToken)
+        {
+            List<CommentDto>? comment;
+            List<CommentDto> comments = new();
+            foreach (var expertId in expertIds)
+            {
+                comment = await _commentRepository.GetExpertComments(expertId, cancellationToken);
+                if (comment != null) comments.AddRange(comment);
+                else continue;
             }
             return comments;
         }

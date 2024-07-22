@@ -65,12 +65,6 @@
                             <i class="icon-size-fullscreen"></i>
                         </a>
                     </li>
-
-@*                        <a href="#" class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">
-                                        <img src="" alt="عکس پرفایل" class="img-circle img-responsive">
-                                        <span></span>
-                                        <i class="icon-arrow-down"></i>
-                                    </a>*@
                     <li class="dropdown dropdown-user">
                    @{
                         var existingImageBase64 = ViewData["ExistingImageBase64"] as string;
@@ -88,32 +82,15 @@
                         <i class="icon-arrow-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-@*                            <li>
-                                            <a href="edit_profile.html">
-                                                <i class="icon-note"></i>
-                                                ویرایش پروفایل
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="change_password.html">
-                                                <i class="icon-key"></i>
-                                                تغییر رمز عبور
-                                            </a>
-                                        </li>*@
+                            <li>
+                                     <a asp-action="ShowMainPage" asp-controller="HomeController">
+                                         <i class="icon-note"></i>
+                                         صفحه اصلی
+                                     </a>
+                            </li>
+
                             <li class="divider"></li>
-@*                            <li>
-                                            <a href="chat.html">
-                                                <span class="badge badge-primary float-end"> 14 </span>
-                                                <i class="icon-envelope"></i>
-                                                تیکت های جدید
-                                            </a>
-                                        </li>*@
-@*                            <li>
-                                            <a href="#">
-                                                <i class="icon-wallet"></i>
-                                                کیف پول
-                                            </a>
-                                        </li>*@
+
                             <li class="divider"></li>
                             <li>
                                 <a asp-action="LogoutConfirm" asp-controller="Logout">
@@ -136,22 +113,7 @@
         <div id="sidebar">
             <div class="side-menu-container">
                 <ul class="metismenu" id="side-menu">
-@*                   <li>
-                       <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">  <i class="icon-home"></i>
-                           <span>لیست کتگًری</span>
-                       </a>
-                        <ul class="dropdown-menu">  
-                               @foreach (var category in await @CustomerAppService.GetCustomerProfilePhoto(int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userCustomerId").Value)))
-                                {
-                                      <li>
-                                          <a asp-action="ShowListOfSubCategoriesWhitMianCategoryId" asp-controller="SubCategory" asp-route-id="@category.Id" class="">
-                                              <i class="icon-home"></i>
-                                              <span>@category.Title</span>
-                                          </a>
-                                      </li>
-                                }
-                         </ul>
-                    </li>*@
+
                     <li>
                         <a href="#" class="dropdown-toggle">
                             <i class="icon-home"></i>
@@ -159,21 +121,9 @@
                         </a>
                         <ul>
                             <li>
-                                <a asp-action="ShowListOfOrders" asp-controller="Order" class="">
+                                <a asp-action="ShowListOfOrders" asp-controller="Order" asp-route-customerId="@User.Claims.FirstOrDefault(c => c.Type == "userCustomerId")?.Value" class="">
                                     <i class="icon-home"></i>
                                     <span> مشاهده درخواست ها</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="ShowOrdersInProgress" asp-controller="Admin" class="">
-                                    <i class="icon-home"></i>
-                                    <span>در حال پیش رفت</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="ShowCompletedOrders" asp-controller="Admin" class="">
-                                    <i class="icon-home"></i>
-                                    <span>تکمیل شده</span>
                                 </a>
                             </li>
                         </ul>
@@ -185,7 +135,7 @@
                         </a>
                         <ul>
                             <li>
-                                <a asp-action="ShowAcceptedOrders" asp-controller="Custommer" asp-route-customerId="@User.Claims.FirstOrDefault(c => c.Type == "userCustomerId")?.Value" class="">
+                                <a asp-action="ShowListOfOrdersAccepteBid" asp-controller="Custommer" asp-route-customerId="@User.Claims.FirstOrDefault(c => c.Type == "userCustomerId")?.Value" class="">
                                     <i class="icon-frame"></i>
                                     <span>پیشنهاد های تایید شده</span>
                                 </a>

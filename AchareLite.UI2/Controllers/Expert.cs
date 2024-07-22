@@ -5,25 +5,23 @@ using App.Domain.Core.Member.DTOs;
 using App.Domain.Core.OrderAgg.AppServices;
 using App.Domain.Core.OrderAgg.DTOs;
 using App.Domain.Core.OrderAgg.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AchareLite.UI2.Controllers
 {
+    [Authorize(Roles = "Expert")]
     public class Expert : Controller
     {
         private readonly IExpertAppService _expertAppService;
         private readonly IServiceAppService _serviceAppService;
         private readonly IOrderAppService _orderAppService;
-        private readonly IBidAppService _bidAppService;
-
-        public Expert(IExpertAppService expertAppService, IServiceAppService serviceAppService, IOrderAppService orderAppService, IBidAppService bidAppService)
+        public Expert(IExpertAppService expertAppService, IServiceAppService serviceAppService, IOrderAppService orderAppService)
         {
             _expertAppService = expertAppService;
             _serviceAppService = serviceAppService;
             _orderAppService = orderAppService;
-            _bidAppService = bidAppService;
         }
-        public ExpertProfileViewModel InputModel { get; set; }
         public class ExpertProfileViewModel
         {
             public ExpertDto Expert { get; set; }
@@ -31,7 +29,6 @@ namespace AchareLite.UI2.Controllers
             public List<int> SelectedServiceIds { get; set; }
             public List<OrderDto> Orders { get; set; }
         }
-
         public async Task<IActionResult> ShowExpertProfile(CancellationToken cancellationToken)
         {
             var expert = await _expertAppService.GetById(int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value), cancellationToken);
@@ -59,10 +56,10 @@ namespace AchareLite.UI2.Controllers
         public async Task<IActionResult> ShowWaitingForCustomerBids(CancellationToken cancellationToken)
         {
             int expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
-            var pendingBids = await _expertAppService
+            var waitingForCustomerBids = await _expertAppService
                 .ShowBidInDifferentStatus(expertId, (int)Status.WaitingForCustomer, cancellationToken);
-            ViewData["acceptedBids"] = pendingBids.Item1;
-            ViewData["ordersForExpert"] = pendingBids.Item2;
+            ViewData["waitingForCustomerBids"] = waitingForCustomerBids.Item1;
+            ViewData["ordersForExpertWaitingForCustomer"] = waitingForCustomerBids.Item2;
             return View();
         }
         public async Task<IActionResult> UpdateExpertInformation(ExpertDto model, CancellationToken cancellationToken)

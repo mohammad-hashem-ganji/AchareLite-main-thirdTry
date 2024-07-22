@@ -29,8 +29,20 @@ namespace AchareLite.UI2.Controllers
         }
         public async Task<IActionResult> ShowListOfOrders(int customerId, CancellationToken cancellationToken)
         {
-            List<OrderDto>? orders = await _orderAppService.GetCustomerOrders(customerId,(int)Status.Pending, cancellationToken);
-            ViewData["orders"] = orders;
+            if (customerId == 0)
+            {
+                List<OrderDto>? orders = new();
+                customerId =int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userCustomerId")?.Value);
+                orders = await _orderAppService.GetCustomerOrders(customerId, (int)Status.Pending, cancellationToken);
+                ViewData["orders"] = orders;
+            }
+            else
+            {
+                List<OrderDto>? orders = new();
+                orders = await _orderAppService.GetCustomerOrders(customerId, (int)Status.Pending, cancellationToken);
+                ViewData["orders"] = orders;
+            }
+            //ViewData["ExistingImageBase64"] = ViewData["ExistingProfileImageBase64"];
             return View();
         }
         public async Task<IActionResult> Create(int id, CancellationToken cancellationToken)

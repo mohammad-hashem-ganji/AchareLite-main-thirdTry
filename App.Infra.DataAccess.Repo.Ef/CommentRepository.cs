@@ -20,7 +20,7 @@ namespace App.Infra.DataAccess.Repo.Ef
             _dbContext = dbContext;
         }
 
-        public async Task Create(CommentDto comment,CancellationToken cancellationToken)
+        public async Task Create(CommentDto comment, CancellationToken cancellationToken)
         {
             var expert = await _dbContext.Experts.FirstOrDefaultAsync(x => x.Id == comment.ExpertId);
             var customer = await _dbContext.Customers.FirstOrDefaultAsync(c => c.Id == comment.CustomerId);
@@ -36,9 +36,10 @@ namespace App.Infra.DataAccess.Repo.Ef
                     CustomerId = comment.CustomerId,
                     Customer = customer
                 });
-                await _dbContext.SaveChangesAsync();
+                int item = await _dbContext.SaveChangesAsync(cancellationToken);
+                item.GetType();
             }
-            
+
         }
 
         public async Task Delete(int id, CancellationToken cancellationToken)
@@ -82,25 +83,26 @@ namespace App.Infra.DataAccess.Repo.Ef
         }
         public async Task<List<CommentDto>?> GetExpertComments(int expertId, CancellationToken cancellationToken)
         {
-
-            List<CommentDto>? comments = await _dbContext.Comments
+            List<CommentDto> comments = await _dbContext.Comments
+                .Where(c => c.ExpertId == expertId && c.IsAccept)
                 .Select(c => new CommentDto
                 {
                     Id = c.Id,
-                    CustomerId = c.CustomerId,
-                    ExpertId = c.ExpertId,
-                    IsAccept = c.IsAccept,
+                    Text = c.Text,
                     Score = c.Score,
-                    Text = c.Text
+                    ExpertId = c.ExpertId,
+                    ExpertName = c.Expert != null ? c.Expert.FirstName : string.Empty,
+                    CustomerId = c.CustomerId,
+                    CustomerName = c.Customer != null ? c.Customer.FirstName : string.Empty
                 })
-                .Where(comment => comment.ExpertId == expertId && comment.IsAccept == true)
                 .ToListAsync(cancellationToken);
-            return comments!;
+
+            return comments;
         }
 
         public async Task<bool> Update(CommentDto commentDto, CancellationToken cancellationToken)
         {
-            Comment? comment = await _dbContext.Comments.FirstOrDefaultAsync(c => c.Id ==commentDto.Id);
+            Comment? comment = await _dbContext.Comments.FirstOrDefaultAsync(c => c.Id == commentDto.Id);
             if (comment != null)
             {
                 comment.CustomerId = commentDto.CustomerId;
@@ -116,5 +118,6 @@ namespace App.Infra.DataAccess.Repo.Ef
                 return false;
             }
         }
+
     }
 }

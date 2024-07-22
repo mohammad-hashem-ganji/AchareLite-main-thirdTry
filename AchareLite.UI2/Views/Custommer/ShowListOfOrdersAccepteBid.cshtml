@@ -1,58 +1,91 @@
 ﻿@using App.Domain.Core.OrderAgg.DTOs
 @using App.Domain.Core.OrderAgg.Entities
+@using App.Domain.Core.Member.DTOs
 @{
     ViewData["Title"] = "ShowListOfOrdersAccepteBid";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 @{
     var orders = ViewData["orders"] as List<OrderDto>;
+    var comments = ViewData["comments"] as Dictionary<int, List<CommentDto>>;
 }
 <h2>ShowListOfOrdersAccepteBid</h2>
-@{
-    if (orders == null)
-    {
-        <h3>هنوز درخواستی پذیرفته نشده</h3>
-    }
-    else
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Order Title</th>
-                    <th>Service Name</th>
-                    <th>Status</th>
-                    <th>Comment</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var order in orders)
-                {
-                    <tr>
-                        <td>@order.Title</td>
-                        <td>@order.ServiceName</td>
-                        <td>@((Status)order.StatusId)</td>
-                        <td>
-                            <form asp-action="AddComment" method="post">
-                                <input type="hidden" name="OrderId" value="@order.Id" />
-                                <input type="hidden" name="ExpertId" value="@order.BidsId" />
-                                <input type="hidden" name="ExpertName" value="@order.ServiceName" /> 
-                                <div class="form-group">
-                                    <label for="Text">Comment</label>
-                                    <textarea name="Text" class="form-control" required></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Score">Score</label>
-                                    <input type="number" name="Score" class="form-control" min="1" max="5" required />
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
+@if (orders == null || !orders.Any())
+{
+    <h3>هنوز درخواستی پذیرفته نشده</h3>
 }
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order Title</th>
+                <th>Service Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in orders)
+            {
+                <tr>
+                    <td>@order.Title</td>
+                    <td>@order.ServiceName</td>
+                    <td>@((Status)order.StatusId)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h2>Comments for Experts</h2>
+<div>
+    @foreach (var kvp in comments)
+    {
+        var expertId = kvp.Key;
+        <div>
+            <h3>Comments for Expert ID: @expertId</h3>
+            @if (kvp.Value.Any())
+            {
+                <ul>
+                    @foreach (var comment in kvp.Value)
+                    {
+                        <li>
+                            <strong>@comment.CustomerName</strong>: @comment.Text 
+                            <span class="text-muted">(@comment.Score stars)</span>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No comments yet.</p>
+            }
+            <div>
+                <form asp-action="AddComment" asp-controller="Custommer" method="post">
+                    <input type="hidden" name="ExpertId" value="@expertId" />
+                    <div class="form-group">
+                        <label for="Text">Comment</label>
+                        <textarea name="Text" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="Score">Score</label>
+                        <input type="number" name="Score" class="form-control" min="1" max="5" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+
+
 
 
 

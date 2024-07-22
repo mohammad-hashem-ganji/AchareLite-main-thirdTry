@@ -1,0 +1,51 @@
+﻿@using App.Domain.Core.OrderAgg.Entities;
+@{
+    ViewData["Title"] = "ShowWaitingForCustomerBids";
+    Layout = "~/Views/Shared/_ExpertLayout.cshtml";
+}
+<h2>ShowWaitingForCustomerBids</h2>
+@{
+    var waitingForCustomerBids = ViewData["waitingForCustomerBids"] as List<App.Domain.Core.OrderAgg.DTOs.BidDto>;
+    var ordersForExpert = ViewData["ordersForExpertWaitingForCustomer"] as List<App.Domain.Core.OrderAgg.DTOs.OrderDto>;
+}
+<h2>Expert Orders and Bids</h2>
+
+@if (ordersForExpert != null && ordersForExpert.Count > 0)
+{
+    foreach (var order in ordersForExpert)
+    {
+        <div class="order">
+            <h3>Order: @order.Title</h3>
+            <p>Service: @order.ServiceName</p>
+            <p>Customer: @order.CustomerName</p>
+
+            <h4>Bid:</h4>
+           @{var bidsForOrder = waitingForCustomerBids.Where(b => b.OrderId == order.Id).ToList();}
+           @{
+           if (bidsForOrder != null && bidsForOrder.Count > 0 )
+            {
+                <ul>
+                    @foreach (var bid in bidsForOrder)
+                    {
+                        <li>
+                            <p>
+                                Suggested Fee: @bid.ExprtSujestFee<br />
+                                Description: @bid.Description<br />
+                                Status: @Enum.GetName(typeof(Status), bid.StatusId )
+                            </p>                            
+
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No bids for this order.</p>
+            }}
+        </div>
+    }
+}
+else
+{
+    <p>No orders found for the expert.</p>
+}

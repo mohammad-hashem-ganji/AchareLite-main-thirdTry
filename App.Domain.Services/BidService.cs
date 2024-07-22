@@ -47,5 +47,17 @@ namespace App.Domain.Services
         {
             return await _bidRepository.Update(bidDto, cancellationToken);
         }
+        public async Task<List<BidDto>> GetBidsByIds(List<int> bidIds, CancellationToken cancellationToken)
+        {
+            (BidDto?,bool) bid;
+            List<BidDto> bids = new();
+            foreach (var bidId in bidIds)
+            {
+                bid = await _bidRepository.GetById(bidId, cancellationToken);
+                if (bid.Item2) bids.Add(bid.Item1!);
+                else continue;
+            }
+            return bids;
+        }
     }
 }

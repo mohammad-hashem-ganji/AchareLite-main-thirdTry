@@ -64,10 +64,12 @@ namespace App.Infra.DataAccess.Repo.Ef
             BidDto? bid = await _dbContext.Bids
                 .Select(x => new BidDto
                 {
+                    Id = x.Id,
                     OrderId = x.OrderId,
                     ExpertId = x.ExpertId,
                     ExprtSujestFee = x.ExprtSujestFee,
-                    StatusId = x.StatusId
+                    StatusId = x.StatusId,
+                    Description = x.Description
                 }).FirstOrDefaultAsync(b => b.Id == bidId, cancellationToken);
             return (bid != null) ? (bid, true) : (null, false);
         }
@@ -88,6 +90,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                 bid.ExprtSujestFee = bidDto.ExprtSujestFee;
                 bid.StatusId = bidDto.StatusId;
                 bid.Status = (Status)bidDto.StatusId;
+                await _dbContext.SaveChangesAsync(cancellationToken);
                 return true;
             }
             else
@@ -109,6 +112,7 @@ namespace App.Infra.DataAccess.Repo.Ef
                     StatusId = b.StatusId
                 }).ToListAsync(cancellationToken);
         }
+
     }
 }
 //public int Id { get; set; }

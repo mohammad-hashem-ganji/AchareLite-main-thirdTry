@@ -1,23 +1,28 @@
 ﻿@model List<App.Domain.Core.OrderAgg.DTOs.BidDto>
 @using App.Domain.Core.OrderAgg.Entities
+@using App.Domain.Core.Member.DTOs
+@using App.Domain.Core.OrderAgg.DTOs
 @{
     ViewData["Title"] = "GetBidsByOrderId";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    var expertComments = ViewData["expertComments"] as Dictionary<int, List<CommentDto>>;
 }
 
 <h2>GetBidsByOrderId</h2>
-@if (TempData["ErrorMessage"] != null)
+@if (ViewData["notFound"] != null)
 {
     <div class="alert alert-danger">
-        @TempData["ErrorMessage"]
+        @ViewData["notFound"]
     </div>
 }
+
 <table class="table">
     <thead>
         <tr>
             <th>Expert Suggest Fee</th>
             <th>Description</th>
             <th>Status</th>
+            <th>Comments</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -29,9 +34,30 @@
             <td>@bid.Description</td>
             <td>@((Status)bid.StatusId)</td>
             <td>
+                @if (expertComments.ContainsKey(bid.ExpertId))
+                {
+                    <div>
+                        <h5>Comments for Expert ID: @bid.ExpertId</h5>
+                        <ul>
+                            @foreach (var comment in expertComments[bid.ExpertId])
+                            {
+                                <li>
+                                    <strong>@comment.CustomerName</strong>: @comment.Text 
+                                    <span class="text-muted">(@comment.Score stars)</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <p>No comments available for this expert.</p>
+                }
+            </td>
+            <td>
                 @if (bid.StatusId == (int)Status.WaitingForCustomer)
                 {
-                    <form asp-action="AcceptBid" asp-controller="Custommer" method="post">
+                    <form asp-action="AcceptBid" asp-controller="Custommer" asp-route-bidId="@bid.Id" method="post">
                         <input type="hidden" name="bidId" value="@bid.Id" />
                         <button type="submit" class="btn btn-primary">Accept</button>
                     </form>

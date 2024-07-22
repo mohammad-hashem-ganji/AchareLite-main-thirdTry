@@ -47,5 +47,9 @@ namespace App.Domain.AppServices
         {
             return await _bidService.Update(bidDto, cancellationToken);
         }
+        public async Task<List<BidDto>> GetBidsByIds(List<int> bidIds, CancellationToken cancellationToken)
+        {
+            return await _bidService.GetBidsByIds(bidIds, cancellationToken);
+        }
     }
 }
