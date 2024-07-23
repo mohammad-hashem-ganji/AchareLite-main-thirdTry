@@ -12,6 +12,7 @@ using App.Domain.Core.OrderAgg.AppServices;
 using App.Domain.Core.OrderAgg.Data.Repositories;
 using App.Domain.Core.OrderAgg.Services;
 using App.Domain.Services;
+using App.Infra.Cache.InMemoryCache;
 using App.Infra.DataAccess.Repo.Ef;
 using App.Infra.DB.SqlServer.EF.DB_Achare.Ef;
 using Microsoft.AspNetCore.Identity;
@@ -60,7 +61,9 @@ builder.Services.AddScoped<IExpertAppService, ExpertAppService>();
 builder.Services.AddScoped<IBidRepository, BidRepository>();
 builder.Services.AddScoped<IBidService, BidService>();
 builder.Services.AddScoped<IBidAppService, BidAppService>();
-
+//InMemoryCache
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<IInMemoryCacheService, InMemoryCacheService>();
 
 
 

@@ -62,30 +62,30 @@ namespace AchareLite.UI2.Controllers
             {
                 return BadRequest("Invalid order ID.");
             }
-            // Get the bids for the order
-            List<BidDto> bidsOfOrder = await _bidAppService.GetBidsByOrderId(orderId, (int)Status.WaitingForCustomer, cancellationToken);
-
-            if (bidsOfOrder == null || !bidsOfOrder.Any())
+            else
             {
-                ViewData["notFound"] = "هیچ پیشنهادی یافت نشد !";
-                return View(bidsOfOrder);
-            }
-            // Prepare a dictionary to hold comments for each expert
-            Dictionary<int, List<CommentDto>> expertComments = new Dictionary<int, List<CommentDto>>();
-
-            foreach (var bid in bidsOfOrder)
-            {
-                if (!expertComments.ContainsKey(bid.ExpertId))
+                List<BidDto> bidsOfOrder = await _bidAppService.GetBidsByOrderId(orderId, (int)Status.WaitingForCustomer, cancellationToken);
+                if (bidsOfOrder == null || !bidsOfOrder.Any())
                 {
-                    var comments = await _commentAppService.GetExpertComments(bid.ExpertId, cancellationToken);
-                    expertComments[bid.ExpertId] = comments;
+                    ViewData["notFound"] = "هیچ پیشنهادی یافت نشد !";
+                    return View(bidsOfOrder);
+                }
+                else
+                {
+                    Dictionary<int, List<CommentDto>> expertComments = new Dictionary<int, List<CommentDto>>();
+                    foreach (var bid in bidsOfOrder)
+                    {
+                        if (!expertComments.ContainsKey(bid.ExpertId))
+                        {
+                            var comments = await _commentAppService.GetExpertComments(bid.ExpertId, cancellationToken);
+                            expertComments[bid.ExpertId] = comments;
+                        }
+                    }
+                    ViewData["expertComments"] = expertComments;
+                    return View(bidsOfOrder);
                 }
             }
-
-            ViewData["expertComments"] = expertComments;
-            return View(bidsOfOrder);
         }
-
         public async Task<IActionResult> AcceptBid(int bidId, CancellationToken cancellationToken)
         {
             var bid = await _bidAppService.GetById(bidId, cancellationToken);
@@ -155,6 +155,5 @@ namespace AchareLite.UI2.Controllers
                 return RedirectToAction("ShowListOfOrdersAccepteBid", new { customerId = model.CustomerId });
             }
         }
-
     }
 }

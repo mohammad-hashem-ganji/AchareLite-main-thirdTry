@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.Domain.AppServices\App.Domain.AppServices.csproj" />
+    <ProjectReference Include="..\App.Infra.Cache.InMemoryCache\App.Infra.Cache.InMemoryCache.csproj" />
   </ItemGroup>
 
   <ItemGroup>

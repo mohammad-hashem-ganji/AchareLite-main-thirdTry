@@ -78,13 +78,10 @@ namespace AchareLite.UI2.Controllers
             {
                 TempData["ErrorMessage"] = "کامنت پیدا نشد";
                 return RedirectToAction("Error");
-                //return NotFound("Comment not found or could not be accepted.");
             }
-
         }
         public IActionResult Error()
         {
-            // This view will show the error messages
             var errorMessage = TempData["ErrorMessage"] as string;
             var successMessage = TempData["SuccessMessage"] as string;
             ViewData["ErrorMessage"] = errorMessage;
