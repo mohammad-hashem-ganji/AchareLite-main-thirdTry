@@ -6,12 +6,12 @@ namespace AchareLite.UI2.Controllers
 {
     public class Service : Controller
     {
-        private readonly IServiceAppService _serviceAppService;
+      private readonly IServiceAppService _serviceAppService;
 
         public Service(IServiceAppService serviceAppService)
         {
             _serviceAppService = serviceAppService;
-        }
+        }  
         public async Task<IActionResult> ShowListOfServices(CancellationToken cancellationToken)
         {
             List<ServiceDto> serviceDtos = await _serviceAppService.GetAll(cancellationToken);

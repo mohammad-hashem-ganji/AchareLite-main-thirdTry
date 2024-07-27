@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace App.Domain.Core.Configs.Entities
 {
-    public class SiteSettings
+    public class LogConfiguration
     {
-        public SqlConfiguration SqlConfiguration { get; set; }
-        public LogConfiguration LogConfiguration { get; set; }
+        public string SeqAddress { get; set; }
     }
 }

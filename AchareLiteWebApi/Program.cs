@@ -5,7 +5,6 @@ using App.Domain.Core.CategoryService.Services;
 using App.Domain.Core.Configs.Entities;
 using App.Domain.Core.Member.AppServices;
 using App.Domain.Core.Member.Data.Repositories;
-//using App.Domain.Core.Member.Data.Repositories;
 using App.Domain.Core.Member.Entities;
 using App.Domain.Core.Member.Services;
 using App.Domain.Core.OrderAgg.AppServices;
@@ -22,8 +21,10 @@ using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+
 //MainCategory
 builder.Services.AddScoped<IMainCategoryRepository, MainCategoryRepository>();
 builder.Services.AddScoped<IMainCategoryService, MainCategoryService>();
@@ -66,10 +67,6 @@ builder.Services.AddScoped<IBidAppService, BidAppService>();
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IInMemoryCacheService, InMemoryCacheService>();
 
-
-
-//builder.Services.AddDbContext<AchareDbContext>(options
-//    => options.UseSqlServer("Data Source =.; Initial Catalog = AchareCodefirst; Integrated Security = True; TrustServerCertificate = True"));
 #region Configuration
 
 
@@ -119,34 +116,23 @@ builder.Host.ConfigureLogging(loggingBuilder =>
 });
 
 #endregion
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
 
-app.UseRouting();
-
-app.UseAuthentication();
 app.UseAuthorization();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=ShowMainPage}/{id?}");
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-      name: "default",
-      pattern: "{controller=Home}/{action=ShowMainPage}/{id?}"
-    );
-});
+app.MapControllers();
 
 app.Run();
-//{area:exists}/
